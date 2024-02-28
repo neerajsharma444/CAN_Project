@@ -25,8 +25,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderRadius: 20,
     justifyContent: 'space-between',
-    shadowColor: '#00000040',
-    elevation: 20,
+    // shadowColor: '#00000040',
+    elevation: 5,
     shadowRadius: 3,
   },
   titleLogin: {

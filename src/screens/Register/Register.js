@@ -9,6 +9,9 @@ import {
   Modal,
 } from 'react-native';
 import styles from './Styles';
+import Header from '../../components/common/Login/Header';
+import Button from '../../components/common/Button/Button';
+import CustomModal from '../../components/common/Modal/CustomModal';
 
 const Register = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -24,12 +27,7 @@ const Register = () => {
   return (
     <ScrollView>
       <View style={styles.mainContainer}>
-        <View style={styles.imgContainer}>
-          <Image
-            style={styles.logo}
-            source={require('../../assets/images/logo-header.png')}
-          />
-        </View>
+        <Header height={250} />
         <View style={styles.registerContainer}>
           <Text style={styles.title}>Become an Investor</Text>
           <View>
@@ -46,37 +44,15 @@ const Register = () => {
             <Text style={styles.text}>City</Text>
             <TextInput style={styles.input} placeholder="Enter City" />
           </View>
-          <TouchableOpacity
-            style={styles.registerButton}
-            onPress={handleRegisterPress}>
-            <Text style={styles.registerText}>Register</Text>
-          </TouchableOpacity>
+          <Button buttonName="Register" onPress={handleRegisterPress} />
           <TouchableOpacity>
             <Text style={styles.acct}>Already have an account?</Text>
           </TouchableOpacity>
         </View>
       </View>
 
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={handleCloseModal}>
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalText}>
-              Thanks for sharing your interest to become an investor with CAN.
-              We'll reach out to you within next 24-72 hours to assess whether
-              you meet our criteria to become an investor.
-            </Text>
-            <TouchableOpacity
-              style={styles.continueButton}
-              onPress={handleCloseModal}>
-              <Text style={styles.continueButtonText}>Continue</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
+      {/* Displaying the CustomModal component */}
+      <CustomModal visible={modalVisible} onClose={handleCloseModal} />
     </ScrollView>
   );
 };

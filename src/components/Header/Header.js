@@ -1,23 +1,24 @@
-import {View, Text, Image} from 'react-native';
+import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
-import styles from './Styles';
+import {styles} from './Styles';
 
 const Header = () => {
   return (
     <View style={styles.mainContainer}>
-      <View style={styles.imgContainer}>
+      <TouchableOpacity>
         <Image
-          style={styles.img}
-          source={require('../../assets/images/tab_icon.png')}
-          resizeMode="contain"
+          source={require('../../assets/images/drawer_icon.png')}
+          resizeMode="cover"
+          style={styles.drawerIcon}
         />
+      </TouchableOpacity>
+      <View style={styles.logoContainer}>
         <Image
-          style={styles.img}
           source={require('../../assets/images/logo-header.png')}
-          resizeMode="contain"
+          resizeMode="cover"
+          style={styles.canLogo}
         />
       </View>
-      <Text>Hello</Text>
     </View>
   );
 };

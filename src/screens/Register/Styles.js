@@ -28,9 +28,8 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#000000A8',
-    fontSize: 16,
-    fontFamily: 'Nunito-SemiBold',
-    fontWeight: '400',
+    fontSize: 18,
+    fontFamily: 'Nunito-Regular',
     marginTop: 10,
   },
   input: {
