@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 export const styles = StyleSheet.create({
   mainContainer: {
-    flex: 0.5,
+    flex: 0.06,
     backgroundColor: '#0A4975',
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
