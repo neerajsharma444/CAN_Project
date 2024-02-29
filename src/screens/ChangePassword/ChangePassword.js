@@ -1,13 +1,31 @@
-import {View, Text} from 'react-native';
 import React from 'react';
-import Header from '../../components/Header/Header';
-import styles from './Styles';
+import {Text, View, TextInput} from 'react-native';
+import Header from '@components/common/Header/Header';
+import Button from '@components/common/Button/Button';
+import styles from './Change.Styles';
 
 const ChangePassword = () => {
   return (
-    <View style={styles.mainContainer}>
+    <View style={styles.container}>
       <Header />
-      <Text style={styles.title}>Change Password</Text>
+      <View style={styles.passwordContainer}>
+        <Text style={styles.title}>Change Password</Text>
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Current Password</Text>
+          <TextInput
+            placeholder="Enter your current password"
+            style={styles.input}
+          />
+          <Text style={styles.label}>Confirm Current Password</Text>
+          <TextInput
+            placeholder="Enter current password again"
+            style={styles.input}
+          />
+          <Text style={styles.label}>New Password</Text>
+          <TextInput placeholder="Enter new password" style={styles.input} />
+        </View>
+        <Button buttonName="Update" />
+      </View>
     </View>
   );
 };

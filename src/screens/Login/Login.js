@@ -1,38 +1,37 @@
+// Login.js
+import React from 'react';
 import {
-  Image,
   ScrollView,
   Text,
   TextInput,
   View,
   TouchableOpacity,
+  Image,
 } from 'react-native';
-import React from 'react';
-import styles from './Styles';
-import Button from '../../components/common/Button/Button';
-import Header from '../../components/common/Login/Header';
+import Header from '@components/Login/Header';
+import Button from '@components/common/Button/Button';
+import styles from './Login.Styles';
+import IMAGES from '@assets/images';
 
 const Login = () => {
   return (
     <ScrollView>
-      <View style={styles.mainContainer}>
+      <View style={styles.container}>
         <Header height={300} />
         <View style={styles.loginContainer}>
-          <Text style={styles.titleLogin}>Login</Text>
+          <Text style={styles.title}>Login</Text>
           <View>
-            <Text style={styles.inputHeading}>Email</Text>
-            <TextInput style={styles.textInput} placeholder="Enter Email" />
+            <Text style={styles.inputLabel}>Email</Text>
+            <TextInput style={styles.input} placeholder="Enter Email" />
           </View>
           <View>
-            <Text style={styles.inputHeading}>Password</Text>
+            <Text style={styles.inputLabel}>Password</Text>
             <View style={styles.passwordContainer}>
               <TextInput
-                style={styles.inputPassword}
+                style={styles.passwordInput}
                 placeholder="Enter Password"
               />
-              <Image
-                style={styles.eyeLogo}
-                source={require('../../assets/images/visibility_off.png')}
-              />
+              <Image style={styles.eyeIcon} source={IMAGES.eye} />
             </View>
           </View>
           <View style={styles.resetContainer}>
@@ -40,7 +39,7 @@ const Login = () => {
               <Text style={styles.forgotPassword}>Forgot Password?</Text>
             </TouchableOpacity>
             <TouchableOpacity>
-              <Text style={styles.forgotPassword}>Become an Investor</Text>
+              <Text style={styles.signupLink}>Become an Investor</Text>
             </TouchableOpacity>
           </View>
           <Button buttonName="Login" />

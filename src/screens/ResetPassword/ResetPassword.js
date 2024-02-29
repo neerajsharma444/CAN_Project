@@ -7,7 +7,8 @@ import {
   View,
   TouchableOpacity,
 } from 'react-native';
-import styles from './Styles';
+import styles from './Reset.Styles';
+import IMAGES from '@assets/images';
 
 const ResetPassword = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -22,11 +23,7 @@ const ResetPassword = () => {
   return (
     <View style={styles.mainContainer}>
       <View style={styles.imgContainer}>
-        <Image
-          style={styles.img}
-          source={require('../../assets/images/logo-header.png')}
-          resizeMode="contain"
-        />
+        <Image style={styles.img} source={IMAGES.logo} resizeMode="contain" />
       </View>
       <View style={styles.resetContainer}>
         <Text style={styles.title}>Reset Password</Text>

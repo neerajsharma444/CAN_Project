@@ -8,10 +8,10 @@ import {
   TouchableOpacity,
   Modal,
 } from 'react-native';
-import styles from './Styles';
-import Header from '../../components/common/Login/Header';
-import Button from '../../components/common/Button/Button';
-import CustomModal from '../../components/common/Modal/CustomModal';
+import styles from './Register.Styles';
+import Header from '@components/Login/Header';
+import Button from '@components/common/Button/Button';
+import CustomModal from '@components/common/Modal/CustomModal';
 
 const Register = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -27,7 +27,7 @@ const Register = () => {
   return (
     <ScrollView>
       <View style={styles.mainContainer}>
-        <Header height={250} />
+        <Header />
         <View style={styles.registerContainer}>
           <Text style={styles.title}>Become an Investor</Text>
           <View>

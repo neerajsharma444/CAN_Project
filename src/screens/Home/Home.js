@@ -1,8 +1,9 @@
 import React from 'react';
 import {View, Text, FlatList, Image} from 'react-native';
-import styles from './Styles';
-import Header from '../../components/Header/Header';
-import Card from '../../components/common/Card/Card';
+import styles from './Home.Styles';
+import Header from '@components/common/Header/Header';
+import Card from '@components/common/Card/Card';
+import IMAGES from '@assets/images';
 
 const Home = () => {
   const data = [
@@ -14,6 +15,7 @@ const Home = () => {
       Valuation: 'INR 3.6 cr',
       Commitment: 'INR 20 Lakhs',
       image: require('../../assets/images/card_image.png'),
+      type: 'card',
     },
     {
       name: 'Chaiwala',
@@ -23,9 +25,18 @@ const Home = () => {
       Valuation: 'INR 3.6 cr',
       Commitment: 'INR 20 Lakhs',
       image: require('../../assets/images/card_image.png'),
+      type: 'card',
     },
-  ];
-  const calendarData = [
+    {
+      name: 'Chaiwala',
+      description: 'Authentic Indian Tea',
+      MRP: 'INR 1.50 Lakhs',
+      Round_Size: 'INR 50 Lakhs',
+      Valuation: 'INR 3.6 cr',
+      Commitment: 'INR 20 Lakhs',
+      image: require('../../assets/images/card_image.png'),
+      type: 'card',
+    },
     {
       date: '02',
       month: 'NOV',
@@ -33,6 +44,7 @@ const Home = () => {
       about: 'Lorem Ipsum is simply dummy',
       time: '4 pm',
       location: 'Virtual',
+      type: 'calendar',
     },
     {
       date: '12',
@@ -41,6 +53,7 @@ const Home = () => {
       about: 'Lorem Ipsum is simply dummy',
       time: '6 pm',
       location: 'Virtual',
+      type: 'calendar',
     },
     {
       date: '18',
@@ -49,6 +62,16 @@ const Home = () => {
       about: 'Lorem Ipsum is simply dummy',
       time: '8 pm',
       location: 'The Lalit, Chd',
+      type: 'calendar',
+    },
+    {
+      date: '12',
+      month: 'NOV',
+      event: 'Web Summit PITCH 2022',
+      about: 'Lorem Ipsum is simply dummy',
+      time: '6 pm',
+      location: 'Virtual',
+      type: 'calendar',
     },
   ];
 
@@ -86,38 +109,36 @@ const Home = () => {
             flexDirection: 'row',
             alignItems: 'center',
           }}>
-          <Image
-            style={{marginRight: 3}}
-            source={require('../../assets/images/time_icon.png')}
-          />
+          <Image style={{marginRight: 3}} source={IMAGES.date} />
           <Text style={styles.calendarTime}>{item.time}</Text>
-          <Image
-            style={{marginLeft: '13%'}}
-            source={require('../../assets/images/location_icon.png')}
-          />
+          <Image style={{marginLeft: '13%'}} source={IMAGES.map} />
           <Text style={styles.calendarLocation}> {item.location}</Text>
         </View>
       </View>
     </View>
   );
 
+  const renderListItem = ({item}) => {
+    if (item.type === 'card') {
+      return renderCardItem({item});
+    } else {
+      return renderCalendarItem({item});
+    }
+  };
+
   return (
     <View style={styles.mainContainer}>
       <Header />
       <View style={styles.homeContainer}>
         <Text style={styles.title}>Active Mendate</Text>
-        <FlatList
-          data={data}
-          renderItem={renderCardItem}
-          keyExtractor={(item, index) => index.toString()}
-        />
-        <Text style={styles.calendarTitle}>Calendar</Text>
-        <FlatList
-          data={calendarData}
-          renderItem={renderCalendarItem}
-          keyExtractor={(item, index) => index.toString()}
-        />
       </View>
+      <FlatList
+        data={data}
+        renderItem={renderListItem}
+        keyExtractor={(item, index) => index.toString()}
+        contentContainerStyle={styles.homeContainer}
+      />
+      <Text style={styles.calendarTitle}>Calendar</Text>
     </View>
   );
 };

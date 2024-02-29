@@ -1,6 +1,6 @@
 import {View, Text, TouchableOpacity, Modal} from 'react-native';
 import React from 'react';
-import styles from './Styles';
+import styles from './Modal.Styles';
 
 const CustomModal = ({visible, onClose}) => {
   return (

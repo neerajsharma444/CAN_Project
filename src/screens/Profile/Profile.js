@@ -7,9 +7,10 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React from 'react';
-import Header from '../../components/Header/Header';
-import styles from './Styles';
-import Button from '../../components/common/Button/Button';
+import Header from '@components/common/Header/Header';
+import styles from './Profile.Styles';
+import Button from '@components/common/Button/Button';
+import IMAGES from '@assets/images';
 
 const Profile = () => {
   return (
@@ -28,7 +29,7 @@ const Profile = () => {
               justifyContent: 'center',
             }}>
             <TouchableOpacity>
-              <Image source={require('../../assets/images/camera_icon.png')} />
+              <Image source={IMAGES.camera} />
             </TouchableOpacity>
           </View>
           <View>
@@ -39,10 +40,7 @@ const Profile = () => {
             <Text style={styles.text}>Date of Birth</Text>
             <View style={styles.dateContainer}>
               <TextInput style={styles.inputDate} placeholder="Enter Date" />
-              <Image
-                style={styles.dateIcon}
-                source={require('../../assets/images/calendar_icon.png')}
-              />
+              <Image style={styles.dateIcon} source={IMAGES.calendar} />
             </View>
             <Text style={styles.text}>Phone</Text>
             <TextInput style={styles.input} placeholder="Enter Phone" />
