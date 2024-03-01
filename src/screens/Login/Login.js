@@ -1,4 +1,3 @@
-// Login.js
 import React from 'react';
 import {
   ScrollView,
@@ -13,7 +12,18 @@ import Button from '@components/common/Button/Button';
 import styles from './Login.Styles';
 import IMAGES from '@assets/images';
 
-const Login = () => {
+const Login = ({navigation}) => {
+  const handleSignUpLinkClick = () => {
+    navigation.navigate('Register');
+  };
+  const handleForgotPassword = () => {
+    navigation.navigate('ResetPassword');
+  };
+
+  handleLogin = () => {
+    navigation.navigate('Home');
+  };
+
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -31,18 +41,20 @@ const Login = () => {
                 style={styles.passwordInput}
                 placeholder="Enter Password"
               />
-              <Image style={styles.eyeIcon} source={IMAGES.eye} />
+              <TouchableOpacity>
+                <Image style={styles.eyeIcon} source={IMAGES.eye} />
+              </TouchableOpacity>
             </View>
           </View>
           <View style={styles.resetContainer}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={handleForgotPassword}>
               <Text style={styles.forgotPassword}>Forgot Password?</Text>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={handleSignUpLinkClick}>
               <Text style={styles.signupLink}>Become an Investor</Text>
             </TouchableOpacity>
           </View>
-          <Button buttonName="Login" />
+          <Button buttonName="Login" onPress={handleLogin} />
         </View>
       </View>
     </ScrollView>

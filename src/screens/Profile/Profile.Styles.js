@@ -1,49 +1,71 @@
 import {StyleSheet} from 'react-native';
+import {horizontalScale, verticalScale, moderateScale} from '@utils/Metrics';
 
-const styles = StyleSheet.create({
-  mainContainer: {
+export const styles = StyleSheet.create({
+  container: {
     flex: 1,
   },
-  profileContainer: {
-    margin: 10,
-    padding: 10,
+  content: {
+    paddingHorizontal: horizontalScale(20),
+    paddingTop: verticalScale(20),
     backgroundColor: '#FFFFFF',
-    borderRadius: 20,
-    justifyContent: 'space-between',
+    borderTopLeftRadius: moderateScale(20),
+    borderTopRightRadius: moderateScale(20),
   },
   title: {
-    fontSize: 22,
+    fontSize: moderateScale(22),
     color: '#000000',
     fontFamily: 'Nunito-SemiBold',
-    marginBottom: 20,
+    marginBottom: verticalScale(20),
   },
-  text: {
+  imageContainer: {
+    marginBottom: verticalScale(20),
+  },
+  profileImage: {
+    backgroundColor: '#D9D9D9',
+    borderRadius: moderateScale(100),
+    height: verticalScale(90),
+    width: verticalScale(90),
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  formContainer: {
+    marginBottom: verticalScale(20),
+  },
+  label: {
+    fontSize: moderateScale(18),
     color: '#000000A8',
-    fontSize: 18,
     fontFamily: 'Nunito-Regular',
-    marginTop: 20,
+    marginTop: verticalScale(20),
   },
   input: {
-    borderWidth: 1,
+    borderWidth: moderateScale(1),
     borderColor: '#0A49755E',
-    borderRadius: 8,
-    paddingLeft: 10,
-    marginTop: 10,
+    borderRadius: moderateScale(8),
+    paddingLeft: horizontalScale(10),
+    marginTop: verticalScale(10),
+    fontSize: moderateScale(16),
+    fontFamily: 'Nunito-Regular',
+    height: verticalScale(50),
   },
   dateContainer: {
-    borderWidth: 1,
+    borderWidth: moderateScale(1),
     borderColor: '#0A49755E',
-    borderRadius: 8,
+    borderRadius: moderateScale(8),
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 5,
+    marginTop: verticalScale(5),
   },
   inputDate: {
-    paddingLeft: 10,
+    paddingLeft: horizontalScale(10),
+    fontSize: moderateScale(16),
+    fontFamily: 'Nunito-Regular',
+    height: verticalScale(50),
+    flex: 1,
   },
   dateIcon: {
-    margin: 15,
-    marginRight: 15,
+    margin: moderateScale(15),
+    marginRight: moderateScale(15),
   },
 });
 

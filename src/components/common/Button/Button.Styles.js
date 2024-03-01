@@ -1,18 +1,20 @@
 import {StyleSheet} from 'react-native';
+import {verticalScale} from '@utils/Metrics';
 
 const styles = StyleSheet.create({
   registerButton: {
-    marginTop: 20,
+    marginTop: verticalScale(20),
     backgroundColor: '#FFBD59',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 8,
-    paddingVertical: 10,
+    borderRadius: verticalScale(8),
+    paddingVertical: verticalScale(10),
   },
   registerText: {
     color: '#000000',
-    fontSize: 16,
+    fontSize: verticalScale(16),
     fontFamily: 'Nunito-SemiBold',
   },
 });
+
 export default styles;

@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   View,
   Text,
@@ -6,49 +7,42 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import React from 'react';
+import {styles} from './Profile.Styles';
 import Header from '@components/common/Header/Header';
-import styles from './Profile.Styles';
 import Button from '@components/common/Button/Button';
 import IMAGES from '@assets/images';
 
-const Profile = () => {
+const Profile = ({navigation}) => {
   return (
     <ScrollView>
-      <View style={styles.mainContainer}>
-        <Header />
-        <View style={styles.profileContainer}>
+      <View style={styles.container}>
+        <Header navigation={navigation} />
+        <View style={styles.content}>
           <Text style={styles.title}>My Profile</Text>
-          <View
-            style={{
-              backgroundColor: '#D9D9D9',
-              borderRadius: 100,
-              height: 90,
-              width: 90,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-            <TouchableOpacity>
-              <Image source={IMAGES.camera} />
-            </TouchableOpacity>
+          <View style={styles.imageContainer}>
+            <View style={styles.profileImage}>
+              <TouchableOpacity>
+                <Image source={IMAGES.camera} />
+              </TouchableOpacity>
+            </View>
           </View>
-          <View>
-            <Text style={styles.text}>Name</Text>
+          <View style={styles.formContainer}>
+            <Text style={styles.label}>Name</Text>
             <TextInput style={styles.input} placeholder="Enter Name" />
-            <Text style={styles.text}>Email</Text>
+            <Text style={styles.label}>Email</Text>
             <TextInput style={styles.input} placeholder="Enter Email" />
-            <Text style={styles.text}>Date of Birth</Text>
+            <Text style={styles.label}>Date of Birth</Text>
             <View style={styles.dateContainer}>
               <TextInput style={styles.inputDate} placeholder="Enter Date" />
               <Image style={styles.dateIcon} source={IMAGES.calendar} />
             </View>
-            <Text style={styles.text}>Phone</Text>
+            <Text style={styles.label}>Phone</Text>
             <TextInput style={styles.input} placeholder="Enter Phone" />
-            <Text style={styles.text}>Organization</Text>
+            <Text style={styles.label}>Organization</Text>
             <TextInput style={styles.input} placeholder="Enter Organization" />
-            <Text style={styles.text}>State</Text>
+            <Text style={styles.label}>State</Text>
             <TextInput style={styles.input} placeholder="Enter State" />
-            <Text style={styles.text}>City</Text>
+            <Text style={styles.label}>City</Text>
             <TextInput style={styles.input} placeholder="Enter City" />
             <Button buttonName="Update" />
           </View>

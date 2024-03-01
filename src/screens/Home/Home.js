@@ -1,11 +1,12 @@
 import React from 'react';
-import {View, Text, FlatList, Image} from 'react-native';
-import styles from './Home.Styles';
+import {View, Text, ScrollView, Image} from 'react-native';
 import Header from '@components/common/Header/Header';
 import Card from '@components/common/Card/Card';
 import IMAGES from '@assets/images';
+import {verticalScale, moderateScale} from '@utils/Metrics';
+import styles from './Home.Styles';
 
-const Home = () => {
+const Home = ({navigation}) => {
   const data = [
     {
       name: 'Jerry Imfotech',
@@ -28,8 +29,8 @@ const Home = () => {
       type: 'card',
     },
     {
-      name: 'Chaiwala',
-      description: 'Authentic Indian Tea',
+      name: 'Jerry Imfotech',
+      description: 'On demand food delivery startup',
       MRP: 'INR 1.50 Lakhs',
       Round_Size: 'INR 50 Lakhs',
       Valuation: 'INR 3.6 cr',
@@ -64,19 +65,11 @@ const Home = () => {
       location: 'The Lalit, Chd',
       type: 'calendar',
     },
-    {
-      date: '12',
-      month: 'NOV',
-      event: 'Web Summit PITCH 2022',
-      about: 'Lorem Ipsum is simply dummy',
-      time: '6 pm',
-      location: 'Virtual',
-      type: 'calendar',
-    },
   ];
 
-  const renderCardItem = ({item}) => (
+  const renderCardItem = (item, index) => (
     <Card
+      key={index}
       name={item.name}
       description={item.description}
       MRP={item.MRP}
@@ -87,58 +80,45 @@ const Home = () => {
     />
   );
 
-  const renderCalendarItem = ({item}) => (
-    <View style={styles.calendarItem}>
-      <View
-        style={{
-          backgroundColor: '#fff',
-          borderWidth: 1,
-          borderRadius: 10,
-          padding: 10,
-          alignItems: 'center',
-          borderColor: '#0A4975',
-        }}>
+  const renderCalendarItem = (item, index) => (
+    <View key={index} style={styles.calendarItem}>
+      <View style={styles.calendarDateContainer}>
         <Text style={styles.calendarDate}>{item.date}</Text>
-        <Text style={styles.calendarDate}>{item.month}</Text>
+        <Text style={styles.calendarMonth}>{item.month}</Text>
       </View>
-      <View style={{marginHorizontal: 8, gap: 4}}>
+      <View style={styles.calendarInfoContainer}>
         <Text style={styles.calendarEvent}>{item.event}</Text>
         <Text style={styles.calendarAbout}>{item.about}</Text>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}>
-          <Image style={{marginRight: 3}} source={IMAGES.date} />
+        <View style={styles.calendarTimeContainer}>
+          <Image style={styles.calendarIcon} source={IMAGES.date} />
           <Text style={styles.calendarTime}>{item.time}</Text>
-          <Image style={{marginLeft: '13%'}} source={IMAGES.map} />
-          <Text style={styles.calendarLocation}> {item.location}</Text>
+          <View style={styles.calendarLocationContainer}>
+            <Image
+              style={[styles.calendarIcon, styles.calendarLocationIcon]}
+              source={IMAGES.map}
+            />
+            <Text style={styles.calendarLocation}>{item.location}</Text>
+          </View>
         </View>
       </View>
     </View>
   );
 
-  const renderListItem = ({item}) => {
-    if (item.type === 'card') {
-      return renderCardItem({item});
-    } else {
-      return renderCalendarItem({item});
-    }
-  };
-
   return (
-    <View style={styles.mainContainer}>
-      <Header />
-      <View style={styles.homeContainer}>
-        <Text style={styles.title}>Active Mendate</Text>
-      </View>
-      <FlatList
-        data={data}
-        renderItem={renderListItem}
-        keyExtractor={(item, index) => index.toString()}
-        contentContainerStyle={styles.homeContainer}
-      />
-      <Text style={styles.calendarTitle}>Calendar</Text>
+    <View style={styles.container}>
+      <Header height={verticalScale(250)} navigation={navigation} />
+      <ScrollView contentContainerStyle={styles.scrollViewContent}>
+        <View style={styles.content}>
+          <Text style={styles.title}>Active Mendate</Text>
+          {data.map((item, index) =>
+            item.type === 'card' ? renderCardItem(item, index) : null,
+          )}
+          <Text style={styles.calendarTitle}>Calendar</Text>
+          {data.map((item, index) =>
+            item.type === 'calendar' ? renderCalendarItem(item, index) : null,
+          )}
+        </View>
+      </ScrollView>
     </View>
   );
 };

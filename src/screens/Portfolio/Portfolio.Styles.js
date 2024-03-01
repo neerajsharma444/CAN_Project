@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     color: '#000000',
     fontFamily: 'Nunito-SemiBold',
     marginTop: verticalScale(20),
-    paddingHorizontal: moderateScale(10),
+    paddingHorizontal: moderateScale(20),
   },
   calendarItem: {
     flexDirection: 'row',
@@ -66,24 +66,17 @@ const styles = StyleSheet.create({
     fontFamily: 'Nunito-Regular',
     color: '#000000A8',
   },
-  calendarTimeContainer: {
+  calendarDetailsContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: verticalScale(4),
   },
-  calendarLocationContainer: {
-    flexDirection: 'row',
-    marginHorizontal: moderateScale(20),
-  },
   calendarIcon: {
-    marginRight: moderateScale(4),
+    marginRight: moderateScale(3),
   },
   calendarTime: {
     fontSize: moderateScale(14),
     fontFamily: 'Nunito-SemiBold',
-  },
-  calendarLocationIcon: {
-    // marginRight: moderateScale(20),
   },
   calendarLocation: {
     fontFamily: 'Nunito-SemiBold',

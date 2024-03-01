@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {verticalScale} from '@utils/Metrics';
 
 const styles = StyleSheet.create({
   modalContainer: {
@@ -7,16 +8,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  },
   modalContent: {
-    marginTop: '20%',
+    marginTop: verticalScale(20),
     backgroundColor: '#FFFFFF',
-    height: 250,
+    height: verticalScale(250),
     width: '90%',
     borderRadius: 20,
     padding: 20,
@@ -25,8 +20,8 @@ const styles = StyleSheet.create({
   },
   modalText: {
     color: '#000000A8',
-    marginBottom: 20,
-    fontSize: 19,
+    marginBottom: verticalScale(20),
+    fontSize: verticalScale(19),
     textAlign: 'center',
   },
   continueButton: {
@@ -34,12 +29,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 8,
-    paddingVertical: 10,
+    paddingVertical: verticalScale(10),
     width: '60%',
   },
   continueButtonText: {
     color: '#000000',
-    fontSize: 16,
+    fontSize: verticalScale(16),
     fontFamily: 'Nunito-SemiBold',
   },
 });

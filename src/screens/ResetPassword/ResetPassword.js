@@ -20,6 +20,7 @@ const ResetPassword = () => {
   const handleCloseModal = () => {
     setModalVisible(false);
   };
+
   return (
     <View style={styles.mainContainer}>
       <View style={styles.imgContainer}>
@@ -32,11 +33,13 @@ const ResetPassword = () => {
           <TextInput style={styles.input} placeholder="Enter Email" />
         </View>
         <View style={styles.btnContainer}>
-          <TouchableOpacity onPress={handleResetPress} style={styles.reset_btn}>
-            <Text style={styles.txt}>Reset</Text>
+          <TouchableOpacity
+            onPress={handleResetPress}
+            style={styles.resetButton}>
+            <Text style={styles.buttonText}>Reset</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.cancel_btn}>
-            <Text style={styles.txt}>Cancel</Text>
+          <TouchableOpacity style={styles.cancelButton}>
+            <Text style={styles.buttonText}>Cancel</Text>
           </TouchableOpacity>
         </View>
       </View>

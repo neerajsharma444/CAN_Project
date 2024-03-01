@@ -6,15 +6,18 @@ import {
   TextInput,
   ScrollView,
   TouchableOpacity,
-  Modal,
 } from 'react-native';
-import styles from './Register.Styles';
 import Header from '@components/Login/Header';
 import Button from '@components/common/Button/Button';
 import CustomModal from '@components/common/Modal/CustomModal';
+import styles from './Register.Styles';
 
-const Register = () => {
+const Register = ({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
+
+  const handleLoginLinkPress = () => {
+    navigation.navigate('Login');
+  };
 
   const handleRegisterPress = () => {
     setModalVisible(true);
@@ -45,7 +48,7 @@ const Register = () => {
             <TextInput style={styles.input} placeholder="Enter City" />
           </View>
           <Button buttonName="Register" onPress={handleRegisterPress} />
-          <TouchableOpacity>
+          <TouchableOpacity onPress={handleLoginLinkPress}>
             <Text style={styles.acct}>Already have an account?</Text>
           </TouchableOpacity>
         </View>
