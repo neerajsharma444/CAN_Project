@@ -9,6 +9,13 @@ const IMAGES = {
   date: require('@assets/images/date_icon.png'),
   logo: require('@assets/images/logo_header.png'),
   eye: require('@assets/images/visibility_off.png'),
+  profile: require('@assets/images/profile_icon.png'),
+  chat: require('@assets/images/chat_icon.png'),
+  home: require('@assets/images/home_icon.png'),
+  forum: require('@assets/images/forum_icon.png'),
+  schedule: require('@assets/images/schedule_icon.png'),
+  send: require('@assets/images/send_icon.png'),
+  back: require('@assets/images/back_icon.png'),
 };
 
 export default IMAGES;

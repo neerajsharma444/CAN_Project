@@ -1,13 +1,15 @@
 import {StyleSheet, Dimensions} from 'react-native';
 import {moderateScale} from '../../../utils/Metrics';
 
-const {width} = Dimensions.get('screen');
+const {width, height} = Dimensions.get('screen');
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    width: width,
+    // width: width,
+    // height: height,
+    // marginTop: 40,
   },
   closeIcon: {
     position: 'absolute',
@@ -25,7 +27,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   drawerItem: {
-    width: '80%',
+    width: '100%',
     height: moderateScale(40),
     justifyContent: 'center',
     alignItems: 'center',

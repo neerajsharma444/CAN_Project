@@ -67,15 +67,14 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalContent: {
-    marginTop: '20%',
+    marginTop: '70%',
     backgroundColor: '#FFFFFF',
     height: moderateScale(250),
-    width: '90%',
+    width: '92%',
     borderRadius: moderateScale(20),
     padding: moderateScale(20),
     alignItems: 'center',

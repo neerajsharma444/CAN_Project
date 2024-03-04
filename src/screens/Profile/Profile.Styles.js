@@ -53,14 +53,14 @@ export const styles = StyleSheet.create({
     borderColor: '#0A49755E',
     borderRadius: moderateScale(8),
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    height: verticalScale(50),
     marginTop: verticalScale(5),
   },
   inputDate: {
     paddingLeft: horizontalScale(10),
+    color: '#000000A8',
     fontSize: moderateScale(16),
     fontFamily: 'Nunito-Regular',
-    height: verticalScale(50),
     flex: 1,
   },
   dateIcon: {

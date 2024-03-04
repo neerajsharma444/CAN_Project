@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
   calendarEvent: {
     fontSize: moderateScale(16),
     fontFamily: 'Nunito-SemiBold',
+    textDecorationLine: 'underline',
     color: '#000000',
   },
   calendarAbout: {

@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderRadius: moderateScale(20),
     justifyContent: 'space-between',
+    elevation: moderateScale(5),
   },
   title: {
     fontSize: moderateScale(30),

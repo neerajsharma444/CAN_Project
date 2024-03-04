@@ -16,6 +16,11 @@ const CustomDrawer = ({navigation}) => {
       <View style={styles.drawerContent}>
         <TouchableOpacity
           style={styles.drawerItem}
+          onPress={() => navigation.navigate('TabNavigator')}>
+          <Text style={styles.drawerItemText}>Home</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.drawerItem}
           onPress={() => navigation.navigate('Profile')}>
           <Text style={styles.drawerItemText}>Profile</Text>
         </TouchableOpacity>

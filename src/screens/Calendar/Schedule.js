@@ -1,18 +1,11 @@
 import React, {useState} from 'react';
-import {
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-  Linking,
-  ScrollView,
-} from 'react-native';
+import {Text, View, Image, TouchableOpacity, ScrollView} from 'react-native';
 import Header from '@components/common/Header/Header';
 import {Calendar} from 'react-native-calendars';
 import IMAGES from '@assets/images';
 import styles from './Schedule.Styles';
 
-const Schedule = () => {
+const Schedule = ({navigation}) => {
   const [selectedDate, setSelectedDate] = useState(null);
 
   const events = [
@@ -49,7 +42,7 @@ const Schedule = () => {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <Header />
+        <Header navigation={navigation} />
         <View style={styles.content}>
           <Text style={styles.heading}>Calendar</Text>
           <Calendar onDayPress={day => setSelectedDate(day.dateString)} />

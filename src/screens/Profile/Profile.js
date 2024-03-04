@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -11,8 +11,18 @@ import {styles} from './Profile.Styles';
 import Header from '@components/common/Header/Header';
 import Button from '@components/common/Button/Button';
 import IMAGES from '@assets/images';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 const Profile = ({navigation}) => {
+  const [date, setDate] = useState(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false);
+
+  const handleDateChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShowDatePicker(Platform.OS === 'ios');
+    setDate(currentDate);
+  };
+
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -32,10 +42,25 @@ const Profile = ({navigation}) => {
             <Text style={styles.label}>Email</Text>
             <TextInput style={styles.input} placeholder="Enter Email" />
             <Text style={styles.label}>Date of Birth</Text>
-            <View style={styles.dateContainer}>
-              <TextInput style={styles.inputDate} placeholder="Enter Date" />
-              <Image style={styles.dateIcon} source={IMAGES.calendar} />
-            </View>
+            <TouchableOpacity onPress={() => setShowDatePicker(true)}>
+              <View style={styles.dateContainer}>
+                <TextInput
+                  style={styles.inputDate}
+                  value={date.toLocaleDateString()}
+                  editable={false}
+                  placeholder="Enter Date"
+                />
+                <Image style={styles.dateIcon} source={IMAGES.calendar} />
+              </View>
+            </TouchableOpacity>
+            {showDatePicker && (
+              <DateTimePicker
+                value={date}
+                mode="date"
+                display="default"
+                onChange={handleDateChange}
+              />
+            )}
             <Text style={styles.label}>Phone</Text>
             <TextInput style={styles.input} placeholder="Enter Phone" />
             <Text style={styles.label}>Organization</Text>

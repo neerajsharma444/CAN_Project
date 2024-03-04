@@ -1,0 +1,86 @@
+import React, {useState} from 'react';
+import {
+  View,
+  FlatList,
+  TextInput,
+  TouchableOpacity,
+  Text,
+  Image,
+} from 'react-native';
+import Header from '@components/common/Header/Header';
+import IMAGES from '@assets/images';
+import styles from './Chat.Styles';
+
+const Chat = () => {
+  const [newMessage, setNewMessage] = useState('');
+  const [messages, setMessages] = useState([
+    {id: 1, sender: 'John', message: 'Hi Nitika!', timestamp: '10:00 PM'},
+    {id: 2, sender: 'Jane', message: 'Hi John!', timestamp: '10:00 PM'},
+  ]);
+
+  const handleSendMessage = () => {
+    if (newMessage.trim() === '') return; // Don't send empty messages
+    const newId = messages.length + 1;
+    const timestamp = new Date().toLocaleTimeString([], {
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+    const newMessageObj = {
+      id: newId,
+      sender: 'Me',
+      message: newMessage,
+      timestamp,
+    };
+    setMessages([...messages, newMessageObj]);
+    setNewMessage('');
+  };
+
+  const renderMessages = ({item}) => {
+    const myMsg = item.sender === 'Me';
+    return (
+      <View style={[myMsg ? styles.myMsgContainer : styles.otherMsgContainer]}>
+        <View
+          style={[myMsg ? styles.myTxtContainer : styles.otherTxtContainer]}>
+          <Text style={styles.message}>{item.message}</Text>
+        </View>
+        <Text style={styles.timestamp}>{item.timestamp}</Text>
+      </View>
+    );
+  };
+
+  return (
+    <View style={styles.mainContainer}>
+      <Header
+        renderText="Nitika (CAN Admin)"
+        renderImage={false}
+        drawer={false}
+        back={true}
+      />
+
+      <View style={styles.subContainer}>
+        <FlatList
+          data={messages}
+          renderItem={renderMessages}
+          keyExtractor={item => item.id.toString()} // Ensure id is a string
+          contentContainerStyle={styles.chatContainer}
+        />
+
+        <View style={styles.inputContainer}>
+          <TextInput
+            multiline
+            value={newMessage}
+            style={styles.txtInput}
+            onChangeText={setNewMessage}
+            placeholder="Type your message"
+          />
+
+          <TouchableOpacity style={styles.sendBtn} onPress={handleSendMessage}>
+            <Image source={IMAGES.send} />
+          </TouchableOpacity>
+        </View>
+      </View>
+    </View>
+  );
+};
+
+export default Chat;
