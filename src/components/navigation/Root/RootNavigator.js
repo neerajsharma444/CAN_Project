@@ -6,7 +6,8 @@ import StackNavigator from '../Stack/StackNavigator';
 const RootNavigator = () => {
   return (
     <NavigationContainer>
-      <DrawerNavigator />
+      {/* <DrawerNavigator /> */}
+      <StackNavigator />
     </NavigationContainer>
   );
 };

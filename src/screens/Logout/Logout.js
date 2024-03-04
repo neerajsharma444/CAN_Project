@@ -1,20 +1,21 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React, {useState} from 'react';
-import LogoutModal from '@components/common/Modal/LogoutModal';
+import {StyleSheet, View} from 'react-native';
+import React from 'react';
+import CustomPopUp from '@components/common/PopUp/CustomPopUp';
 
 const Logout = ({navigation}) => {
-  const [modalVisible, setModalVisible] = useState(false);
-
   const handleLogout = () => {
     navigation.navigate('Login');
   };
 
   return (
     <View style={styles.mainContainer}>
-      <LogoutModal
-        isVisible={modalVisible}
-        onCancel={() => setModalVisible(false)}
-        onLogout={handleLogout}
+      <CustomPopUp
+        title="Logout"
+        text="Are you sure you want to Logout?"
+        buttonText="Logout"
+        onPress={handleLogout}
+        doubleButton={true}
+        visible={true}
       />
     </View>
   );

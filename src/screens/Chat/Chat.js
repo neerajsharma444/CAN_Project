@@ -14,8 +14,8 @@ import styles from './Chat.Styles';
 const Chat = () => {
   const [newMessage, setNewMessage] = useState('');
   const [messages, setMessages] = useState([
-    {id: 1, sender: 'John', message: 'Hi Nitika!', timestamp: '10:00 PM'},
-    {id: 2, sender: 'Jane', message: 'Hi John!', timestamp: '10:00 PM'},
+    {id: 1, sender: 'Me', message: 'Hi Nitika!', timestamp: '10:00 PM'},
+    {id: 2, sender: 'Nikita', message: 'Hi John!', timestamp: '10:00 PM'},
   ]);
 
   const handleSendMessage = () => {
@@ -50,21 +50,14 @@ const Chat = () => {
 
   return (
     <View style={styles.mainContainer}>
-      <Header
-        renderText="Nitika (CAN Admin)"
-        renderImage={false}
-        drawer={false}
-        back={true}
-      />
-
+      <Header renderText="Nitika" renderImage={false} />
       <View style={styles.subContainer}>
         <FlatList
           data={messages}
           renderItem={renderMessages}
-          keyExtractor={item => item.id.toString()} // Ensure id is a string
+          keyExtractor={item => item.id.toString()}
           contentContainerStyle={styles.chatContainer}
         />
-
         <View style={styles.inputContainer}>
           <TextInput
             multiline
@@ -73,7 +66,6 @@ const Chat = () => {
             onChangeText={setNewMessage}
             placeholder="Type your message"
           />
-
           <TouchableOpacity style={styles.sendBtn} onPress={handleSendMessage}>
             <Image source={IMAGES.send} />
           </TouchableOpacity>

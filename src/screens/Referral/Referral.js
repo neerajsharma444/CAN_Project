@@ -5,7 +5,7 @@ import Button from '@components/common/Button/Button';
 import styles from './Referral.Styles';
 import IMAGES from '@assets/images';
 
-const Referral = ({navigation}) => {
+const Referral = () => {
   const referrals = [
     {
       name: 'Rajesh T',
@@ -57,7 +57,7 @@ const Referral = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <Header navigation={navigation} />
+      <Header drawer={false} back={true} />
       <FlatList
         data={referrals}
         renderItem={renderReferralItem}

@@ -13,7 +13,7 @@ import Button from '@components/common/Button/Button';
 import IMAGES from '@assets/images';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-const Profile = ({navigation}) => {
+const Profile = () => {
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
 
@@ -26,7 +26,7 @@ const Profile = ({navigation}) => {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <Header navigation={navigation} />
+        <Header drawer={false} back={true} />
         <View style={styles.content}>
           <Text style={styles.title}>My Profile</Text>
           <View style={styles.imageContainer}>

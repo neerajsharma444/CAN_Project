@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {moderateScale, verticalScale} from '@utils/Metrics';
+import {horizontalScale} from '../../../utils/Metrics';
 
 const styles = StyleSheet.create({
   mainContainer: {
@@ -35,6 +36,18 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(16),
     paddingTop: moderateScale(10),
     color: '#000000A8',
+    fontFamily: 'Nunito-Regular',
+  },
+  addAnswer: {
+    fontSize: moderateScale(16),
+    paddingTop: moderateScale(10),
+    color: '#fff',
+    backgroundColor: '#0A4975',
+    paddingHorizontal: horizontalScale(7),
+    borderRadius: moderateScale(8),
+    paddingBottom: verticalScale(8),
+    marginTop: verticalScale(4),
+    alignSelf: 'flex-start',
     fontFamily: 'Nunito-Regular',
   },
   queryContainer: {

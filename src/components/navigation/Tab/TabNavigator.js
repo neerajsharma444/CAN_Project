@@ -3,10 +3,10 @@ import {Image} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import IMAGES from '@assets/images';
 import Schedule from '@screens/Calendar/Schedule';
-import Details from '@screens/Forum/Details/Details';
 import Home from '@screens/Home/Home';
 import Portfolio from '@screens/Portfolio/Portfolio';
 import Chat from '../../../screens/Chat/Chat';
+import Category from '@screens/Forum/Categories/Category';
 
 const Tab = createBottomTabNavigator();
 
@@ -22,8 +22,8 @@ const TabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Details"
-        component={Details}
+        name="Category"
+        component={Category}
         options={{
           headerShown: false,
           tabBarIcon: () => <Image source={IMAGES.forum} />,

@@ -1,17 +1,13 @@
 import React, {useState} from 'react';
-import {
-  Image,
-  Text,
-  Modal,
-  TextInput,
-  View,
-  TouchableOpacity,
-} from 'react-native';
+import {Image, Text, TextInput, View} from 'react-native';
 import styles from './Reset.Styles';
 import IMAGES from '@assets/images';
+import Button from '@components/common/Button/Button';
+import CustomPopUp from '../../components/common/PopUp/CustomPopUp';
 
-const ResetPassword = () => {
+const ResetPassword = ({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [doubleButton, setdoubleButton] = useState(true);
 
   const handleResetPress = () => {
     setModalVisible(true);
@@ -19,6 +15,10 @@ const ResetPassword = () => {
 
   const handleCloseModal = () => {
     setModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    navigation.navigate('Login');
   };
 
   return (
@@ -32,37 +32,21 @@ const ResetPassword = () => {
           <Text style={styles.text}>Email</Text>
           <TextInput style={styles.input} placeholder="Enter Email" />
         </View>
-        <View style={styles.btnContainer}>
-          <TouchableOpacity
-            onPress={handleResetPress}
-            style={styles.resetButton}>
-            <Text style={styles.buttonText}>Reset</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.cancelButton}>
-            <Text style={styles.buttonText}>Cancel</Text>
-          </TouchableOpacity>
-        </View>
+        <Button
+          buttonName="Reset"
+          doubleButton={doubleButton}
+          onPress={handleResetPress}
+          cancelPress={handleCancel}
+        />
       </View>
-      <Modal
-        animationType="slide"
-        transparent={true}
+      <CustomPopUp
+        noTitle={doubleButton}
         visible={modalVisible}
-        onRequestClose={handleCloseModal}>
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text style={styles.title}>Reset Password</Text>
-            <Text style={styles.modalText}>
-              If that email address is in our database, we will send you an
-              email to reset your password.
-            </Text>
-            <TouchableOpacity
-              style={styles.continueButton}
-              onPress={handleCloseModal}>
-              <Text style={styles.continueButtonText}>Continue</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
+        title="Reset Password"
+        text="If that email address is in our database, we will send you an email to reset your password."
+        buttonText="Continue"
+        onPress={handleCloseModal}
+      />
     </View>
   );
 };

@@ -2,21 +2,27 @@ import {View, TouchableOpacity, Text, Image} from 'react-native';
 import React from 'react';
 import {styles} from './Header.Styles';
 import IMAGES from '@assets/images';
+import {useNavigation} from '@react-navigation/native';
 
 const Header = ({
-  navigation,
   renderText,
   renderImage = true,
   drawer = true,
-  back,
+  back = false,
 }) => {
+  const navigation = useNavigation();
+
   const openDrawer = () => {
     navigation.openDrawer();
   };
 
+  const goBack = () => {
+    navigation.goBack();
+  };
+
   return (
     <View style={styles.mainContainer}>
-      <TouchableOpacity onPress={openDrawer}>
+      <TouchableOpacity onPress={drawer ? openDrawer : goBack}>
         {drawer && (
           <Image
             source={IMAGES.drawer}

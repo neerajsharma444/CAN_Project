@@ -5,7 +5,7 @@ import {Calendar} from 'react-native-calendars';
 import IMAGES from '@assets/images';
 import styles from './Schedule.Styles';
 
-const Schedule = ({navigation}) => {
+const Schedule = () => {
   const [selectedDate, setSelectedDate] = useState(null);
 
   const events = [
@@ -42,10 +42,23 @@ const Schedule = ({navigation}) => {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <Header navigation={navigation} />
+        <Header />
         <View style={styles.content}>
           <Text style={styles.heading}>Calendar</Text>
-          <Calendar onDayPress={day => setSelectedDate(day.dateString)} />
+          <Calendar
+            onDayPress={day => {
+              console.log('Date: ', day);
+              setSelectedDate(day.dateString);
+            }}
+            markedDates={{
+              [selectedDate]: {
+                selected: true,
+                selectedColor: '#FFBD59',
+                disabledTouchEvent: true,
+              },
+            }}
+            hideExtraDays={true}
+          />
           <View style={styles.selectDateContainer}>
             <Text style={styles.selectDateText}>
               {selectedDate ? selectedDate : 'No date selected'}

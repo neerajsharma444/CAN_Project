@@ -3,7 +3,10 @@ import React from 'react';
 import Header from '@components/common/Header/Header';
 import styles from './Category.Styles';
 
-const Category = () => {
+const Category = ({navigation}) => {
+  const handleCategories = () => {
+    navigation.navigate('Details');
+  };
   const forumData = [
     {
       title: 'General Guideline',
@@ -29,7 +32,7 @@ const Category = () => {
 
   const renderForumData = ({item}) => (
     <View style={styles.forumItemContainer}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={handleCategories}>
         <Text style={styles.forumItemTitle}>{item.title}</Text>
       </TouchableOpacity>
       <Text style={styles.forumItemText}>{item.text}</Text>

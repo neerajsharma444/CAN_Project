@@ -3,7 +3,7 @@ import {View, Text, ScrollView, Image} from 'react-native';
 import Header from '@components/common/Header/Header';
 import Card from '@components/common/Card/Card';
 import IMAGES from '@assets/images';
-import {verticalScale, moderateScale} from '@utils/Metrics';
+import {verticalScale} from '@utils/Metrics';
 import styles from './Home.Styles';
 
 const Home = ({navigation}) => {
@@ -15,7 +15,6 @@ const Home = ({navigation}) => {
       Round_Size: 'INR 50 Lakhs',
       Valuation: 'INR 3.6 cr',
       Commitment: 'INR 20 Lakhs',
-      image: require('../../assets/images/card_image.png'),
       type: 'card',
     },
     {
@@ -25,7 +24,6 @@ const Home = ({navigation}) => {
       Round_Size: 'INR 50 Lakhs',
       Valuation: 'INR 3.6 cr',
       Commitment: 'INR 20 Lakhs',
-      image: require('../../assets/images/card_image.png'),
       type: 'card',
     },
     {
@@ -35,7 +33,6 @@ const Home = ({navigation}) => {
       Round_Size: 'INR 50 Lakhs',
       Valuation: 'INR 3.6 cr',
       Commitment: 'INR 20 Lakhs',
-      image: require('../../assets/images/card_image.png'),
       type: 'card',
     },
     {
@@ -72,11 +69,14 @@ const Home = ({navigation}) => {
       key={index}
       name={item.name}
       description={item.description}
-      MRP={item.MRP}
-      Round_Size={item.Round_Size}
-      Valuation={item.Valuation}
-      Commitment={item.Commitment}
-      image={item.image}
+      amountLabel="Amount: "
+      amount={item.MRP}
+      roundSizeLabel="Round Size: "
+      roundSize={item.Round_Size}
+      valuationLabel="Valuation: "
+      valuation={item.Valuation}
+      investmentLabel="Commitment: "
+      investment={item.Commitment}
     />
   );
 

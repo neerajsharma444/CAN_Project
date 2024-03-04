@@ -16,6 +16,9 @@ const IMAGES = {
   schedule: require('@assets/images/schedule_icon.png'),
   send: require('@assets/images/send_icon.png'),
   back: require('@assets/images/back_icon.png'),
+  person: require('@assets/images/person_icon.png'),
+  referral: require('@assets/images/referral_icon.png'),
+  logout: require('@assets/images/logout_icon.png'),
 };
 
 export default IMAGES;

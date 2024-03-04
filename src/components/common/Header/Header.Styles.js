@@ -1,6 +1,5 @@
 import {StyleSheet} from 'react-native';
 import {horizontalScale, verticalScale} from '@utils/Metrics';
-import {moderateScale} from '../../../utils/Metrics';
 
 export const styles = StyleSheet.create({
   mainContainer: {
@@ -15,8 +14,10 @@ export const styles = StyleSheet.create({
     marginLeft: verticalScale(20),
   },
   backIcon: {
-    height: horizontalScale(18),
     marginTop: verticalScale(30),
+    height: horizontalScale(18),
+    width: horizontalScale(30),
+    marginLeft: verticalScale(20),
   },
   logoContainer: {
     flex: 1,

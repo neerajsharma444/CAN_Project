@@ -2,40 +2,38 @@ import React from 'react';
 import {View, Text, FlatList, Image} from 'react-native';
 import Header from '@components/common/Header/Header';
 import Card from '@components/common/Card/Card';
-import IMAGES from '@assets/images';
-import {verticalScale} from '@utils/Metrics';
 import styles from './Portfolio.Styles';
 
 const Portfolio = () => {
   const data = [
     {
-      name: 'Jerry Imfotech',
-      description: 'On demand food delivery startup',
-      MRP: 'INR 1.50 Lakhs',
-      Round_Size: 'INR 50 Lakhs',
-      Valuation: 'INR 3.6 cr',
-      Commitment: 'INR 20 Lakhs',
-      image: require('../../assets/images/card_image.png'),
+      name: 'Jerry Infotech',
+      text: 'On demand food delivery startup',
+      amount: 'INR 3.50 lakhs',
+      shares: 1.345,
+      valuation: 'INR 3.5 Cr',
+      roundSize: 'INR 50 lakhs',
+      investment: '12/10/22',
       type: 'card',
     },
     {
-      name: 'Chaiwala',
-      description: 'Authentic Indian Tea',
-      MRP: 'INR 1.50 Lakhs',
-      Round_Size: 'INR 50 Lakhs',
-      Valuation: 'INR 3.6 cr',
-      Commitment: 'INR 20 Lakhs',
-      image: require('../../assets/images/card_image.png'),
+      name: 'XYC Inc',
+      text: 'Authentic Indian Tea',
+      amount: 'INR 3.50 lakhs',
+      shares: 1.279,
+      valuation: 'INR 3.5 Cr',
+      roundSize: 'INR 20 lakhs',
+      investment: '12/10/22',
       type: 'card',
     },
     {
-      name: 'Jerry Imfotech',
-      description: 'On demand food delivery startup',
-      MRP: 'INR 1.50 Lakhs',
-      Round_Size: 'INR 50 Lakhs',
-      Valuation: 'INR 3.6 cr',
-      Commitment: 'INR 20 Lakhs',
-      image: require('../../assets/images/card_image.png'),
+      name: 'ABC Inc',
+      text: 'Robotics, drones',
+      amount: 'INR 4.50 lakhs',
+      shares: 435,
+      valuation: 'INR 5 Cr',
+      roundSize: 'INR 50 lakhs',
+      investment: '12/10/22',
       type: 'card',
     },
   ];
@@ -43,12 +41,17 @@ const Portfolio = () => {
   const renderCardItem = ({item}) => (
     <Card
       name={item.name}
-      description={item.description}
-      MRP={item.MRP}
-      Round_Size={item.Round_Size}
-      Valuation={item.Valuation}
-      Commitment={item.Commitment}
-      image={item.image}
+      description={item.text}
+      amountLabel="Amount: "
+      amount={item.amount}
+      roundSizeLabel="# of Shares: "
+      roundSize={item.shares}
+      valuationLabel="At Valuation: "
+      valuation={item.valuation}
+      investmentLabel="Round Size: "
+      investment={item.roundSize}
+      investmentDateLabel="Date of Investment: "
+      investmentDate={item.investment}
     />
   );
 

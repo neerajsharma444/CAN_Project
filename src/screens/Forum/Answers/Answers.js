@@ -1,12 +1,22 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Text, View, TextInput, TouchableOpacity} from 'react-native';
 import Header from '@components/common/Header/Header';
 import styles from './Answers.Styles';
+import Button from '../../../components/common/Button/Button';
 
-const Answers = () => {
+const Answers = ({navigation}) => {
+  const [doubleButton, setdoubleButton] = useState(true);
+  const handlePost = () => {
+    navigation.navigate('Details');
+  };
+
+  const handleCancel = () => {
+    navigation.navigate('Details');
+  };
+
   return (
     <View style={styles.mainContainer}>
-      <Header />
+      <Header drawer={false} back={true} />
       <View style={styles.subContainer}>
         <Text style={styles.questionText}>Category: Valuations & MRR</Text>
         <Text style={styles.helpButton}>What exactly is MRR?</Text>
@@ -26,15 +36,12 @@ const Answers = () => {
             guidelines for more info.
           </Text>
         </View>
-
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.cancelButtonStyle}>
-            <Text style={styles.buttonText}>Cancel</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.postButtonStyle}>
-            <Text style={styles.buttonText}>Post</Text>
-          </TouchableOpacity>
-        </View>
+        <Button
+          buttonName="Post"
+          doubleButton={doubleButton}
+          onPress={handlePost}
+          cancelPress={handleCancel}
+        />
       </View>
     </View>
   );

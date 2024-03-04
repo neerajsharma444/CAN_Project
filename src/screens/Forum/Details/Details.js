@@ -1,17 +1,24 @@
-import {FlatList, Text, View} from 'react-native';
+import {FlatList, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import Header from '@components/common/Header/Header';
 import styles from './Details.Styles';
 
-const Details = () => {
-  const detailData = [
+const Details = ({navigation}) => {
+  const handleAnswers = () => {
+    navigation.navigate('Answers');
+  };
+
+  const handleQuestions = () => {
+    navigation.navigate('Questions');
+  };
+
+  const detailsData = [
     {
       ques: 'Who is evaluating the initial valuations?',
       ans: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     },
     {
       ques: 'What is MRR?',
-      ans: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     },
     {
       ques: 'What is round size?',
@@ -23,28 +30,36 @@ const Details = () => {
     },
   ];
 
-  const renderdetailData = ({item}) => (
+  const renderDetailsData = ({item}) => (
     <View style={styles.container}>
       <Text style={styles.question}>{item.ques}</Text>
-      <Text style={styles.answer}>{item.ans}</Text>
+      {item.ans ? (
+        <Text style={styles.answer}>{item.ans}</Text>
+      ) : (
+        <TouchableOpacity onPress={handleAnswers}>
+          <Text style={styles.addAnswer}>Add an Answer</Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 
   return (
     <View style={styles.mainContainer}>
-      <Header renderImage={true} />
+      <Header drawer={false} back={true} />
       <View style={styles.subContainer}>
         <Text style={styles.heading}>Valuations & MRR</Text>
         <View style={styles.detailList}>
           <FlatList
-            data={detailData}
-            renderItem={renderdetailData}
+            data={detailsData}
+            renderItem={renderDetailsData}
             keyExtractor={(item, index) => index.toString()}
           />
         </View>
 
         <View style={styles.queryContainer}>
-          <Text style={styles.queryText}>Have any Questions?</Text>
+          <TouchableOpacity onPress={handleQuestions}>
+            <Text style={styles.queryText}>Have any Questions?</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>

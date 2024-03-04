@@ -1,5 +1,5 @@
 import {StyleSheet, Dimensions} from 'react-native';
-import {moderateScale} from '../../../utils/Metrics';
+import {horizontalScale, verticalScale, moderateScale} from '@utils/Metrics';
 
 const {width, height} = Dimensions.get('screen');
 
@@ -11,6 +11,16 @@ const styles = StyleSheet.create({
     // height: height,
     // marginTop: 40,
   },
+  mainContainer: {
+    marginTop: -8,
+    height: horizontalScale(70),
+    backgroundColor: '#0A4975',
+    alignItems: 'center',
+  },
+  canLogo: {
+    height: verticalScale(80),
+    width: horizontalScale(170),
+  },
   closeIcon: {
     position: 'absolute',
     top: moderateScale(20),
@@ -20,7 +30,7 @@ const styles = StyleSheet.create({
   closeText: {
     fontSize: moderateScale(18),
     fontWeight: 'bold',
-    color: '#333',
+    color: '#fff',
   },
   drawerContent: {
     marginTop: moderateScale(50),
@@ -31,14 +41,18 @@ const styles = StyleSheet.create({
     height: moderateScale(40),
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F0F0F0', // Background color of drawer item
+    backgroundColor: '#F0F0F0',
     borderRadius: moderateScale(8),
     marginBottom: moderateScale(10),
   },
   drawerItemText: {
     fontSize: moderateScale(16),
     fontWeight: 'bold',
-    color: '#333', // Text color of drawer item
+    color: '#333',
+    marginLeft: 10,
+  },
+  imgContainer: {
+    flexDirection: 'row',
   },
 });
 
