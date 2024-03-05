@@ -24,6 +24,7 @@ const IMAGES = {
   slider3: require('@assets/images/m3.png'),
   rightArrow: require('@assets/images/arrow-right.png'),
   tick: require('@assets/images/tick_icon.png'),
+  close: require('@assets/images/close.png'),
 };
 
 export default IMAGES;

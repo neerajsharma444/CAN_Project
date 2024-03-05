@@ -21,12 +21,7 @@ const CustomDrawer = ({navigation}) => {
       <View style={styles.mainContainer}>
         <Image source={IMAGES.logo} resizeMode="cover" style={styles.canLogo} />
         <TouchableOpacity onPress={closeDrawer} style={styles.closeIcon}>
-          <FontAwesome
-            style={styles.close}
-            name="close"
-            size={22}
-            color="#fff"
-          />
+          <Image style={styles.close} source={IMAGES.close} />
         </TouchableOpacity>
       </View>
       <View style={styles.drawerContent}>
