@@ -41,8 +41,7 @@ const styles = StyleSheet.create({
   addAnswer: {
     fontSize: moderateScale(16),
     paddingTop: moderateScale(10),
-    color: '#fff',
-    backgroundColor: '#0A4975',
+    color: '#0A4975',
     paddingHorizontal: horizontalScale(7),
     borderRadius: moderateScale(8),
     paddingBottom: verticalScale(8),

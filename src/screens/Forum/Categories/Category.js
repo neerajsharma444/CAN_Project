@@ -34,8 +34,8 @@ const Category = ({navigation}) => {
     <View style={styles.forumItemContainer}>
       <TouchableOpacity onPress={handleCategories}>
         <Text style={styles.forumItemTitle}>{item.title}</Text>
+        <Text style={styles.forumItemText}>{item.text}</Text>
       </TouchableOpacity>
-      <Text style={styles.forumItemText}>{item.text}</Text>
     </View>
   );
 

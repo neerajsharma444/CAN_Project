@@ -1,25 +1,22 @@
-import {StyleSheet, Dimensions} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {horizontalScale, verticalScale, moderateScale} from '@utils/Metrics';
-
-const {width, height} = Dimensions.get('screen');
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    // width: width,
-    // height: height,
-    // marginTop: 40,
   },
   mainContainer: {
     marginTop: -8,
-    height: horizontalScale(70),
+    height: horizontalScale(100),
+    justifyContent: 'center',
     backgroundColor: '#0A4975',
-    alignItems: 'center',
   },
   canLogo: {
+    marginTop: verticalScale(15),
     height: verticalScale(80),
-    width: horizontalScale(170),
+    width: horizontalScale(200),
+    marginHorizontal: horizontalScale(30),
   },
   closeIcon: {
     position: 'absolute',
@@ -27,32 +24,26 @@ const styles = StyleSheet.create({
     right: moderateScale(20),
     zIndex: 1,
   },
-  closeText: {
-    fontSize: moderateScale(18),
-    fontWeight: 'bold',
-    color: '#fff',
-  },
   drawerContent: {
-    marginTop: moderateScale(50),
-    alignItems: 'center',
+    marginTop: moderateScale(20),
   },
   drawerItem: {
-    width: '100%',
+    marginHorizontal: horizontalScale(5),
     height: moderateScale(40),
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F0F0F0',
     borderRadius: moderateScale(8),
     marginBottom: moderateScale(10),
   },
-  drawerItemText: {
-    fontSize: moderateScale(16),
-    fontWeight: 'bold',
-    color: '#333',
-    marginLeft: 10,
-  },
   imgContainer: {
     flexDirection: 'row',
+    alignItems: 'center',
+    marginHorizontal: horizontalScale(20),
+    paddingHorizontal: horizontalScale(10),
+  },
+  drawerItemText: {
+    fontSize: moderateScale(18),
+    color: '#000000',
+    fontFamily: 'Nunito-SemiBold',
+    marginLeft: moderateScale(10),
   },
 });
 

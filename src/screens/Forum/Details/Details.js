@@ -32,14 +32,14 @@ const Details = ({navigation}) => {
 
   const renderDetailsData = ({item}) => (
     <View style={styles.container}>
-      <Text style={styles.question}>{item.ques}</Text>
-      {item.ans ? (
-        <Text style={styles.answer}>{item.ans}</Text>
-      ) : (
-        <TouchableOpacity onPress={handleAnswers}>
+      <TouchableOpacity onPress={handleAnswers}>
+        <Text style={styles.question}>{item.ques}</Text>
+        {item.ans ? (
+          <Text style={styles.answer}>{item.ans}</Text>
+        ) : (
           <Text style={styles.addAnswer}>Add an Answer</Text>
-        </TouchableOpacity>
-      )}
+        )}
+      </TouchableOpacity>
     </View>
   );
 

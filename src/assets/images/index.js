@@ -19,6 +19,11 @@ const IMAGES = {
   person: require('@assets/images/person_icon.png'),
   referral: require('@assets/images/referral_icon.png'),
   logout: require('@assets/images/logout_icon.png'),
+  slider1: require('@assets/images/m1.png'),
+  slider2: require('@assets/images/m2.png'),
+  slider3: require('@assets/images/m3.png'),
+  rightArrow: require('@assets/images/arrow-right.png'),
+  tick: require('@assets/images/tick_icon.png'),
 };
 
 export default IMAGES;
