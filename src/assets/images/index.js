@@ -25,6 +25,7 @@ const IMAGES = {
   rightArrow: require('@assets/images/arrow-right.png'),
   tick: require('@assets/images/tick_icon.png'),
   close: require('@assets/images/close.png'),
+  settings: require('@assets/images/settings.png'),
 };
 
 export default IMAGES;

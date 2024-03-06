@@ -3,7 +3,6 @@ import {View, Text, TouchableOpacity, Image} from 'react-native';
 import {DrawerContentScrollView} from '@react-navigation/drawer';
 import styles from '../Drawer/Drawer.Styles';
 import IMAGES from '@assets/images';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 const CustomDrawer = ({navigation}) => {
   const closeDrawer = () => {
@@ -13,6 +12,7 @@ const CustomDrawer = ({navigation}) => {
   const drawerItems = [
     {screen: 'Profile', label: 'My Profile', icon: IMAGES.person},
     {screen: 'Referral', label: 'Referral', icon: IMAGES.referral},
+    {screen: 'ResetPassword', label: 'Reset Password', icon: IMAGES.settings},
     {screen: 'Logout', label: 'Logout', icon: IMAGES.logout},
   ];
 

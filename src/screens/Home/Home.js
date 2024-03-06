@@ -1,5 +1,5 @@
-import React from 'react';
-import {View, Text, ScrollView, Image} from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, ScrollView, Image, TouchableOpacity} from 'react-native';
 import Header from '@components/common/Header/Header';
 import Card from '@components/common/Card/Card';
 import IMAGES from '@assets/images';

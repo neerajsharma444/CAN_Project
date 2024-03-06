@@ -6,6 +6,7 @@ import Profile from '@screens/Profile/Profile';
 import Referral from '@screens/Referral/Referral';
 import Logout from '@screens/Logout/Logout';
 import TabNavigator from '../Tab/TabNavigator';
+import ResetPassword from '@screens/ResetPassword/ResetPassword';
 
 const Drawer = createDrawerNavigator();
 
@@ -19,6 +20,7 @@ const DrawerNavigator = () => {
       <Drawer.Screen name="TabNavigator" component={TabNavigator} />
       <Drawer.Screen name="Profile" component={Profile} />
       <Drawer.Screen name="Referral" component={Referral} />
+      <Drawer.Screen name="ResetPassword" component={ResetPassword} />
       <Drawer.Screen name="Logout" component={Logout} />
     </Drawer.Navigator>
   );

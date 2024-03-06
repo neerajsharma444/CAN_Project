@@ -26,6 +26,7 @@ const Register = ({navigation}) => {
 
   const handleCloseModal = () => {
     setModalVisible(false);
+    navigation.navigate('Login');
   };
 
   return (
