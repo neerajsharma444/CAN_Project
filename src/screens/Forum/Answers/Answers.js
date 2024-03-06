@@ -11,7 +11,7 @@ const Answers = ({navigation}) => {
   };
 
   const handleCancel = () => {
-    navigation.navigate('Details');
+    navigation.goBack();
   };
 
   return (

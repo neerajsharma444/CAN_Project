@@ -14,7 +14,7 @@ const Questions = ({navigation}) => {
   };
 
   const handleCancel = () => {
-    navigation.navigate('Details');
+    navigation.goBack();
   };
 
   const categories = [
