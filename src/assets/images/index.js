@@ -9,7 +9,7 @@ const IMAGES = {
   date: require('@assets/images/date_icon.png'),
   logo: require('@assets/images/logo.png'),
   eye: require('@assets/images/visibility_off.png'),
-  profile: require('@assets/images/profile_icon.png'),
+  portfolio: require('@assets/images/portfolio_icon.png'),
   chat: require('@assets/images/chat_icon.png'),
   home: require('@assets/images/home_icon.png'),
   forum: require('@assets/images/forum_icon.png'),
@@ -26,6 +26,11 @@ const IMAGES = {
   tick: require('@assets/images/tick_icon.png'),
   close: require('@assets/images/close.png'),
   settings: require('@assets/images/settings.png'),
+  forumWhite: require('@assets/images/forum-white.png'),
+  chatWhite: require('@assets/images/chat-white.png'),
+  scheduleWhite: require('@assets/images/schedule-white.png'),
+  homeWhite: require('@assets/images/home-white.png'),
+  portfolioWhite: require('@assets/images/portfolio-white.png'),
 };
 
 export default IMAGES;

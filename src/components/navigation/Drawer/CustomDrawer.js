@@ -30,7 +30,7 @@ const CustomDrawer = ({navigation}) => {
   const drawerItems = [
     {screen: 'Profile', label: 'My Profile', icon: IMAGES.person},
     {screen: 'Referral', label: 'Referral', icon: IMAGES.referral},
-    {screen: 'ChangePassword', label: 'ChangePassword', icon: IMAGES.settings},
+    {screen: 'ChangePassword', label: 'Change Password', icon: IMAGES.settings},
     {screen: 'Logout', label: 'Logout', icon: IMAGES.logout},
   ];
 
