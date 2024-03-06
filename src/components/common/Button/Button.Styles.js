@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: verticalScale(8),
-    paddingVertical: verticalScale(10),
+    paddingVertical: verticalScale(12),
   },
   registerText: {
     color: '#000000',

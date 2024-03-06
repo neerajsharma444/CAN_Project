@@ -26,6 +26,13 @@ const styles = StyleSheet.create({
     color: '#000000A8',
     fontFamily: 'Nunito-Regular',
   },
+  dropdown: {
+    width: '100%',
+    borderRadius: moderateScale(8),
+    paddingLeft: moderateScale(10),
+    borderWidth: moderateScale(1),
+    borderColor: 'rgba(10, 73, 117, 0.37)',
+  },
   textInput: {
     width: '100%',
     borderRadius: moderateScale(8),

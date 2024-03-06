@@ -1,18 +1,36 @@
-import React from 'react';
-import {View, Text, TouchableOpacity, Image} from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, TouchableOpacity, Image, Modal} from 'react-native';
 import {DrawerContentScrollView} from '@react-navigation/drawer';
 import styles from '../Drawer/Drawer.Styles';
 import IMAGES from '@assets/images';
+import CustomPopUp from '@components/common/PopUp/CustomPopUp';
 
 const CustomDrawer = ({navigation}) => {
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+
+  const handleLogout = () => {
+    console.log('Logged out....');
+    setShowLogoutModal(false);
+    navigation.navigate('Login');
+  };
+
+  const handleCancel = () => {
+    setShowLogoutModal(false);
+  };
+
   const closeDrawer = () => {
     navigation.closeDrawer();
+  };
+
+  const handleLogoutPress = () => {
+    setShowLogoutModal(true);
+    closeDrawer();
   };
 
   const drawerItems = [
     {screen: 'Profile', label: 'My Profile', icon: IMAGES.person},
     {screen: 'Referral', label: 'Referral', icon: IMAGES.referral},
-    {screen: 'ResetPassword', label: 'Reset Password', icon: IMAGES.settings},
+    {screen: 'ChangePassword', label: 'ChangePassword', icon: IMAGES.settings},
     {screen: 'Logout', label: 'Logout', icon: IMAGES.logout},
   ];
 
@@ -29,7 +47,13 @@ const CustomDrawer = ({navigation}) => {
           <TouchableOpacity
             key={index}
             style={styles.drawerItem}
-            onPress={() => navigation.navigate(item.screen)}>
+            onPress={() => {
+              if (item.label === 'Logout') {
+                handleLogoutPress();
+              } else {
+                navigation.navigate(item.screen);
+              }
+            }}>
             <View style={styles.imgContainer}>
               <Image source={item.icon} />
               <Text style={styles.drawerItemText}>{item.label}</Text>
@@ -37,6 +61,15 @@ const CustomDrawer = ({navigation}) => {
           </TouchableOpacity>
         ))}
       </View>
+      <CustomPopUp
+        title="Logout"
+        text="Are you sure you want to Logout?"
+        buttonText="Logout"
+        onPress={handleLogout}
+        doubleButton={true}
+        visible={showLogoutModal}
+        handleCancelPress={handleCancel}
+      />
     </DrawerContentScrollView>
   );
 };

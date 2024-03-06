@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {horizontalScale, moderateScale, verticalScale} from '@utils/Metrics';
+import {moderateScale, verticalScale} from '@utils/Metrics';
 
 const styles = StyleSheet.create({
   slideBackground: {
@@ -18,7 +18,8 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontFamily: 'Nunito-SemiBold',
     textAlign: 'center',
-    fontSize: 24,
+    width: '80%',
+    fontSize: moderateScale(24),
   },
   rightContainer: {
     alignSelf: 'flex-end',

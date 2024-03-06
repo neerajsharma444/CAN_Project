@@ -7,7 +7,7 @@ const IMAGES = {
   map: require('@assets/images/map_icon.png'),
   call: require('@assets/images/call_icon.png'),
   date: require('@assets/images/date_icon.png'),
-  logo: require('@assets/images/logo_header.png'),
+  logo: require('@assets/images/logo.png'),
   eye: require('@assets/images/visibility_off.png'),
   profile: require('@assets/images/profile_icon.png'),
   chat: require('@assets/images/chat_icon.png'),

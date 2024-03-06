@@ -1,11 +1,23 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {FlatList, Image, Text, TextInput, View} from 'react-native';
 import Header from '@components/common/Header/Header';
 import Button from '@components/common/Button/Button';
 import styles from './Referral.Styles';
 import IMAGES from '@assets/images';
+import CustomPopUp from '@components/common/PopUp/CustomPopUp';
 
 const Referral = () => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [title, setTitle] = useState(false);
+
+  const handleSubmitPress = () => {
+    setModalVisible(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalVisible(false);
+  };
+
   const referrals = [
     {
       name: 'Rajesh T',
@@ -91,7 +103,14 @@ const Referral = () => {
                 placeholderTextColor="#000000"
               />
             </View>
-            <Button buttonName="Submit" />
+            <Button buttonName="Submit" onPress={handleSubmitPress} />
+            <CustomPopUp
+              noTitle={title}
+              visible={modalVisible}
+              onPress={handleCloseModal}
+              buttonText="Continue"
+              text="Thanks for taking interest in participating in our referral program. We would love to help you:)"
+            />
           </View>
         }
       />

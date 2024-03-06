@@ -11,6 +11,7 @@ const CustomPopUp = ({
   buttonText,
   doubleButton,
   handleCancelPress,
+  handleLogout,
 }) => {
   return (
     <Modal
@@ -27,6 +28,7 @@ const CustomPopUp = ({
             onPress={onPress}
             doubleButton={doubleButton}
             cancelPress={handleCancelPress}
+            handleLogout={handleLogout}
           />
         </View>
       </View>

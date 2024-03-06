@@ -3,9 +3,19 @@ import {Text, View, TextInput, TouchableOpacity} from 'react-native';
 import Header from '@components/common/Header/Header';
 import styles from './Questions.Styles';
 import {Dropdown} from 'react-native-element-dropdown';
+import Button from '@components/common/Button/Button';
 
 const Questions = ({navigation}) => {
   const [category, setCategory] = useState('');
+  const [doubleButton, setdoubleButton] = useState(true);
+
+  const handlePost = () => {
+    navigation.navigate('Details');
+  };
+
+  const handleCancel = () => {
+    navigation.navigate('Details');
+  };
 
   const categories = [
     {label: 'Educational', value: 'Educational'},
@@ -26,7 +36,7 @@ const Questions = ({navigation}) => {
             <Dropdown
               style={styles.dropdown}
               placeholder="Select"
-              selectedTextStyle={{color: 'blue'}}
+              selectedTextStyle={{color: '#000000A8'}}
               data={categories}
               labelField="label"
               valueField="value"

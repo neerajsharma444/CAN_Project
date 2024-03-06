@@ -1,9 +1,9 @@
-import {View} from 'react-native';
 import React from 'react';
+import {View} from 'react-native';
 import CustomPopUp from '@components/common/PopUp/CustomPopUp';
 import {useNavigation} from '@react-navigation/native';
 
-const Logout = () => {
+const LogoutConfirmation = () => {
   const navigation = useNavigation();
 
   const handleLogout = () => {
@@ -11,7 +11,7 @@ const Logout = () => {
   };
 
   const handleCancel = () => {
-    navigation.navigate('DrawerNavigator');
+    navigation.goBack();
   };
 
   return (
@@ -29,4 +29,4 @@ const Logout = () => {
   );
 };
 
-export default Logout;
+export default LogoutConfirmation;

@@ -4,10 +4,14 @@ import Header from '@components/common/Header/Header';
 import Button from '@components/common/Button/Button';
 import styles from './Change.Styles';
 
-const ChangePassword = () => {
+const ChangePassword = ({navigation}) => {
+  const handleUpdate = () => {
+    navigation.navigate('Login');
+  };
+
   return (
     <View style={styles.container}>
-      <Header />
+      <Header drawer={false} back={true} />
       <View style={styles.passwordContainer}>
         <Text style={styles.title}>Change Password</Text>
         <View style={styles.inputContainer}>
@@ -24,7 +28,7 @@ const ChangePassword = () => {
           <Text style={styles.label}>New Password</Text>
           <TextInput placeholder="Enter new password" style={styles.input} />
         </View>
-        <Button buttonName="Update" />
+        <Button buttonName="Update" onPress={handleUpdate} />
       </View>
     </View>
   );
