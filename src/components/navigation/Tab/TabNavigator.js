@@ -28,7 +28,7 @@ const TabNavigator = () => {
             !focused ? (
               <Image source={IMAGES.schedule} />
             ) : (
-              <View style={styles.Isfocused}>
+              <View style={styles.isFocused}>
                 <Image source={IMAGES.scheduleWhite} />
               </View>
             ),
@@ -42,7 +42,7 @@ const TabNavigator = () => {
             !focused ? (
               <Image source={IMAGES.forum} />
             ) : (
-              <View style={styles.Isfocused}>
+              <View style={styles.isFocused}>
                 <Image source={IMAGES.forumWhite} />
               </View>
             ),
@@ -56,7 +56,7 @@ const TabNavigator = () => {
             !focused ? (
               <Image source={IMAGES.home} />
             ) : (
-              <View style={styles.Isfocused}>
+              <View style={styles.isFocused}>
                 <Image source={IMAGES.homeWhite} />
               </View>
             ),
@@ -70,7 +70,7 @@ const TabNavigator = () => {
             !focused ? (
               <Image source={IMAGES.chat} />
             ) : (
-              <View style={styles.Isfocused}>
+              <View style={styles.isFocused}>
                 <Image source={IMAGES.chatWhite} />
               </View>
             ),
@@ -84,7 +84,7 @@ const TabNavigator = () => {
             !focused ? (
               <Image source={IMAGES.portfolio} />
             ) : (
-              <View style={styles.Isfocused}>
+              <View style={styles.isFocused}>
                 <Image source={IMAGES.portfolioWhite} />
               </View>
             ),
@@ -96,7 +96,7 @@ const TabNavigator = () => {
 export default TabNavigator;
 
 const styles = StyleSheet.create({
-  Isfocused: {
+  isFocused: {
     backgroundColor: '#0a4975',
     height: moderateScale(46),
     width: moderateScale(46),
