@@ -46,10 +46,22 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(16),
     fontFamily: 'Nunito-SemiBold',
   },
+  errorText: {
+    color: 'red',
+    fontSize: 13,
+  },
   acct: {
     marginTop: moderateScale(10),
     color: '#0A4975',
     textAlign: 'center',
+  },
+  dropDown: {
+    borderWidth: moderateScale(1),
+    borderColor: '#0A49755E',
+    borderRadius: moderateScale(8),
+    paddingLeft: moderateScale(10),
+    marginTop: moderateScale(5),
+    paddingVertical: moderateScale(8),
   },
   modalContainer: {
     flex: 1,

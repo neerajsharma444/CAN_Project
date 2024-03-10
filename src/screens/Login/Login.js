@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   ScrollView,
   Text,
@@ -11,8 +11,15 @@ import Header from '@components/Login/Header';
 import Button from '@components/common/Button/Button';
 import styles from './Login.Styles';
 import IMAGES from '@assets/images';
+import {useDispatch} from 'react-redux';
+import {loginUser} from '@utils/services/api';
 
 const Login = ({navigation}) => {
+  const dispatch = useDispatch();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   const handleSignUpLinkClick = () => {
     navigation.navigate('Register');
   };
@@ -20,8 +27,13 @@ const Login = ({navigation}) => {
     navigation.navigate('ResetPassword');
   };
 
-  handleLogin = () => {
-    navigation.navigate('Home');
+  const handleLogin = async () => {
+    const {success, error} = await dispatch(loginUser(email, password));
+    if (success) {
+      navigation.navigate('Home');
+    } else {
+      console.error('Login failed:', error);
+    }
   };
 
   return (
@@ -32,7 +44,12 @@ const Login = ({navigation}) => {
           <Text style={styles.title}>Login</Text>
           <View>
             <Text style={styles.inputLabel}>Email</Text>
-            <TextInput style={styles.input} placeholder="Enter Email" />
+            <TextInput
+              style={styles.input}
+              placeholder="Enter Email"
+              value={email}
+              onChangeText={text => setEmail(text)}
+            />
           </View>
           <View>
             <Text style={styles.inputLabel}>Password</Text>
@@ -40,6 +57,8 @@ const Login = ({navigation}) => {
               <TextInput
                 style={styles.passwordInput}
                 placeholder="Enter Password"
+                value={password}
+                onChangeText={text => setPassword(text)}
               />
               <TouchableOpacity>
                 <Image style={styles.eyeIcon} source={IMAGES.eye} />
