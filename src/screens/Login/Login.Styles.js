@@ -49,6 +49,10 @@ const styles = StyleSheet.create({
     margin: moderateScale(15),
     marginRight: moderateScale(15),
   },
+  errorText: {
+    color: 'red',
+    fontSize: 13,
+  },
   resetContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',

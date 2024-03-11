@@ -5,6 +5,7 @@ import {
   TextInput,
   ScrollView,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import Header from '@components/Login/Header';
 import Button from '@components/common/Button/Button';
@@ -14,7 +15,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {addUser, fetchStateList} from '@utils/services/api';
 import {Dropdown} from 'react-native-element-dropdown';
 import {Formik} from 'formik';
-import {validationSchema} from '@components/common/Form/Validations';
+import {registerSchema} from '@components/common/Form/Validations';
 
 const Register = ({navigation}) => {
   const dispatch = useDispatch();
@@ -25,15 +26,27 @@ const Register = ({navigation}) => {
   const allState = useSelector(state => state.auth.allStates?.result ?? []);
 
   const [modalVisible, setModalVisible] = useState(false);
+  const [title, setTitle] = useState(false);
 
   const handleLoginLinkPress = () => {
     navigation.navigate('Login');
   };
-  const handleRegister = values => {
-    console.log('Form Values:', values);
-    setModalVisible(true);
-    addUser(values);
+
+  const handleRegister = async values => {
+    try {
+      const result = await addUser(values);
+      console.log('Response', result);
+      if (result) {
+        setModalVisible(true);
+      } else {
+        setModalVisible(false);
+      }
+    } catch (error) {
+      console.error('Error during registration:', error);
+      setModalVisible(false);
+    }
   };
+
   const handleCloseModal = () => {
     setModalVisible(false);
     navigation.navigate('Login');
@@ -56,7 +69,7 @@ const Register = ({navigation}) => {
                 city: '',
               }}
               onSubmit={handleRegister}
-              validationSchema={validationSchema}>
+              validationSchema={registerSchema}>
               {({
                 handleChange,
                 handleBlur,
@@ -119,7 +132,6 @@ const Register = ({navigation}) => {
                     placeholder="Select State"
                     style={styles.dropDown}
                     value={values.state}
-                    // onBlur={handleBlur('state')}
                   />
                   {touched.state && errors.state && (
                     <Text style={styles.errorText}>{errors.state}</Text>
@@ -145,8 +157,8 @@ const Register = ({navigation}) => {
           </View>
         </View>
       </View>
-
       <CustomPopUp
+        noTitle={title}
         visible={modalVisible}
         onPress={handleCloseModal}
         buttonText="Continue"

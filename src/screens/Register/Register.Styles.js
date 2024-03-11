@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {moderateScale} from '@utils/Metrics';
+import {moderateScale, horizontalScale, verticalScale} from '@utils/Metrics';
 
 const styles = StyleSheet.create({
   mainContainer: {
@@ -59,9 +59,10 @@ const styles = StyleSheet.create({
     borderWidth: moderateScale(1),
     borderColor: '#0A49755E',
     borderRadius: moderateScale(8),
-    paddingLeft: moderateScale(10),
-    marginTop: moderateScale(5),
-    paddingVertical: moderateScale(8),
+    paddingLeft: horizontalScale(15),
+    marginTop: verticalScale(5),
+    paddingVertical: verticalScale(10),
+    paddingRight: horizontalScale(10),
   },
   modalContainer: {
     flex: 1,

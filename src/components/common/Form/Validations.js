@@ -1,7 +1,6 @@
 import * as yup from 'yup';
-import {checkEmailExistence} from '@utils/services/api';
 
-export const validationSchema = yup.object({
+export const registerSchema = yup.object({
   name: yup
     .string()
     .matches(
@@ -15,12 +14,7 @@ export const validationSchema = yup.object({
   email: yup
     .string()
     .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Invalid email format!')
-    .required('Email is required!')
-    .test('email-exists', 'Email already exists!', async function (value) {
-      if (!value) return true;
-      const emailExists = await checkEmailExistence(value);
-      return !emailExists;
-    }),
+    .required('Email is required!'),
 
   password: yup
     .string()
@@ -53,7 +47,21 @@ export const validationSchema = yup.object({
       /(^[a-zA-Z][a-zA-Z\s]{0,20}[a-zA-Z]$)/,
       'City should only contain alphabets!',
     )
-    .min(2, 'City should have atleast 2 digits!')
-    .max(8, 'City should be only 8 digits!')
-    .required('City is required!'),
+    .min(2, 'City should have atleast 2 digits!'),
+  // .required('City is required!'),
+});
+
+export const loginSchema = yup.object({
+  email: yup
+    .string()
+    .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Invalid email format!')
+    .required('Email is required!'),
+
+  password: yup
+    .string()
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/,
+      'Password must be at least 6 characters long and include at least one lowercase letter, one uppercase letter, and one digit!',
+    )
+    .required('Password is required!'),
 });
