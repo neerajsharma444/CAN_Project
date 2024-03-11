@@ -1,13 +1,28 @@
+import {API_BASE_URL, API_ENDPOINTS} from './apiConfig';
 import {
   fetchStatesSuccess,
   loginSuccess,
 } from '@components/redux/reducers/authSlice';
 import {Alert} from 'react-native';
 
+const handleResponse = async response => {
+  const data = await response.json();
+  if (response.ok) {
+    if (data.status === false) {
+      Alert.alert('Oops something went wrong..', data.message);
+      return false;
+    } else {
+      return true;
+    }
+  } else {
+    console.error('Request failed:', data);
+    return false;
+  }
+};
+
 export const addUser = async params => {
-  console.log('params........', params);
   try {
-    const response = await fetch('http://54.190.192.105:9185/angel/register', {
+    const response = await fetch(`${API_BASE_URL}${API_ENDPOINTS.REGISTER}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -15,20 +30,7 @@ export const addUser = async params => {
       body: JSON.stringify(params),
     });
     console.log('POST request completed.');
-
-    const data = await response.json();
-
-    if (response.ok) {
-      if (data.status === false) {
-        Alert.alert('Oops something went wrong..', data.message);
-        return false;
-      } else {
-        return true;
-      }
-    } else {
-      console.error('Registration failed:', data);
-      return false;
-    }
+    return await handleResponse(response);
   } catch (error) {
     console.error('Error during registration:', error);
     return false;
@@ -38,7 +40,7 @@ export const addUser = async params => {
 export const fetchStateList = () => async dispatch => {
   try {
     const response = await fetch(
-      'http://54.190.192.105:9185/angel/get_all_state',
+      `${API_BASE_URL}${API_ENDPOINTS.GET_ALL_STATES}`,
     );
     const data = await response.json();
     if (data && data.result && Array.isArray(data.result)) {
@@ -52,9 +54,8 @@ export const fetchStateList = () => async dispatch => {
 };
 
 export const loginUser = async (values, dispatch, navigation) => {
-  console.log('Params...', values);
   try {
-    const response = await fetch('http://54.190.192.105:9185/angel/login', {
+    const response = await fetch(`${API_BASE_URL}${API_ENDPOINTS.LOGIN}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -63,7 +64,6 @@ export const loginUser = async (values, dispatch, navigation) => {
     });
     const data = await response.json();
     console.log('Response from login:', data);
-    console.log(data.status);
 
     if (response.ok) {
       if (data.status) {

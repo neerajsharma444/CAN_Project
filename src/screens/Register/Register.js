@@ -19,11 +19,15 @@ import {registerSchema} from '@components/common/Form/Validations';
 
 const Register = ({navigation}) => {
   const dispatch = useDispatch();
+
+  const user = useSelector(state => state.user);
+  console.log('sign up', user);
+
   useEffect(() => {
     dispatch(fetchStateList());
   }, [dispatch]);
 
-  const allState = useSelector(state => state.auth.allStates?.result ?? []);
+  const allState = useSelector(state => state.allStates?.result ?? []);
 
   const [modalVisible, setModalVisible] = useState(false);
   const [title, setTitle] = useState(false);

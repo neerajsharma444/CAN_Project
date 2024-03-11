@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import {Formik} from 'formik';
+import {Formik} from 'formik'; // Import Formik correctly
 import Header from '@components/Login/Header';
 import Button from '@components/common/Button/Button';
 import styles from './Login.Styles';
@@ -20,6 +20,7 @@ const Login = ({navigation}) => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   const params = {email: email, password: password};
 
@@ -29,7 +30,9 @@ const Login = ({navigation}) => {
   const handleForgotPassword = () => {
     navigation.navigate('ResetPassword');
   };
-
+  const handleTogglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
   const handleLogin = async values => {
     console.log('object', values);
     loginUser(values, dispatch, navigation);
@@ -77,10 +80,13 @@ const Login = ({navigation}) => {
                     value={values.password}
                     onChangeText={handleChange('password')}
                     onBlur={handleBlur('password')}
-                    secureTextEntry={true}
+                    secureTextEntry={!showPassword}
                   />
-                  <TouchableOpacity>
-                    <Image style={styles.eyeIcon} source={IMAGES.eye} />
+                  <TouchableOpacity onPress={handleTogglePasswordVisibility}>
+                    <Image
+                      style={styles.eyeIcon}
+                      source={showPassword ? IMAGES.eye : IMAGES.eye}
+                    />
                   </TouchableOpacity>
                 </View>
                 {touched.password && errors.password && (

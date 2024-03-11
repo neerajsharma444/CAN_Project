@@ -47,8 +47,8 @@ export const registerSchema = yup.object({
       /(^[a-zA-Z][a-zA-Z\s]{0,20}[a-zA-Z]$)/,
       'City should only contain alphabets!',
     )
-    .min(2, 'City should have atleast 2 digits!'),
-  // .required('City is required!'),
+    .min(2, 'City should have atleast 2 digits!')
+    .required('City is required!'),
 });
 
 export const loginSchema = yup.object({
@@ -61,7 +61,7 @@ export const loginSchema = yup.object({
     .string()
     .matches(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/,
-      'Password must be at least 6 characters long and include at least one lowercase letter, one uppercase letter, and one digit!',
+      'Password must be at least 6 characters long!',
     )
     .required('Password is required!'),
 });
