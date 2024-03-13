@@ -5,7 +5,6 @@ import CustomDrawer from './CustomDrawer';
 import Profile from '@screens/Profile/Profile';
 import Referral from '@screens/Referral/Referral';
 import ChangePassword from '@screens/ChangePassword/ChangePassword';
-import LogoutConfirmation from '@screens/Logout/Logout';
 import TabNavigator from '../Tab/TabNavigator';
 
 const Drawer = createDrawerNavigator();

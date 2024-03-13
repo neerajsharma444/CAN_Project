@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, TouchableOpacity, Image, Modal} from 'react-native';
+import {View, Text, TouchableOpacity, Image} from 'react-native';
 import {DrawerContentScrollView} from '@react-navigation/drawer';
 import styles from '../Drawer/Drawer.Styles';
 import IMAGES from '@assets/images';

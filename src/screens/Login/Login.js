@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import {Formik} from 'formik'; // Import Formik correctly
+import {Formik} from 'formik';
 import Header from '@components/Login/Header';
 import Button from '@components/common/Button/Button';
 import styles from './Login.Styles';

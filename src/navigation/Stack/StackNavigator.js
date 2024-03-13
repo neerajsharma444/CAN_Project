@@ -11,8 +11,7 @@ import Details from '@screens/Forum/Details/Details';
 import DrawerNavigator from '../Drawer/DrawerNavigator';
 import Questions from '@screens/Forum/Questions/Questions';
 import Answers from '@screens/Forum/Answers/Answers';
-import Slider from '../../../screens/IntroSlider/Slider';
-import LogoutConfirmation from '../../../screens/Logout/Logout';
+import Slider from '@screens/IntroSlider/Slider';
 
 const Stack = createStackNavigator();
 
@@ -30,7 +29,6 @@ const StackNavigator = () => {
       <Stack.Screen name="Questions" component={Questions} />
       <Stack.Screen name="Answers" component={Answers} />
       <Stack.Screen name="Home" component={DrawerNavigator} />
-      {/* <Stack.Screen name="DrawerNavigator" component={DrawerNavigator} /> */}
     </Stack.Navigator>
   );
 };

@@ -5,9 +5,9 @@ import IMAGES from '@assets/images';
 import Schedule from '@screens/Calendar/Schedule';
 import Home from '@screens/Home/Home';
 import Portfolio from '@screens/Portfolio/Portfolio';
-import Chat from '../../../screens/Chat/Chat';
+import Chat from '@screens/Chat/Chat';
 import Category from '@screens/Forum/Categories/Category';
-import {moderateScale} from '../../../utils/Metrics';
+import {moderateScale} from '@utils/Metrics';
 
 const Tab = createBottomTabNavigator();
 

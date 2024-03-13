@@ -1,8 +1,5 @@
 import {API_BASE_URL, API_ENDPOINTS} from './apiConfig';
-import {
-  fetchStatesSuccess,
-  loginSuccess,
-} from '@components/redux/reducers/authSlice';
+import {fetchStatesSuccess, loginSuccess} from '@redux/reducers/authSlice';
 import {Alert} from 'react-native';
 
 const handleResponse = async response => {

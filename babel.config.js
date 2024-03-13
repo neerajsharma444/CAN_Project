@@ -18,8 +18,10 @@ module.exports = {
           '.json',
         ],
         alias: {
-          '@screens': './src/screens',
           '@assets': './src/assets',
+          '@redux': './src/redux',
+          '@navigation': './src/navigation',
+          '@screens': './src/screens',
           '@components': './src/components',
           '@utils': './src/utils',
         },

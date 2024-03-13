@@ -8,7 +8,7 @@ export const registerSchema = yup.object({
       'Name should only contain alphabets!',
     )
     .min(3, 'Name should have atleast 3 digits!')
-    .max(12, 'Name should be only 12 digits!')
+    .max(20, 'Name should be only 20 digits!')
     .required('Name is required!'),
 
   email: yup
