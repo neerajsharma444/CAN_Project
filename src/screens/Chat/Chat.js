@@ -1,76 +1,60 @@
-import React, {useState} from 'react';
-import {
-  View,
-  FlatList,
-  TextInput,
-  TouchableOpacity,
-  Text,
-  Image,
-} from 'react-native';
+import React, {useState, useEffect, useCallback} from 'react';
+import {View, TouchableOpacity, Image, Text} from 'react-native';
 import Header from '@components/common/Header/Header';
 import IMAGES from '@assets/images';
+import {GiftedChat, Bubble} from 'react-native-gifted-chat';
 import styles from './Chat.Styles';
 
 const Chat = () => {
-  const [newMessage, setNewMessage] = useState('');
-  const [messages, setMessages] = useState([
-    {id: 1, sender: 'Me', message: 'Hi Nitika!', timestamp: '10:00 PM'},
-    {id: 2, sender: 'Nikita', message: 'Hi John!', timestamp: '10:00 PM'},
-  ]);
+  const [messages, setMessages] = useState([]);
 
-  const handleSendMessage = () => {
-    if (newMessage.trim() === '') return; // Don't send empty messages
-    const newId = messages.length + 1;
-    const timestamp = new Date().toLocaleTimeString([], {
-      hour: '2-digit',
-      minute: '2-digit',
-    });
-    const newMessageObj = {
-      id: newId,
-      sender: 'Me',
-      message: newMessage,
-      timestamp,
-    };
-    setMessages([...messages, newMessageObj]);
-    setNewMessage('');
+  useEffect(() => {
+    setMessages([
+      {
+        _id: 1,
+        text: 'Hey there dev!',
+        createdAt: new Date(),
+        user: {
+          _id: 2,
+          name: 'React Native',
+        },
+      },
+    ]);
+  }, []);
+
+  const onSend = useCallback((newMessages = []) => {
+    setMessages(previousMessages =>
+      GiftedChat.append(previousMessages, newMessages),
+    );
+  }, []);
+
+  const renderBubble = props => {
+    return <Bubble {...props} wrapperStyle={styles.wrapperStyle} />;
   };
 
-  const renderMessages = ({item}) => {
-    const myMsg = item.sender === 'Me';
+  const renderSend = props => {
     return (
-      <View style={[myMsg ? styles.myMsgContainer : styles.otherMsgContainer]}>
-        <View
-          style={[myMsg ? styles.myTxtContainer : styles.otherTxtContainer]}>
-          <Text style={styles.message}>{item.message}</Text>
-        </View>
-        <Text style={styles.timestamp}>{item.timestamp}</Text>
-      </View>
+      <TouchableOpacity
+        onPress={() => props.onSend({text: props.text.trim()}, true)}
+        style={styles.sendBtn}>
+        <Image source={IMAGES.send} style={styles.sendIcon} />
+      </TouchableOpacity>
     );
   };
 
   return (
     <View style={styles.mainContainer}>
-      <Header renderText="Nitika" renderImage={false} />
-      <View style={styles.subContainer}>
-        <FlatList
-          data={messages}
-          renderItem={renderMessages}
-          keyExtractor={item => item.id.toString()}
-          contentContainerStyle={styles.chatContainer}
-        />
-        <View style={styles.inputContainer}>
-          <TextInput
-            multiline
-            value={newMessage}
-            style={styles.txtInput}
-            onChangeText={setNewMessage}
-            placeholder="Type your message"
-          />
-          <TouchableOpacity style={styles.sendBtn} onPress={handleSendMessage}>
-            <Image source={IMAGES.send} />
-          </TouchableOpacity>
-        </View>
-      </View>
+      <Header text="CAN Admin" image={false} />
+      <GiftedChat
+        messages={messages}
+        onSend={messages => onSend(messages)}
+        textInputStyle={styles.txtInput}
+        user={{
+          _id: 1,
+        }}
+        renderBubble={renderBubble}
+        renderSend={renderSend}
+      />
     </View>
   );
 };
