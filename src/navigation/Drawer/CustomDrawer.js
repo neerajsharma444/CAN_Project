@@ -5,7 +5,7 @@ import styles from '../Drawer/Drawer.Styles';
 import IMAGES from '@assets/images';
 import CustomPopUp from '@components/common/PopUp/CustomPopUp';
 import {useDispatch} from 'react-redux';
-import {logoutUser} from '../../redux/reducers/authSlice';
+import {logoutUser} from '@redux/reducers/authSlice';
 
 const CustomDrawer = ({navigation}) => {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
