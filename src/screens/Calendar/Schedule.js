@@ -1,43 +1,41 @@
-import React, {useState} from 'react';
-import {Text, View, Image, TouchableOpacity, ScrollView} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  ScrollView,
+  Alert,
+  Image,
+} from 'react-native';
 import Header from '@components/common/Header/Header';
 import {Calendar} from 'react-native-calendars';
 import IMAGES from '@assets/images';
 import styles from './Schedule.Styles';
+import {useSelector} from 'react-redux';
+import {fetchEvents} from '@utils/services/api';
 
 const Schedule = () => {
   const [selectedDate, setSelectedDate] = useState(null);
+  const [events, setEvents] = useState([]);
+  const token = useSelector(state => state.user?.token);
 
-  const events = [
-    {
-      topic: 'Pitch Session 1: Jasper Infotech',
-      type: 'Pitch Session',
-      time: '4 PM',
-      location: 'Virtual',
-      agenda:
-        'Pitch Session for 3 startups: Jasper Infotech, My Home, XYZ housing',
-      meeting: ' https://zoom.us/meeting_id/32432',
-      document: 'PDF',
-    },
-    {
-      topic: 'Pitch Session 2: My Home',
-      type: 'Pitch Session',
-      time: '4 PM',
-      location: 'Virtual',
-      agenda: 'Pitch Session for My Home',
-      meeting: ' https://zoom.us/meeting_id/32432',
-      document: 'PDF',
-    },
-    {
-      topic: 'Pitch Session 3: My Home',
-      type: 'Pitch Session',
-      time: '4 PM',
-      location: 'Virtual',
-      agenda: 'Pitch Session for My Home',
-      meeting: ' https://zoom.us/meeting_id/32432',
-      document: 'PDF',
-    },
-  ];
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        console.log('Token:', token.trim());
+        if (token.trim()) {
+          const eventsData = await fetchEvents(token);
+          console.log('Evnets dtaa...', eventsData);
+          setEvents(eventsData);
+        }
+      } catch (error) {
+        console.log('Error.........', error);
+        console.error(error.message);
+        Alert.alert('Error', error.message);
+      }
+    };
+    fetchData();
+  }, [token]);
 
   return (
     <ScrollView>
@@ -67,9 +65,9 @@ const Schedule = () => {
 
           {events.map((item, index) => (
             <View key={index} style={styles.itemContainer}>
-              <Text style={styles.topicText}>{item.topic}</Text>
+              <Text style={styles.topicText}>{item.title}</Text>
               <View style={styles.item}>
-                <Text style={styles.typeText}>Type: {item.type}</Text>
+                <Text style={styles.typeText}>Type: {item.event_type}</Text>
                 <View style={styles.itemInfo}>
                   <Image source={IMAGES.date} />
                   <Text style={styles.infoText}>{item.time}</Text>
@@ -79,14 +77,18 @@ const Schedule = () => {
                   <Text style={styles.infoText}>{item.location}</Text>
                 </View>
               </View>
-              <Text style={styles.agendaText}>{item.agenda}</Text>
+              <Text style={styles.agendaText}>{item.description}</Text>
               <View style={styles.meetingContainer}>
                 <Text style={styles.meetingText}>Meeting URL:</Text>
                 <TouchableOpacity>
-                  <Text style={styles.meetingUrl}>{item.meeting}</Text>
+                  <Text style={styles.meetingUrl}> {item.meeting_url}</Text>
                 </TouchableOpacity>
               </View>
-              <Text style={styles.pdfText}>Pitch Deck: {item.document}</Text>
+              {item.file.map((fileUrl, i) => (
+                <Text key={i} style={styles.pdfText}>{`File ${
+                  i + 1
+                }: ${fileUrl}`}</Text>
+              ))}
             </View>
           ))}
         </View>

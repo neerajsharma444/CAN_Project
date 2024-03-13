@@ -78,3 +78,25 @@ export const loginUser = async (values, dispatch, navigation) => {
     return {success: false, error: 'An error occurred during login'};
   }
 };
+export const fetchEvents = async token => {
+  console.log('TOKENAPI', token);
+  try {
+    const response = await fetch(`${API_BASE_URL}/get_events`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: token,
+      },
+    });
+    const data = await response.json();
+    console.log('Events API Response:', data);
+    if (response.ok) {
+      return data.result;
+    } else {
+      throw new Error(data.message);
+    }
+  } catch (error) {
+    console.error('Error fetching events:', error);
+    throw new Error('Failed to fetch events: ' + error.message);
+  }
+};
