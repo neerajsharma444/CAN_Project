@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {verticalScale, moderateScale} from '@utils/Metrics'; // Assuming Metrics is a utility file containing scaling functions
+import {verticalScale, moderateScale} from '@utils/Metrics';
 
 const styles = StyleSheet.create({
   container: {
@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
     marginBottom: verticalScale(5),
     color: '#0A4975',
     fontFamily: 'Nunito-SemiBold',
+    textTransform: 'capitalize',
   },
   item: {
     flexDirection: 'row',
@@ -47,6 +48,13 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(16),
     color: '#000',
     fontFamily: 'Nunito-Medium',
+    textTransform: 'capitalize',
+  },
+  eventText: {
+    fontSize: moderateScale(16),
+    color: '#000000A8',
+    fontFamily: 'Nunito-Medium',
+    textTransform: 'capitalize',
   },
   itemInfo: {
     flexDirection: 'row',
@@ -54,15 +62,19 @@ const styles = StyleSheet.create({
   },
   infoText: {
     fontSize: moderateScale(14),
-    marginLeft: moderateScale(10),
+    marginLeft: moderateScale(6),
     color: '#666',
     fontFamily: 'Nunito-Regular',
+    flexWrap: 'wrap',
+    maxWidth: '85%',
   },
   agendaText: {
     fontSize: moderateScale(14),
     marginTop: verticalScale(5),
-    color: '#666',
+    color: '#000000A8',
     fontFamily: 'Nunito-Regular',
+    textTransform: 'capitalize',
+    marginBottom: verticalScale(5),
   },
   meetingContainer: {
     flexDirection: 'row',
@@ -78,8 +90,13 @@ const styles = StyleSheet.create({
     color: '#06F',
     fontFamily: 'Nunito-SemiBold',
   },
-  textUrl: {
+  pitchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  pitchText: {
     color: '#000',
+    marginTop: verticalScale(10),
   },
   pdfText: {
     fontSize: moderateScale(14),

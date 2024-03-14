@@ -31,6 +31,8 @@ const IMAGES = {
   scheduleWhite: require('@assets/images/schedule-white.png'),
   homeWhite: require('@assets/images/home-white.png'),
   portfolioWhite: require('@assets/images/portfolio-white.png'),
+  doc: require('@assets/images/doc.png'),
+  pdf: require('@assets/images/pdf.png'),
 };
 
 export default IMAGES;

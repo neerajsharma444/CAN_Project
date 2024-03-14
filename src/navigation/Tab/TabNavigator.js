@@ -2,12 +2,12 @@ import React from 'react';
 import {View, Image, StyleSheet} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import IMAGES from '@assets/images';
-import Schedule from '@screens/Calendar/Schedule';
 import Home from '@screens/Home/Home';
 import Portfolio from '@screens/Portfolio/Portfolio';
 import Chat from '@screens/Chat/Chat';
 import Category from '@screens/Forum/Categories/Category';
 import {moderateScale} from '@utils/Metrics';
+import Events from '@screens/Calendar/Events';
 
 const Tab = createBottomTabNavigator();
 
@@ -21,8 +21,8 @@ const TabNavigator = () => {
         tabBarHideOnKeyboard: false,
       }}>
       <Tab.Screen
-        name="Schedule"
-        component={Schedule}
+        name="Events"
+        component={Events}
         options={{
           tabBarIcon: ({focused}) =>
             !focused ? (

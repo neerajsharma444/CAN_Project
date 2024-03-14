@@ -11,11 +11,11 @@ import {
 import Header from '@components/common/Header/Header';
 import {Calendar} from 'react-native-calendars';
 import IMAGES from '@assets/images';
-import styles from './Schedule.Styles';
+import styles from './Events.Styles';
 import {useSelector} from 'react-redux';
 import {fetchEvents} from '@utils/services/api';
 
-const Schedule = () => {
+const Events = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [events, setEvents] = useState([]);
   const token = useSelector(state => state.user?.Token);
@@ -24,7 +24,6 @@ const Schedule = () => {
     const urlPattern = /\.(com|org|net|gov|edu)$/i;
     return urlPattern.test(url);
   };
-
   const handleLinkClick = async url => {
     try {
       let fullUrl =
@@ -45,17 +44,24 @@ const Schedule = () => {
         console.log('Token:', token);
         if (token) {
           const eventsData = await fetchEvents(token);
-          console.log('Evnets dtaa...', eventsData);
-          setEvents(eventsData);
+          const formattedEvents = eventsData.map(event => ({
+            ...event,
+            date: event.date.split('T')[0], // Convert date to YYYY-MM-DD format
+          }));
+          console.log('Events data:', formattedEvents);
+          setEvents(formattedEvents);
         }
       } catch (error) {
-        console.log('Error.........', error);
-        console.error(error.message);
+        console.log('Error:', error);
         Alert.alert('Error', error.message);
       }
     };
     fetchData();
   }, [token]);
+
+  const filteredEvents = selectedDate
+    ? events.filter(item => item.date === selectedDate)
+    : events;
 
   return (
     <ScrollView>
@@ -82,12 +88,12 @@ const Schedule = () => {
               {selectedDate ? selectedDate : 'No date selected'}
             </Text>
           </View>
-
-          {events.map((item, index) => (
+          {filteredEvents.map((item, index) => (
             <View key={index} style={styles.itemContainer}>
               <Text style={styles.topicText}>{item.title}</Text>
               <View style={styles.item}>
-                <Text style={styles.typeText}>Type: {item.event_type}</Text>
+                <Text style={styles.typeText}>Type: </Text>
+                <Text style={styles.eventText}>{item.event_type} </Text>
                 <View style={styles.itemInfo}>
                   <Image source={IMAGES.date} />
                   <Text style={styles.infoText}>{item.time}</Text>
@@ -106,14 +112,19 @@ const Schedule = () => {
                     <Text style={styles.meetingUrl}> {item.meeting_url}</Text>
                   </TouchableOpacity>
                 ) : (
-                  <Text style={styles.textUrl}> None</Text>
+                  <Text style={styles.meetingText}> None</Text>
                 )}
               </View>
-              {item.file.map((fileUrl, i) => (
-                <Text key={i} style={styles.pdfText}>{`File ${
-                  i + 1
-                }: ${fileUrl}`}</Text>
-              ))}
+              <View style={styles.pitchContainer}>
+                <Text style={styles.pitchText}>Pitch Deck: </Text>
+                {item.file.map((fileUrl, i) => (
+                  <Text key={i} style={styles.pdfText}>
+                    <TouchableOpacity onPress={() => handleLinkClick(fileUrl)}>
+                      <Image source={IMAGES.pdf} />
+                    </TouchableOpacity>
+                  </Text>
+                ))}
+              </View>
             </View>
           ))}
         </View>
@@ -122,4 +133,4 @@ const Schedule = () => {
   );
 };
 
-export default Schedule;
+export default Events;
