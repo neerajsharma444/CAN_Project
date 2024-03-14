@@ -6,6 +6,7 @@ import {
   ScrollView,
   Alert,
   Image,
+  Linking,
 } from 'react-native';
 import Header from '@components/common/Header/Header';
 import {Calendar} from 'react-native-calendars';
@@ -17,13 +18,32 @@ import {fetchEvents} from '@utils/services/api';
 const Schedule = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [events, setEvents] = useState([]);
-  const token = useSelector(state => state.user?.token);
+  const token = useSelector(state => state.user?.Token);
+
+  const isValidUrl = url => {
+    const urlPattern = /\.(com|org|net|gov|edu)$/i;
+    return urlPattern.test(url);
+  };
+
+  const handleLinkClick = async url => {
+    try {
+      let fullUrl =
+        url.startsWith('http://') || url.startsWith('https://')
+          ? url
+          : 'https://' + url;
+      console.log('Attempting to open URL:', fullUrl);
+      Linking.openURL(fullUrl);
+    } catch (error) {
+      console.error('Error opening URL: ', error);
+      Alert.alert('Error', 'Unable to open URL');
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log('Token:', token.trim());
-        if (token.trim()) {
+        console.log('Token:', token);
+        if (token) {
           const eventsData = await fetchEvents(token);
           console.log('Evnets dtaa...', eventsData);
           setEvents(eventsData);
@@ -80,9 +100,14 @@ const Schedule = () => {
               <Text style={styles.agendaText}>{item.description}</Text>
               <View style={styles.meetingContainer}>
                 <Text style={styles.meetingText}>Meeting URL:</Text>
-                <TouchableOpacity>
-                  <Text style={styles.meetingUrl}> {item.meeting_url}</Text>
-                </TouchableOpacity>
+                {isValidUrl(item.meeting_url) ? (
+                  <TouchableOpacity
+                    onPress={() => handleLinkClick(item.meeting_url)}>
+                    <Text style={styles.meetingUrl}> {item.meeting_url}</Text>
+                  </TouchableOpacity>
+                ) : (
+                  <Text style={styles.textUrl}> None</Text>
+                )}
               </View>
               {item.file.map((fileUrl, i) => (
                 <Text key={i} style={styles.pdfText}>{`File ${

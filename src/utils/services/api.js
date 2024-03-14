@@ -81,7 +81,7 @@ export const loginUser = async (values, dispatch, navigation) => {
 export const fetchEvents = async token => {
   console.log('TOKENAPI', token);
   try {
-    const response = await fetch(`${API_BASE_URL}/get_events`, {
+    const response = await fetch(`${API_BASE_URL}${API_ENDPOINTS.CALENDAR}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

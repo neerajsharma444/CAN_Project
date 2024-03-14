@@ -78,6 +78,9 @@ const styles = StyleSheet.create({
     color: '#06F',
     fontFamily: 'Nunito-SemiBold',
   },
+  textUrl: {
+    color: '#000',
+  },
   pdfText: {
     fontSize: moderateScale(14),
     marginTop: verticalScale(10),
