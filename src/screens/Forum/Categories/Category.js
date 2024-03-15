@@ -1,40 +1,38 @@
-import {FlatList, Text, TouchableOpacity, View} from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import {FlatList, Text, TouchableOpacity, View, Alert} from 'react-native';
+import {useSelector} from 'react-redux';
 import Header from '@components/common/Header/Header';
 import styles from './Category.Styles';
+import {fetchForumCategories} from '@utils/services/api';
 
 const Category = ({navigation}) => {
-  const handleCategories = () => {
-    navigation.navigate('Details');
+  const [forumCategories, setForumCategories] = useState([]);
+  const token = useSelector(state => state.user?.Token);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        console.log('Token:', token);
+        if (token) {
+          const categories = await fetchForumCategories(token);
+          setForumCategories(categories);
+        }
+      } catch (error) {
+        Alert.alert('Error', error.message);
+      }
+    };
+    fetchCategories();
+  }, [token]);
+
+  const handleCategories = categoryId => {
+    navigation.navigate('Details', {categoryId: categoryId});
   };
-  const forumData = [
-    {
-      title: 'General Guideline',
-      text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-    },
-    {
-      title: 'Pitch Session',
-      text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-    },
-    {
-      title: 'Valuations & MRR',
-      text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-    },
-    {
-      title: 'General Guideline',
-      text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-    },
-    {
-      title: 'Pitch Session',
-      text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-    },
-  ];
 
   const renderForumData = ({item}) => (
     <View style={styles.forumItemContainer}>
-      <TouchableOpacity onPress={handleCategories}>
-        <Text style={styles.forumItemTitle}>{item.title}</Text>
-        <Text style={styles.forumItemText}>{item.text}</Text>
+      <TouchableOpacity onPress={() => handleCategories(item._id)}>
+        <Text style={styles.forumItemTitle}>{item.category_name}</Text>
+        <Text style={styles.forumItemText}>{item.description}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -45,7 +43,7 @@ const Category = ({navigation}) => {
       <View style={styles.subContainer}>
         <Text style={styles.headingText}>Forum Categories</Text>
         <FlatList
-          data={forumData}
+          data={forumCategories}
           renderItem={renderForumData}
           keyExtractor={(item, index) => index.toString()}
         />
