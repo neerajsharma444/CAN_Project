@@ -3,7 +3,7 @@ import {View, ScrollView, Text} from 'react-native';
 import {useSelector} from 'react-redux';
 import Header from '@components/common/Header/Header';
 import Card from '@components/common/Card/Card';
-import {fetchMandateList} from '@utils/services/api';
+import {fetchMandateList} from '@redux/services/api';
 import styles from './Home.Styles';
 
 const Home = ({navigation}) => {

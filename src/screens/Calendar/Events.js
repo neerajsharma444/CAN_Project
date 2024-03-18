@@ -13,7 +13,7 @@ import {Calendar} from 'react-native-calendars';
 import IMAGES from '@assets/images';
 import styles from './Events.Styles';
 import {useSelector} from 'react-redux';
-import {fetchEvents} from '@utils/services/api';
+import {fetchEvents} from '@redux/services/api';
 
 const Events = () => {
   const [selectedDate, setSelectedDate] = useState(null);

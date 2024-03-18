@@ -1,4 +1,4 @@
-export const API_BASE_URL = 'http://54.190.192.105:9185/angel/';
+export const API_URL = 'http://54.190.192.105:9185/angel/';
 
 export const API_ENDPOINTS = {
   REGISTER: 'register',

@@ -1,5 +1,5 @@
-import {API_BASE_URL, API_ENDPOINTS} from './apiConfig';
-import {fetchStatesSuccess, loginSuccess} from '@redux/reducers/authSlice';
+import {API_URL, API_ENDPOINTS} from '../apiEndpoints/endPoints';
+import {fetchStatesSuccess, loginSuccess} from '../slices/authSlice';
 import {Alert} from 'react-native';
 
 const handleResponse = async response => {
@@ -18,7 +18,7 @@ const handleResponse = async response => {
 };
 export const addUser = async params => {
   try {
-    const response = await fetch(`${API_BASE_URL}${API_ENDPOINTS.REGISTER}`, {
+    const response = await fetch(`${API_URL}${API_ENDPOINTS.REGISTER}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -34,9 +34,7 @@ export const addUser = async params => {
 };
 export const fetchStateList = () => async dispatch => {
   try {
-    const response = await fetch(
-      `${API_BASE_URL}${API_ENDPOINTS.GET_ALL_STATES}`,
-    );
+    const response = await fetch(`${API_URL}${API_ENDPOINTS.GET_ALL_STATES}`);
     const data = await response.json();
     if (data && data.result && Array.isArray(data.result)) {
       dispatch(fetchStatesSuccess(data));
@@ -49,7 +47,7 @@ export const fetchStateList = () => async dispatch => {
 };
 export const loginUser = async (values, dispatch, navigation) => {
   try {
-    const response = await fetch(`${API_BASE_URL}${API_ENDPOINTS.LOGIN}`, {
+    const response = await fetch(`${API_URL}${API_ENDPOINTS.LOGIN}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -77,7 +75,7 @@ export const loginUser = async (values, dispatch, navigation) => {
 };
 export const fetchEvents = async token => {
   try {
-    const response = await fetch(`${API_BASE_URL}${API_ENDPOINTS.CALENDAR}`, {
+    const response = await fetch(`${API_URL}${API_ENDPOINTS.CALENDAR}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -98,16 +96,13 @@ export const fetchEvents = async token => {
 };
 export const fetchForumCategories = async token => {
   try {
-    const response = await fetch(
-      `${API_BASE_URL}${API_ENDPOINTS.FORUM_CATEGORY}`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: token,
-        },
+    const response = await fetch(`${API_URL}${API_ENDPOINTS.FORUM_CATEGORY}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: token,
       },
-    );
+    });
     const data = await response.json();
     console.log('Forum Categories API Response:', data);
     if (response.ok) {
@@ -122,7 +117,7 @@ export const fetchForumCategories = async token => {
 };
 export const fetchQuestionsByCategory = async (categoryId, token) => {
   try {
-    const url = `${API_BASE_URL}${API_ENDPOINTS.FORUM_CATEGORY_QUESTION}${categoryId}`;
+    const url = `${API_URL}${API_ENDPOINTS.FORUM_CATEGORY_QUESTION}${categoryId}`;
     const response = await fetch(url, {
       method: 'GET',
       headers: {
@@ -144,7 +139,7 @@ export const fetchQuestionsByCategory = async (categoryId, token) => {
 };
 export const fetchMandateList = async token => {
   try {
-    const response = await fetch(`${API_BASE_URL}${API_ENDPOINTS.HOME}`, {
+    const response = await fetch(`${API_URL}${API_ENDPOINTS.HOME}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

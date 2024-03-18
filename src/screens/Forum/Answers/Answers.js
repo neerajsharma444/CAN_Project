@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Text, View, TextInput, TouchableOpacity} from 'react-native';
 import Header from '@components/common/Header/Header';
 import styles from './Answers.Styles';
-import Button from '../../../components/common/Button/Button';
+import Button from '@components/common/Button/Button';
 
 const Answers = ({navigation}) => {
   const [doubleButton, setdoubleButton] = useState(true);

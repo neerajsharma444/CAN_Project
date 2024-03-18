@@ -3,7 +3,7 @@ import {FlatList, Text, TouchableOpacity, View, Alert} from 'react-native';
 import {useSelector} from 'react-redux';
 import Header from '@components/common/Header/Header';
 import styles from './Category.Styles';
-import {fetchForumCategories} from '@utils/services/api';
+import {fetchForumCategories} from '@redux/services/api';
 
 const Category = ({navigation}) => {
   const [forumCategories, setForumCategories] = useState([]);

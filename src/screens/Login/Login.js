@@ -12,7 +12,7 @@ import Header from '@components/Login/Header';
 import Button from '@components/common/Button/Button';
 import styles from './Login.Styles';
 import IMAGES from '@assets/images';
-import {loginUser} from '@utils/services/api';
+import {loginUser} from '@redux/services/api';
 import {loginSchema} from '@components/common/Form/Validations';
 import {useDispatch, useSelector} from 'react-redux';
 

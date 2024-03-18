@@ -12,10 +12,11 @@ import Button from '@components/common/Button/Button';
 import CustomPopUp from '@components/common/PopUp/CustomPopUp';
 import styles from './Register.Styles';
 import {useDispatch, useSelector} from 'react-redux';
-import {addUser, fetchStateList} from '@utils/services/api';
+import {addUser, fetchStateList} from '@redux/services/api';
 import {Dropdown} from 'react-native-element-dropdown';
 import {Formik} from 'formik';
 import {registerSchema} from '@components/common/Form/Validations';
+import {useSignUpMutation} from '../../redux/services/authService';
 
 const Register = ({navigation}) => {
   const dispatch = useDispatch();
@@ -32,13 +33,15 @@ const Register = ({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [title, setTitle] = useState(false);
 
+  const [signUpMutation] = useSignUpMutation();
+
   const handleLoginLinkPress = () => {
     navigation.navigate('Login');
   };
 
   const handleRegister = async values => {
     try {
-      const result = await addUser(values);
+      const result = signUpMutation(values).unwrap();
       console.log('Response', result);
       if (result) {
         setModalVisible(true);

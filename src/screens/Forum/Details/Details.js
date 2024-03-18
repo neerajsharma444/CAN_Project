@@ -3,7 +3,7 @@ import {FlatList, Text, TouchableOpacity, View, Alert} from 'react-native';
 import {useSelector} from 'react-redux';
 import Header from '@components/common/Header/Header';
 import styles from './Details.Styles';
-import {fetchQuestionsByCategory} from '@utils/services/api';
+import {fetchQuestionsByCategory} from '@redux/services/api';
 
 const Details = ({navigation, route}) => {
   const [questions, setQuestions] = useState([]);

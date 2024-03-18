@@ -39,8 +39,7 @@ export const registerSchema = yup.object({
     .matches(
       /(^[a-zA-Z][a-zA-Z\s]{0,20}[a-zA-Z]$)/,
       'State should only contain alphabets!',
-    )
-    .required('State is required!'),
+    ),
   city: yup
     .string()
     .matches(
