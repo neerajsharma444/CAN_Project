@@ -32,6 +32,7 @@ const StackNavigator = () => {
         <>
           <Stack.Screen name="Slider" component={Slider} />
           <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Home" component={DrawerNavigator} />
           <Stack.Screen name="Register" component={Register} />
           <Stack.Screen name="ResetPassword" component={ResetPassword} />
           <Stack.Screen name="Category" component={Category} />

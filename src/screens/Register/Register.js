@@ -6,42 +6,62 @@ import {
   ScrollView,
   TouchableOpacity,
   Alert,
+  ActivityIndicator,
 } from 'react-native';
 import Header from '@components/Login/Header';
 import Button from '@components/common/Button/Button';
 import CustomPopUp from '@components/common/PopUp/CustomPopUp';
 import styles from './Register.Styles';
 import {useDispatch, useSelector} from 'react-redux';
-import {addUser, fetchStateList} from '@redux/services/api';
 import {Dropdown} from 'react-native-element-dropdown';
 import {Formik} from 'formik';
 import {registerSchema} from '@components/common/Form/Validations';
-import {useSignUpMutation} from '../../redux/services/authService';
+import {
+  useSignUpMutation,
+  useLazyFetchStatesQuery,
+} from '@redux/services/authService';
+import {fetchStatesSuccess} from '@redux/slices/authSlice';
 
 const Register = ({navigation}) => {
   const dispatch = useDispatch();
-
-  const user = useSelector(state => state.user);
-  console.log('sign up', user);
-
-  useEffect(() => {
-    dispatch(fetchStateList());
-  }, [dispatch]);
-
-  const allState = useSelector(state => state.allStates?.result ?? []);
-
   const [modalVisible, setModalVisible] = useState(false);
   const [title, setTitle] = useState(false);
-
   const [signUpMutation] = useSignUpMutation();
+
+  // const user = useSelector(state => state.user);
+  // console.log('sign up', user);
+
+  const [data] = useLazyFetchStatesQuery();
+
+  const fetchStateList = async () => {
+    try {
+      const response = await data().unwrap();
+      // const data = response.result;
+      console.log('RESPONSE===>>>>', response);
+      if (response && response.result && Array.isArray(response.result)) {
+        dispatch(fetchStatesSuccess(response));
+      } else {
+        console.error('Invalid state data format:', data);
+      }
+    } catch (error) {
+      console.error('Error fetching state data:', error);
+    }
+  };
+
+  const allState = useSelector(state => state.auth.allStates?.result ?? []);
+
+  useEffect(() => {
+    fetchStateList();
+  }, []);
 
   const handleLoginLinkPress = () => {
     navigation.navigate('Login');
   };
 
   const handleRegister = async values => {
+    console.log('VALUES====>>>', values);
     try {
-      const result = signUpMutation(values).unwrap();
+      const result = await signUpMutation(values).unwrap();
       console.log('Response', result);
       if (result) {
         setModalVisible(true);

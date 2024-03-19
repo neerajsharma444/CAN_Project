@@ -5,7 +5,7 @@ export const apiClient = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: API_URL,
     credentials: 'include',
-    reducerPath: 'appClient',
+    reducerPath: 'apiClient',
     prepareHeaders: async (headers, {getState, endpoint}) => {
       // const userToken = getState().auth.user?.token;
       // console.log('userToken===>>>>', userToken);
@@ -13,7 +13,7 @@ export const apiClient = createApi({
       //   headers.set('Authorization', `Bearer ${userToken}`);
       //   headers.set('Content-Type', 'application/json');
       // } else {
-      //   headers.set('Content-Type', 'application/json');
+      headers.set('Content-Type', 'application/json');
       // }
       return headers;
     },

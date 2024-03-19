@@ -14,6 +14,7 @@ import IMAGES from '@assets/images';
 import styles from './Events.Styles';
 import {useSelector} from 'react-redux';
 import {fetchEvents} from '@redux/services/api';
+import {useLazyFetchEventsQuery} from '@redux/services/authService';
 
 const Events = () => {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -38,12 +39,35 @@ const Events = () => {
     }
   };
 
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       console.log('Token:', token);
+  //       if (token) {
+  //         const eventsData = await fetchEvents(token);
+  //         const formattedEvents = eventsData.map(event => ({
+  //           ...event,
+  //           date: event.date.split('T')[0], // Convert date to YYYY-MM-DD format
+  //         }));
+  //         console.log('Events data:', formattedEvents);
+  //         setEvents(formattedEvents);
+  //       }
+  //     } catch (error) {
+  //       console.log('Error:', error);
+  //       Alert.alert('Error', error.message);
+  //     }
+  //   };
+  //   fetchData();
+  // }, [token]);
+
+  const [data] = useLazyFetchEventsQuery();
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         console.log('Token:', token);
         if (token) {
-          const eventsData = await fetchEvents(token);
+          const eventsData = await useLazyFetchEventsQuery(token);
           const formattedEvents = eventsData.map(event => ({
             ...event,
             date: event.date.split('T')[0], // Convert date to YYYY-MM-DD format

@@ -15,6 +15,7 @@ import IMAGES from '@assets/images';
 import {loginUser} from '@redux/services/api';
 import {loginSchema} from '@components/common/Form/Validations';
 import {useDispatch, useSelector} from 'react-redux';
+import {useLoginMutation} from '@redux/services/authService';
 
 const Login = ({navigation}) => {
   const dispatch = useDispatch();
@@ -33,10 +34,24 @@ const Login = ({navigation}) => {
   const handleTogglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
+  // const handleLogin = async values => {
+  //   console.log('object', values);
+  //   loginUser(values, dispatch, navigation);
+  // };
+
+  const [loginMutation] = useLoginMutation();
+
   const handleLogin = async values => {
-    console.log('object', values);
-    loginUser(values, dispatch, navigation);
+    try {
+      const response = await loginMutation(values).unwrap();
+      console.log('Login Response:', response);
+      navigation.navigate('Home');
+    } catch (error) {
+      console.error('Error during login:', error);
+    }
   };
+
   return (
     <ScrollView>
       <View style={styles.container}>
