@@ -8,7 +8,8 @@ import styles from './Home.Styles';
 
 const Home = ({navigation}) => {
   const [mandateList, setMandateList] = useState([]);
-  const token = useSelector(state => state.user?.Token);
+  const token = useSelector(state => state.auth.user?.Token);
+  console.log('TOKEN===>', token);
 
   useEffect(() => {
     const fetchMandates = async () => {
@@ -19,7 +20,6 @@ const Home = ({navigation}) => {
         console.error('Error fetching mandate list:', error);
       }
     };
-
     fetchMandates();
   }, [token]);
 

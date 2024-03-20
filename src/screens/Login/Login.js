@@ -6,6 +6,7 @@ import {
   View,
   TouchableOpacity,
   Image,
+  Alert,
 } from 'react-native';
 import {Formik} from 'formik';
 import Header from '@components/Login/Header';
@@ -16,6 +17,7 @@ import {loginUser} from '@redux/services/api';
 import {loginSchema} from '@components/common/Form/Validations';
 import {useDispatch, useSelector} from 'react-redux';
 import {useLoginMutation} from '@redux/services/authService';
+import {loginSuccess} from '@redux/slices/authSlice';
 
 const Login = ({navigation}) => {
   const dispatch = useDispatch();
@@ -42,13 +44,33 @@ const Login = ({navigation}) => {
 
   const [loginMutation] = useLoginMutation();
 
+  // const handleLogin = async values => {
+  //   try {
+  //     const response = await loginMutation(values).unwrap();
+  //     console.log('Login Response:', response);
+  //     navigation.navigate('Home');
+  //   } catch (error) {
+  //     console.error('Error during login:', error);
+  //   }
+  // };
+
   const handleLogin = async values => {
+    const data = await loginMutation(values).unwrap();
+    console.log('Response from login:', data);
+
     try {
-      const response = await loginMutation(values).unwrap();
-      console.log('Login Response:', response);
-      navigation.navigate('Home');
+      if (data.status) {
+        dispatch(loginSuccess(data));
+        console.log('Login successful, response:', data);
+        navigation.navigate('Home');
+        return {success: true};
+      } else {
+        Alert.alert(data.message);
+        return {success: false, error: data.message};
+      }
     } catch (error) {
       console.error('Error during login:', error);
+      return {success: false, error: 'An error occurred during login'};
     }
   };
 

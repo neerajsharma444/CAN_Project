@@ -1,10 +1,10 @@
 import {StyleSheet} from 'react-native';
-import {moderateScale} from '@utils/Metrics';
+import {moderateScale, verticalScale} from '@utils/Metrics';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: 'lightblue',
   },
   formContainer: {
     padding: moderateScale(15),
@@ -30,15 +30,20 @@ const styles = StyleSheet.create({
     color: '#00000045',
   },
   referralContainer: {
-    padding: moderateScale(10),
-    elevation: moderateScale(5),
-    shadowRadius: moderateScale(2),
-    borderRadius: moderateScale(10),
-    marginBottom: moderateScale(10),
-    shadowOpacity: 0.8,
+    marginTop: verticalScale(15),
     shadowColor: '#00000040',
+  },
+  referralText: {
+    fontFamily: 'Nunito-Regular',
+    color: '#000000',
+    fontSize: moderateScale(20),
+    marginTop: verticalScale(15),
+  },
+  referralItem: {
     backgroundColor: '#ffffff',
-    shadowOffset: {width: 0, height: moderateScale(2)},
+    padding: moderateScale(10),
+    marginBottom: verticalScale(10),
+    borderRadius: moderateScale(10),
   },
   referralRow: {
     marginBottom: moderateScale(10),

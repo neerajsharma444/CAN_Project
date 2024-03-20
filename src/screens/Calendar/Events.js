@@ -19,7 +19,7 @@ import {useLazyFetchEventsQuery} from '@redux/services/authService';
 const Events = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [events, setEvents] = useState([]);
-  const token = useSelector(state => state.user?.Token);
+  const token = useSelector(state => state.auth.user?.Token);
 
   const isValidUrl = url => {
     const urlPattern = /\.(com|org|net|gov|edu)$/i;
@@ -65,16 +65,15 @@ const Events = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log('Token:', token);
-        if (token) {
-          const eventsData = await useLazyFetchEventsQuery(token);
-          const formattedEvents = eventsData.map(event => ({
-            ...event,
-            date: event.date.split('T')[0], // Convert date to YYYY-MM-DD format
-          }));
-          console.log('Events data:', formattedEvents);
-          setEvents(formattedEvents);
-        }
+        console.log('My Token===>', token);
+        const eventsData = await data();
+        console.log('EVeNTS DATA===>', eventsData);
+        const formattedEvents = eventsData.data.result.map(event => ({
+          ...event,
+          date: event.date.split('T')[0], // Convert date to YYYY-MM-DD format
+        }));
+        console.log('FORMATTED EVENTS DATA===>', formattedEvents);
+        setEvents(formattedEvents);
       } catch (error) {
         console.log('Error:', error);
         Alert.alert('Error', error.message);

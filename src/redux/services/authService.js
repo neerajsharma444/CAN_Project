@@ -24,10 +24,22 @@ export const authService = apiClient.injectEndpoints({
       }),
     }),
     fetchEvents: builder.query({
-      query: token => ({
+      query: () => ({
         url: API_ENDPOINTS.CALENDAR,
         method: 'GET',
-        Authorization: token,
+      }),
+    }),
+    referral: builder.mutation({
+      query: body => ({
+        url: API_ENDPOINTS.REFERRAL,
+        body: body,
+        method: 'POST',
+      }),
+    }),
+    referralList: builder.query({
+      query: id => ({
+        url: `referral/list_by_mandate?user_mandate=${id}`,
+        method: 'GET',
       }),
     }),
   }),
@@ -38,4 +50,5 @@ export const {
   useSignUpMutation,
   useLoginMutation,
   useLazyFetchEventsQuery,
+  useLazyReferralListQuery,
 } = authService;

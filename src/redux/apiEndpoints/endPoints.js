@@ -7,7 +7,7 @@ export const API_ENDPOINTS = {
   HOME: 'mandate/list',
   RESET_PASSWORD: 'resetlink_investor',
   REFERRAL: 'add/referral',
-  SAVE_REFERRAL: 'referral/list_by_mandate?user_mandate=',
+  REFERRAL_LIST: 'referral/list_by_mandate?user_mandate=',
   CALENDAR: 'get_events',
   CHANGE_PASSWORD: 'update-password/investor',
   PORTFOLIO: 'portfolio/list_by_mandate',
