@@ -4,7 +4,6 @@ import {moderateScale, verticalScale} from '@utils/Metrics';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'lightblue',
   },
   formContainer: {
     padding: moderateScale(15),
@@ -27,7 +26,7 @@ const styles = StyleSheet.create({
     borderRadius: moderateScale(8),
     paddingLeft: moderateScale(10),
     borderWidth: moderateScale(0.2),
-    color: '#00000045',
+    color: '#000000',
   },
   referralContainer: {
     marginTop: verticalScale(15),

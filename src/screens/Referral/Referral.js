@@ -5,18 +5,49 @@ import Button from '@components/common/Button/Button';
 import styles from './Referral.Styles';
 import IMAGES from '@assets/images';
 import CustomPopUp from '@components/common/PopUp/CustomPopUp';
-import {useLazyReferralListQuery} from '@redux/services/authService';
+import {
+  useLazyReferralListQuery,
+  useAddReferralMutation,
+} from '@redux/services/authService';
 import {useSelector} from 'react-redux';
 
 const Referral = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [title, setTitle] = useState(false);
   const [referrals, setReferrals] = useState([]);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
 
-  const id = useSelector(state => state.auth.user.result?._id);
+  const id = useSelector(state => state.auth.user?.result._id);
+  const [addReferral] = useAddReferralMutation();
 
-  const handleSubmitPress = () => {
-    setModalVisible(true);
+  const params = {
+    user_mandate: id,
+    name,
+    email,
+    phone,
+  };
+
+  const handleSubmitPress = async () => {
+    console.log('DATA', params);
+    try {
+      const response = await addReferral(params).unwrap();
+      console.log('RESPONSE===>', response);
+      if (response.status) {
+        console.log('Referral Successfull===>', response.message);
+        fetchReferrals();
+        setName('');
+        setEmail('');
+        setPhone('');
+        setModalVisible(false);
+      } else {
+        console.log('Error', response.message);
+      }
+    } catch (error) {
+      console.error('Error adding referral:', error);
+      console.log('Error', 'Failed to add referral');
+    }
   };
 
   const handleCloseModal = () => {
@@ -58,6 +89,7 @@ const Referral = () => {
               style={styles.input}
               placeholder="Enter Name"
               placeholderTextColor="#000000"
+              onChangeText={text => setName(text)}
             />
           </View>
           <View style={styles.inputContainer}>
@@ -66,6 +98,7 @@ const Referral = () => {
               style={styles.input}
               placeholder="Enter Email"
               placeholderTextColor="#000000"
+              onChangeText={text => setEmail(text)}
             />
           </View>
           <View style={styles.inputContainer}>
@@ -74,6 +107,7 @@ const Referral = () => {
               style={styles.input}
               placeholder="Enter Phone"
               placeholderTextColor="#000000"
+              onChangeText={text => setPhone(text)}
             />
           </View>
           <Button buttonName="Submit" onPress={handleSubmitPress} />

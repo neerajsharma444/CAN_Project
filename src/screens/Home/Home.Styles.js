@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {verticalScale, moderateScale} from '@utils/Metrics';
+import {verticalScale, moderateScale, horizontalScale} from '@utils/Metrics';
 
 const styles = StyleSheet.create({
   container: {
@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: moderateScale(20),
   },
   title: {
+    marginTop: verticalScale(15),
     fontSize: moderateScale(25),
     color: '#000',
     fontFamily: 'Nunito-SemiBold',
@@ -29,11 +30,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: moderateScale(10),
   },
   calendarItem: {
+    marginTop: verticalScale(5),
+    paddingRight: horizontalScale(10),
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: verticalScale(10),
     borderBottomWidth: moderateScale(1),
     borderBottomColor: '#00000021',
+    paddingVertical: 10,
   },
   calendarDateContainer: {
     backgroundColor: '#fff',
@@ -65,6 +69,7 @@ const styles = StyleSheet.create({
   calendarAbout: {
     fontSize: moderateScale(16),
     fontFamily: 'Nunito-Regular',
+    textTransform: 'capitalize',
     color: '#000000A8',
   },
   calendarTimeContainer: {

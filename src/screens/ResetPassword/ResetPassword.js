@@ -3,7 +3,7 @@ import {Image, Text, TextInput, View} from 'react-native';
 import styles from './Reset.Styles';
 import IMAGES from '@assets/images';
 import Button from '@components/common/Button/Button';
-import CustomPopUp from '../../components/common/PopUp/CustomPopUp';
+import CustomPopUp from '@components/common/PopUp/CustomPopUp';
 
 const ResetPassword = ({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);

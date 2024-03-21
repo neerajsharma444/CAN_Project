@@ -26,7 +26,7 @@ export const styles = StyleSheet.create({
   },
   canLogo: {
     height: verticalScale(80),
-    width: horizontalScale(170),
+    width: horizontalScale(150),
   },
   headerText: {
     color: '#FFFFFF',

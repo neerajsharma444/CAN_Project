@@ -5,7 +5,9 @@ export const API_ENDPOINTS = {
   GET_ALL_STATES: 'get_all_state',
   LOGIN: 'login',
   HOME: 'mandate/list',
-  RESET_PASSWORD: 'resetlink_investor',
+  CALENDAR_EVENTS: 'getEventtillDate',
+  UPDATE_PROFILE: 'update',
+  CHANGE_PASSWORD: 'update-password',
   REFERRAL: 'add/referral',
   REFERRAL_LIST: 'referral/list_by_mandate?user_mandate=',
   CALENDAR: 'get_events',
@@ -16,7 +18,6 @@ export const API_ENDPOINTS = {
   FORUM_ADD_QUESTION: 'add_quetion',
   FORUM_ADD_RESPONSE: 'update_question_data',
   MYPROFILE: 'loggedin_user_dataByid?_id=',
-  UPDATE_PROFILE: 'update_Investor',
   GET_QUESTION: 'quetion_data_by_id?_id=',
   //added URL for chat
   SOCKET_CHAT: 'http://54.190.192.105:9185',

@@ -8,7 +8,7 @@ export const apiClient = createApi({
     reducerPath: 'apiClient',
     prepareHeaders: async (headers, {getState, endpoint}) => {
       const token = getState().auth.user?.Token;
-      const id = getState().auth.user.result?._id;
+      const id = getState().auth.user?.result?._id;
       console.log('userToken===>>>>', token);
       console.log('userID===>>>>', id);
       if (token) {

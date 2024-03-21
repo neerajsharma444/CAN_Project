@@ -1,15 +1,18 @@
 import React, {useState, useEffect} from 'react';
-import {View, ScrollView, Text} from 'react-native';
+import {View, ScrollView, Text, Image} from 'react-native';
 import {useSelector} from 'react-redux';
 import Header from '@components/common/Header/Header';
 import Card from '@components/common/Card/Card';
 import {fetchMandateList} from '@redux/services/api';
 import styles from './Home.Styles';
+import {useGetCalendarEventsMutation} from '@redux/services/authService';
+import IMAGES from '@assets/images';
 
 const Home = ({navigation}) => {
   const [mandateList, setMandateList] = useState([]);
+  const [calendarEvents, setCalendarEvents] = useState([]);
   const token = useSelector(state => state.auth.user?.Token);
-  console.log('TOKEN===>', token);
+  const [getCalendarEvents] = useGetCalendarEventsMutation();
 
   useEffect(() => {
     const fetchMandates = async () => {
@@ -23,13 +26,58 @@ const Home = ({navigation}) => {
     fetchMandates();
   }, [token]);
 
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await getCalendarEvents({
+          start_date: '3/04/2024',
+          end_date: '4/04/2024',
+        });
+        setCalendarEvents(response.data?.result || []);
+      } catch (error) {
+        console.error('Error fetching calendar events:', error);
+      }
+    };
+    fetchEvents();
+  }, [getCalendarEvents]);
+
+  const renderCalendarItem = (item, index) => {
+    const eventDate = new Date(item.date);
+
+    const day = eventDate.getDate();
+    const month = eventDate.toLocaleString('default', {month: 'short'});
+
+    return (
+      <View key={index} style={styles.calendarItem}>
+        <View style={styles.calendarDateContainer}>
+          <Text style={styles.calendarDate}>{day}</Text>
+          <Text style={styles.calendarMonth}>{month}</Text>
+        </View>
+        <View style={styles.calendarInfoContainer}>
+          <Text style={styles.calendarEvent}>{item.title}</Text>
+          <Text style={styles.calendarAbout}>{item.description}</Text>
+          <View style={styles.calendarTimeContainer}>
+            <Image style={styles.calendarIcon} source={IMAGES.date} />
+            <Text style={styles.calendarTime}>{item.time}</Text>
+            <View style={styles.calendarLocationContainer}>
+              <Image
+                style={[styles.calendarIcon, styles.calendarLocationIcon]}
+                source={IMAGES.map}
+              />
+              <Text style={styles.calendarLocation}>{item.location}</Text>
+            </View>
+          </View>
+        </View>
+      </View>
+    );
+  };
+
   return (
     <View style={styles.container}>
       <Header navigation={navigation} />
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.content}>
           <Text style={styles.title}>Active Mandate</Text>
-
           {mandateList.map((mandate, index) => (
             <Card
               key={index}
@@ -45,6 +93,10 @@ const Home = ({navigation}) => {
               investment={`${mandate.commitment.commitment_amount} ${mandate.commitment.commitment_amount_in}`}
             />
           ))}
+          <Text style={styles.title}>Calendar Events</Text>
+          {calendarEvents.map((event, index) =>
+            renderCalendarItem(event, index),
+          )}
         </View>
       </ScrollView>
     </View>

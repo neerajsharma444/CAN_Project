@@ -13,7 +13,6 @@ import {Calendar} from 'react-native-calendars';
 import IMAGES from '@assets/images';
 import styles from './Events.Styles';
 import {useSelector} from 'react-redux';
-import {fetchEvents} from '@redux/services/api';
 import {useLazyFetchEventsQuery} from '@redux/services/authService';
 
 const Events = () => {
@@ -39,52 +38,32 @@ const Events = () => {
     }
   };
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       console.log('Token:', token);
-  //       if (token) {
-  //         const eventsData = await fetchEvents(token);
-  //         const formattedEvents = eventsData.map(event => ({
-  //           ...event,
-  //           date: event.date.split('T')[0], // Convert date to YYYY-MM-DD format
-  //         }));
-  //         console.log('Events data:', formattedEvents);
-  //         setEvents(formattedEvents);
-  //       }
-  //     } catch (error) {
-  //       console.log('Error:', error);
-  //       Alert.alert('Error', error.message);
-  //     }
-  //   };
-  //   fetchData();
-  // }, [token]);
-
   const [data] = useLazyFetchEventsQuery();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        console.log('My Token===>', token);
-        const eventsData = await data();
-        console.log('EVeNTS DATA===>', eventsData);
-        const formattedEvents = eventsData.data.result.map(event => ({
-          ...event,
-          date: event.date.split('T')[0], // Convert date to YYYY-MM-DD format
-        }));
-        console.log('FORMATTED EVENTS DATA===>', formattedEvents);
-        setEvents(formattedEvents);
-      } catch (error) {
-        console.log('Error:', error);
-        Alert.alert('Error', error.message);
-      }
-    };
-    fetchData();
-  }, [token]);
+  const fetchData = async () => {
+    try {
+      console.log('My Token===>', token);
+      const eventsData = await data();
+      console.log('EVeNTS DATA===>', eventsData);
+      const formattedEvents = eventsData.data.result.map(event => ({
+        ...event,
+        date: event.date.split('T')[0], // Convert date to YYYY-MM-DD format
+      }));
+      console.log('FORMATTED EVENTS DATA===>', formattedEvents);
+      setEvents(formattedEvents);
+    } catch (error) {
+      console.log('Error:', error);
+      Alert.alert('Error', error.message);
+    }
+  };
 
-  const filteredEvents = selectedDate
-    ? events.filter(item => item.date === selectedDate)
-    : events;
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const filteredEvents =
+    selectedDate && events.filter(item => item.date === selectedDate);
+  // : events;
 
   return (
     <ScrollView>
@@ -111,7 +90,7 @@ const Events = () => {
               {selectedDate ? selectedDate : 'No date selected'}
             </Text>
           </View>
-          {filteredEvents.map((item, index) => (
+          {filteredEvents?.map((item, index) => (
             <View key={index} style={styles.itemContainer}>
               <Text style={styles.topicText}>{item.title}</Text>
               <View style={styles.item}>

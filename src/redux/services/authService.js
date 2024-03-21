@@ -29,7 +29,14 @@ export const authService = apiClient.injectEndpoints({
         method: 'GET',
       }),
     }),
-    referral: builder.mutation({
+    getCalendarEvents: builder.mutation({
+      query: body => ({
+        url: API_ENDPOINTS.CALENDAR_EVENTS,
+        body: body,
+        method: 'POST',
+      }),
+    }),
+    addReferral: builder.mutation({
       query: body => ({
         url: API_ENDPOINTS.REFERRAL,
         body: body,
@@ -42,6 +49,20 @@ export const authService = apiClient.injectEndpoints({
         method: 'GET',
       }),
     }),
+    updateProfile: builder.mutation({
+      query: body => ({
+        url: API_ENDPOINTS.UPDATE_PROFILE,
+        body: body,
+        method: 'PUT',
+      }),
+    }),
+    changePassword: builder.mutation({
+      query: body => ({
+        url: API_ENDPOINTS.CHANGE_PASSWORD,
+        body: body,
+        method: 'PUT',
+      }),
+    }),
   }),
 });
 
@@ -50,5 +71,9 @@ export const {
   useSignUpMutation,
   useLoginMutation,
   useLazyFetchEventsQuery,
+  useGetCalendarEventsMutation,
+  useAddReferralMutation,
   useLazyReferralListQuery,
+  useUpdateProfileMutation,
+  useChangePasswordMutation,
 } = authService;
