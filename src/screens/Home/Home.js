@@ -20,7 +20,7 @@ const Home = ({navigation}) => {
         const response = await fetchMandateList(token);
         setMandateList(response.result);
       } catch (error) {
-        console.error('Error fetching mandate list:', error);
+        console.log('Error fetching mandate list:', error);
       }
     };
     fetchMandates();
@@ -60,10 +60,7 @@ const Home = ({navigation}) => {
             <Image style={styles.calendarIcon} source={IMAGES.date} />
             <Text style={styles.calendarTime}>{item.time}</Text>
             <View style={styles.calendarLocationContainer}>
-              <Image
-                style={[styles.calendarIcon, styles.calendarLocationIcon]}
-                source={IMAGES.map}
-              />
+              <Image style={styles.calendarIcon} source={IMAGES.map} />
               <Text style={styles.calendarLocation}>{item.location}</Text>
             </View>
           </View>

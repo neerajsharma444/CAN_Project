@@ -1,52 +1,57 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, Text, TouchableOpacity, View, Alert} from 'react-native';
-import {useSelector} from 'react-redux';
+import {Text, TouchableOpacity, View, ScrollView} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 import Header from '@components/common/Header/Header';
 import styles from './Category.Styles';
-import {fetchForumCategories} from '@redux/services/api';
+import {useLazyForumCategoriesQuery} from '@redux/services/authService';
+import {categorySuccess} from '@redux/slices/forumSlice';
 
 const Category = ({navigation}) => {
   const [forumCategories, setForumCategories] = useState([]);
-  const token = useSelector(state => state.user?.Token);
+  const id = useSelector(state => state.auth.user?.result._id);
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        console.log('Token:', token);
-        if (token) {
-          const categories = await fetchForumCategories(token);
-          setForumCategories(categories);
-        }
-      } catch (error) {
-        Alert.alert('Error', error.message);
-      }
-    };
-    fetchCategories();
-  }, [token]);
+  const [data] = useLazyForumCategoriesQuery();
 
-  const handleCategories = categoryId => {
-    navigation.navigate('Details', {categoryId: categoryId});
+  const fetchCategories = async () => {
+    try {
+      const response = await data(id);
+      const forumCategory = response.data.result;
+      console.log('FORUM CATEGORIES', forumCategory);
+      setForumCategories(forumCategory);
+    } catch (err) {
+      console.log('Error fetching Categories:', err);
+    }
   };
 
-  const renderForumData = ({item}) => (
-    <View style={styles.forumItemContainer}>
-      <TouchableOpacity onPress={() => handleCategories(item._id)}>
-        <Text style={styles.forumItemTitle}>{item.category_name}</Text>
-        <Text style={styles.forumItemText}>{item.description}</Text>
-      </TouchableOpacity>
-    </View>
-  );
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  const handleCategories = () => {
+    dispatch(categorySuccess(forumCategories));
+    console.log('CATEGORY NAVIGATION RESPONSE===>>', forumCategories);
+    navigation.navigate('Details');
+  };
 
   return (
     <View style={styles.mainContainer}>
       <Header />
       <View style={styles.subContainer}>
         <Text style={styles.headingText}>Forum Categories</Text>
-        <FlatList
-          data={forumCategories}
-          renderItem={renderForumData}
-          keyExtractor={(item, index) => index.toString()}
-        />
+        <ScrollView contentContainerStyle={styles.scrollViewContent}>
+          {forumCategories.map((category, index) => (
+            <TouchableOpacity
+              key={index}
+              style={styles.forumItemContainer}
+              onPress={() => handleCategories(category._id)}>
+              <Text style={styles.forumItemTitle}>
+                {category.category_name}
+              </Text>
+              <Text style={styles.forumItemText}>{category.description}</Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
       </View>
     </View>
   );

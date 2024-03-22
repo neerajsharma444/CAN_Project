@@ -45,7 +45,7 @@ export const authService = apiClient.injectEndpoints({
     }),
     referralList: builder.query({
       query: id => ({
-        url: `referral/list_by_mandate?user_mandate=${id}`,
+        url: `REFERRAL_LIST${id}`,
         method: 'GET',
       }),
     }),
@@ -56,11 +56,23 @@ export const authService = apiClient.injectEndpoints({
         method: 'PUT',
       }),
     }),
-    changePassword: builder.mutation({
+    updatePassword: builder.mutation({
       query: body => ({
-        url: API_ENDPOINTS.CHANGE_PASSWORD,
+        url: `update-password`,
         body: body,
         method: 'PUT',
+      }),
+    }),
+    forumCategories: builder.query({
+      query: () => ({
+        url: API_ENDPOINTS.FORUM_CATEGORY,
+        method: 'GET',
+      }),
+    }),
+    forumQuestions: builder.query({
+      query: id => ({
+        url: `quetion_data_by_category?category_id=${id}`,
+        method: 'GET',
       }),
     }),
   }),
@@ -75,5 +87,7 @@ export const {
   useAddReferralMutation,
   useLazyReferralListQuery,
   useUpdateProfileMutation,
-  useChangePasswordMutation,
+  useUpdatePasswordMutation,
+  useLazyForumCategoriesQuery,
+  useLazyForumQuestionsQuery,
 } = authService;

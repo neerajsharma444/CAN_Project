@@ -1,5 +1,5 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
-import {API_URL, API_ENDPOINTS} from '../apiEndpoints/endPoints';
+import {API_URL} from '../apiEndpoints/endPoints';
 
 export const apiClient = createApi({
   baseQuery: fetchBaseQuery({

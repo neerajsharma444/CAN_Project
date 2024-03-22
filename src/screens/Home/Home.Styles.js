@@ -14,7 +14,6 @@ const styles = StyleSheet.create({
     borderTopRightRadius: moderateScale(20),
   },
   title: {
-    marginTop: verticalScale(15),
     fontSize: moderateScale(25),
     color: '#000',
     fontFamily: 'Nunito-SemiBold',
@@ -43,7 +42,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderWidth: moderateScale(1),
     borderRadius: moderateScale(10),
-    padding: moderateScale(10),
+    padding: horizontalScale(14),
     alignItems: 'center',
     borderColor: '#0A4975',
   },
@@ -87,9 +86,6 @@ const styles = StyleSheet.create({
   calendarTime: {
     fontSize: moderateScale(14),
     fontFamily: 'Nunito-SemiBold',
-  },
-  calendarLocationIcon: {
-    // marginRight: moderateScale(20),
   },
   calendarLocation: {
     fontFamily: 'Nunito-SemiBold',

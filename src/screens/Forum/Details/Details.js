@@ -1,38 +1,39 @@
 import React, {useState, useEffect} from 'react';
-import {FlatList, Text, TouchableOpacity, View, Alert} from 'react-native';
-import {useSelector} from 'react-redux';
+import {FlatList, Text, TouchableOpacity, View} from 'react-native';
+import {useLazyForumQuestionsQuery} from '@redux/services/authService';
 import Header from '@components/common/Header/Header';
 import styles from './Details.Styles';
-import {fetchQuestionsByCategory} from '@redux/services/api';
+import {useSelector} from 'react-redux';
 
-const Details = ({navigation, route}) => {
+const Details = ({navigation}) => {
   const [questions, setQuestions] = useState([]);
-  const token = useSelector(state => state.user?.Token);
-  const categoryId = route.params?.categoryId;
+  const categoryId = useSelector(state => state.forum?.category?._id);
+  console.log('CATEGORY_IDDD', categoryId);
+
+  const [data] = useLazyForumQuestionsQuery();
+
+  const fetchQuestions = async () => {
+    try {
+      const response = await data(categoryId).unwrap();
+      if (response.status) {
+        const forumQuestions = response.result;
+        console.log('FORUM QUESTIONS', forumQuestions);
+        setQuestions(forumQuestions);
+      } else {
+        console.log('Error fetching Questions:', response.message);
+      }
+    } catch (err) {
+      console.log('Error fetching Questions:', err);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        console.log('Token:', token);
-        console.log('Category ID:', categoryId);
-        if (token && categoryId) {
-          const questionsData = await fetchQuestionsByCategory(
-            categoryId,
-            token,
-          );
-          setQuestions(questionsData);
-        }
-      } catch (error) {
-        console.log('Error:', error);
-        Alert.alert('Error', error.message);
-      }
-    };
-    fetchData();
-  }, [categoryId, token]);
+    fetchQuestions();
+  }, []);
 
   const renderQuestionItem = ({item}) => (
     <View>
-      <Text style={styles.heading}>{item.select_category}</Text>
+      {/* <Text style={styles.heading}>{item.select_category}</Text> */}
       <View style={styles.container}>
         <TouchableOpacity onPress={handleAnswers}>
           <Text style={styles.question}>{item.quetion}</Text>
@@ -49,6 +50,7 @@ const Details = ({navigation, route}) => {
   const handleAnswers = () => {
     navigation.navigate('Answers');
   };
+
   const handleQuestions = () => {
     navigation.navigate('Questions');
   };
@@ -56,6 +58,7 @@ const Details = ({navigation, route}) => {
   return (
     <View style={styles.mainContainer}>
       <Header drawer={false} back={true} />
+      {/* <Text style={styles.heading}>{item.select_category}</Text> */}
       <View style={styles.subContainer}>
         <View style={styles.detailList}>
           <FlatList

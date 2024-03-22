@@ -3,6 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {persistStore, persistReducer} from 'redux-persist';
 import {apiClient} from '../services/apiClient';
 import authReducer from '../slices/authSlice';
+import forumReducer from '../slices/forumSlice';
 import {combineReducers} from 'redux';
 
 const persistConfig = {
@@ -13,6 +14,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   [apiClient.reducerPath]: apiClient.reducer,
   auth: authReducer,
+  forum: forumReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

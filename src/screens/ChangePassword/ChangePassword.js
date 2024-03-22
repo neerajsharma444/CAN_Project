@@ -1,47 +1,42 @@
 import React, {useState} from 'react';
-import {Text, View, TextInput} from 'react-native';
+import {Text, View, TextInput, KeyboardAvoidingView} from 'react-native';
 import Header from '@components/common/Header/Header';
 import Button from '@components/common/Button/Button';
 import styles from './Change.Styles';
 import {useSelector} from 'react-redux';
-import {useChangePasswordMutation} from '@redux/services/authService';
+import {useUpdatePasswordMutation} from '@redux/services/authService';
+import CustomPopUp from '@components/common/PopUp/CustomPopUp';
 
 const ChangePassword = ({navigation}) => {
+  const [isVisible, setIsVisible] = useState(false);
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
+  const userId = useSelector(state => state.auth.user?.result);
+  const [changePasswordMutation] = useUpdatePasswordMutation();
 
-  const userId = useSelector(state => state.auth.user?.result?._id);
-  console.log('USERID====>', userId);
-
-  const params = {
-    _id: userId,
-    current_password: currentPassword,
-    new_password: newPassword,
-  };
-
-  const [changePassword] = useChangePasswordMutation();
-
-  const handleUpdate = async () => {
-    console.log('DATA', params);
+  const handleUpdatePassword = async () => {
+    const params = {
+      _id: userId._id,
+      current_password: currentPassword,
+      new_password: newPassword,
+    };
+    console.log('PARAMS', params);
     try {
-      const response = await changePassword(params).unwrap();
-      console.log('RESPONSE===>', response);
-      if (response.status) {
-        console.log('Password Changed Successfully===>', response.message);
-        setCurrentPassword('');
-        setNewPassword('');
-        navigation.navigate('Login');
-      } else {
-        console.log('Error', response.message);
-      }
-    } catch (error) {
-      console.error('Error changing password:', error);
-      console.log('Error', 'Failed to change the password');
+      const data = await changePasswordMutation(params);
+      console.log('RESPONSE!@#$%==>', data);
+      setIsVisible(true);
+    } catch (err) {
+      console.log('ERROR', err);
     }
   };
 
+  const closeModal = () => {
+    setIsVisible(false);
+    navigation.navigate('Login');
+  };
+
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView style={styles.container}>
       <Header drawer={false} back={true} />
       <View style={styles.passwordContainer}>
         <Text style={styles.title}>Change Password</Text>
@@ -50,27 +45,24 @@ const ChangePassword = ({navigation}) => {
           <TextInput
             placeholder="Enter your current password"
             style={styles.input}
-            value={currentPassword}
-            onChangeText={text => setCurrentPassword(text)}
-          />
-          <Text style={styles.label}>Confirm Current Password</Text>
-          <TextInput
-            placeholder="Enter current password again"
-            style={styles.input}
-            value={currentPassword}
             onChangeText={text => setCurrentPassword(text)}
           />
           <Text style={styles.label}>New Password</Text>
           <TextInput
             placeholder="Enter new password"
             style={styles.input}
-            value={newPassword}
             onChangeText={text => setNewPassword(text)}
           />
         </View>
-        <Button buttonName="Update" onPress={handleUpdate} />
+        <Button buttonName="Update" onPress={handleUpdatePassword} />
       </View>
-    </View>
+      <CustomPopUp
+        visible={isVisible}
+        onPress={closeModal}
+        buttonText="Continue"
+        text="Your password has been updated. You will now be redirected to the login screen"
+      />
+    </KeyboardAvoidingView>
   );
 };
 
