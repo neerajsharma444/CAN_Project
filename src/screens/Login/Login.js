@@ -37,22 +37,7 @@ const Login = ({navigation}) => {
     setShowPassword(!showPassword);
   };
 
-  // const handleLogin = async values => {
-  //   console.log('object', values);
-  //   loginUser(values, dispatch, navigation);
-  // };
-
   const [loginMutation] = useLoginMutation();
-
-  // const handleLogin = async values => {
-  //   try {
-  //     const response = await loginMutation(values).unwrap();
-  //     console.log('Login Response:', response);
-  //     navigation.navigate('Home');
-  //   } catch (error) {
-  //     console.error('Error during login:', error);
-  //   }
-  // };
 
   const handleLogin = async values => {
     const data = await loginMutation(values).unwrap();

@@ -4,7 +4,10 @@ import {useDispatch, useSelector} from 'react-redux';
 import Header from '@components/common/Header/Header';
 import styles from './Category.Styles';
 import {useLazyForumCategoriesQuery} from '@redux/services/authService';
-import {categorySuccess} from '@redux/slices/forumSlice';
+import {
+  categorySuccess,
+  fetchCategoriesSuccess,
+} from '@redux/slices/forumSlice';
 
 const Category = ({navigation}) => {
   const [forumCategories, setForumCategories] = useState([]);
@@ -16,9 +19,10 @@ const Category = ({navigation}) => {
   const fetchCategories = async () => {
     try {
       const response = await data(id);
-      const forumCategory = response.data.result;
-      console.log('FORUM CATEGORIES', forumCategory);
-      setForumCategories(forumCategory);
+      const forumCategories = response.data.result;
+      console.log('FORUM CATEGORIES', forumCategories);
+      dispatch(fetchCategoriesSuccess(forumCategories));
+      setForumCategories(forumCategories);
     } catch (err) {
       console.log('Error fetching Categories:', err);
     }
@@ -28,9 +32,10 @@ const Category = ({navigation}) => {
     fetchCategories();
   }, []);
 
-  const handleCategories = () => {
-    dispatch(categorySuccess(forumCategories));
-    console.log('CATEGORY NAVIGATION RESPONSE===>>', forumCategories);
+  const handleCategories = category => {
+    dispatch(categorySuccess(category));
+    // dispatch(fetchCategoriesSuccess(fetchCategories));
+    console.log('CATEGORY NAVIGATION RESPONSE===>>', category);
     navigation.navigate('Details');
   };
 
@@ -44,7 +49,7 @@ const Category = ({navigation}) => {
             <TouchableOpacity
               key={index}
               style={styles.forumItemContainer}
-              onPress={() => handleCategories(category._id)}>
+              onPress={() => handleCategories(category)}>
               <Text style={styles.forumItemTitle}>
                 {category.category_name}
               </Text>

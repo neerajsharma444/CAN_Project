@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {moderateScale} from '@utils/Metrics';
+import {moderateScale, horizontalScale, verticalScale} from '@utils/Metrics';
 
 const styles = StyleSheet.create({
   mainContainer: {
@@ -27,11 +27,13 @@ const styles = StyleSheet.create({
     fontFamily: 'Nunito-Regular',
   },
   dropdown: {
-    width: '100%',
-    borderRadius: moderateScale(8),
-    paddingLeft: moderateScale(10),
     borderWidth: moderateScale(1),
-    borderColor: 'rgba(10, 73, 117, 0.37)',
+    borderColor: '#0A49755E',
+    borderRadius: moderateScale(8),
+    paddingLeft: horizontalScale(15),
+    marginTop: verticalScale(5),
+    paddingVertical: verticalScale(8),
+    paddingRight: horizontalScale(10),
   },
   textInput: {
     width: '100%',

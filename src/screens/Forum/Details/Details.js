@@ -33,7 +33,7 @@ const Details = ({navigation}) => {
 
   const renderQuestionItem = ({item}) => (
     <View>
-      {/* <Text style={styles.heading}>{item.select_category}</Text> */}
+      <Text style={styles.heading}>{item.select_category}</Text>
       <View style={styles.container}>
         <TouchableOpacity onPress={handleAnswers}>
           <Text style={styles.question}>{item.quetion}</Text>

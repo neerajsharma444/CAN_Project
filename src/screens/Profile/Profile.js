@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -12,12 +12,39 @@ import Header from '@components/common/Header/Header';
 import Button from '@components/common/Button/Button';
 import IMAGES from '@assets/images';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {useUpdateProfileMutation} from '@redux/services/authService';
+import {Dropdown} from 'react-native-element-dropdown';
+import {useLazyFetchStatesQuery} from '@redux/services/authService';
+import {fetchStatesSuccess} from '@redux/slices/authSlice';
 
 const Profile = ({navigation}) => {
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
+  const dispatch = useDispatch();
+
+  const [data] = useLazyFetchStatesQuery();
+
+  const fetchStateList = async () => {
+    try {
+      const response = await data().unwrap();
+      // const data = response.result;
+      console.log('RESPONSE===>>>>', response);
+      if (response && response.result && Array.isArray(response.result)) {
+        dispatch(fetchStatesSuccess(response));
+      } else {
+        console.error('Invalid state data format:', data);
+      }
+    } catch (error) {
+      console.error('Error fetching state data:', error);
+    }
+  };
+
+  const allState = useSelector(state => state.auth.allStates?.result ?? []);
+
+  useEffect(() => {
+    fetchStateList();
+  }, []);
 
   const handleDateChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -125,11 +152,14 @@ const Profile = ({navigation}) => {
               onChangeText={text => setOrganization(text)}
             />
             <Text style={styles.label}>State</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Enter State"
+            <Dropdown
+              data={allState}
+              placeholder={state}
+              labelField="state"
+              valueField="_id"
+              onChange={item => setState(item.state)}
+              style={styles.dropDown}
               value={state}
-              onChangeText={text => setState(text)}
             />
             <Text style={styles.label}>City</Text>
             <TextInput

@@ -75,6 +75,20 @@ export const authService = apiClient.injectEndpoints({
         method: 'GET',
       }),
     }),
+    addQuestion: builder.mutation({
+      query: body => ({
+        url: API_ENDPOINTS.FORUM_ADD_QUESTION,
+        body: body,
+        method: 'POST',
+      }),
+    }),
+    portfolio: builder.mutation({
+      query: body => ({
+        url: API_ENDPOINTS.PORTFOLIO,
+        body: body,
+        method: 'POST',
+      }),
+    }),
   }),
 });
 
@@ -90,4 +104,5 @@ export const {
   useUpdatePasswordMutation,
   useLazyForumCategoriesQuery,
   useLazyForumQuestionsQuery,
+  useAddQuestionMutation,
 } = authService;

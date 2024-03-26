@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(20),
     color: '#0A4975',
     fontFamily: 'Nunito-SemiBold',
+    textTransform: 'capitalize',
   },
   forumItemText: {
     fontSize: moderateScale(16),
