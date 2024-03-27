@@ -45,12 +45,11 @@ const Events = () => {
       console.log('My Token===>', token);
       const eventsData = await data();
       console.log('EVeNTS DATA===>', eventsData);
-      const formattedEvents = eventsData.data.result.map(event => ({
+      const events = eventsData.data.result.map(event => ({
         ...event,
         date: event.date.split('T')[0], // Convert date to YYYY-MM-DD format
       }));
-      console.log('FORMATTED EVENTS DATA===>', formattedEvents);
-      setEvents(formattedEvents);
+      setEvents(events);
     } catch (error) {
       console.log('Error:', error);
       Alert.alert('Error', error.message);

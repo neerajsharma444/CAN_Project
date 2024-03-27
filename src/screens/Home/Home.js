@@ -1,30 +1,34 @@
 import React, {useState, useEffect} from 'react';
 import {View, ScrollView, Text, Image} from 'react-native';
-import {useSelector} from 'react-redux';
 import Header from '@components/common/Header/Header';
 import Card from '@components/common/Card/Card';
-import {fetchMandateList} from '@redux/services/api';
 import styles from './Home.Styles';
 import {useGetCalendarEventsMutation} from '@redux/services/authService';
 import IMAGES from '@assets/images';
+import {useFetchMendateListMutation} from '@redux/services/authService';
 
 const Home = ({navigation}) => {
   const [mandateList, setMandateList] = useState([]);
   const [calendarEvents, setCalendarEvents] = useState([]);
-  const token = useSelector(state => state.auth.user?.Token);
-  const [getCalendarEvents] = useGetCalendarEventsMutation();
+
+  const [data] = useFetchMendateListMutation();
+
+  const fetchMendateList = async () => {
+    try {
+      const response = await data().unwrap();
+      const res = response.result;
+      setMandateList(res);
+      console.log('RESPONSE===>', res);
+    } catch (err) {
+      console.log('Error fetching mendate list:', err);
+    }
+  };
 
   useEffect(() => {
-    const fetchMandates = async () => {
-      try {
-        const response = await fetchMandateList(token);
-        setMandateList(response.result);
-      } catch (error) {
-        console.log('Error fetching mandate list:', error);
-      }
-    };
-    fetchMandates();
-  }, [token]);
+    fetchMendateList();
+  }, []);
+
+  const [getCalendarEvents] = useGetCalendarEventsMutation();
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -75,7 +79,7 @@ const Home = ({navigation}) => {
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.content}>
           <Text style={styles.title}>Active Mandate</Text>
-          {mandateList.map((mandate, index) => (
+          {mandateList?.map((mandate, index) => (
             <Card
               key={index}
               name={mandate.company_name}

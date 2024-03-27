@@ -24,6 +24,12 @@ export const registerSchema = yup.object({
     )
     .required('Password is required!'),
 
+  phone: yup
+    .string()
+    // .matches(/^\(\d{3}\) \d{3}-\d{4}$/)
+    .matches(/^[0-9]+$/, 'Phone number must contain only digits')
+    .required('Phone is required!'),
+
   organization: yup
     .string()
     .matches(

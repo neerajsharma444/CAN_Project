@@ -28,7 +28,6 @@ const Profile = ({navigation}) => {
   const fetchStateList = async () => {
     try {
       const response = await data().unwrap();
-      // const data = response.result;
       console.log('RESPONSE===>>>>', response);
       if (response && response.result && Array.isArray(response.result)) {
         dispatch(fetchStatesSuccess(response));
@@ -50,6 +49,7 @@ const Profile = ({navigation}) => {
     const currentDate = selectedDate || date;
     setShowDatePicker(Platform.OS === 'ios');
     setDate(currentDate);
+    setDob(formatDate(currentDate));
   };
 
   const [updateProfile] = useUpdateProfileMutation();
@@ -59,38 +59,38 @@ const Profile = ({navigation}) => {
 
   const [name, setName] = useState(user_data?.name);
   const [email, setEmail] = useState(user_data?.email);
+  const [dob, setDob] = useState(user_data?.dob);
+  const [phone, setPhone] = useState(user_data?.phone);
   const [organization, setOrganization] = useState(user_data?.organization);
   const [state, setState] = useState(user_data?.state);
   const [city, setCity] = useState(user_data?.city);
 
-  const params = {
-    id: user_data?._id,
-    name,
-    email,
-    organization,
-    state,
-    city,
+  const formatDate = date => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    setDob(`${month}/${day}/${year}`);
+    return `${month}/${day}/${year}`;
   };
 
   const handleUpdateProfile = async () => {
-    console.log('DATA', params);
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('email', email);
+    formData.append('dob', dob);
+    formData.append('phone', phone);
+    formData.append('organization', organization);
+    formData.append('state', state);
+    formData.append('city', city);
+
+    console.log('FORM DATA ===>', formData);
+
     try {
-      const response = await updateProfile(params).unwrap();
-      console.log('RESPONSE===>', response);
-      if (response.status) {
-        console.log('Profile Updated Successfully===>', response.message);
-        setName('');
-        setEmail('');
-        setOrganization('');
-        setState('');
-        setCity('');
-        navigation.navigate('Login');
-      } else {
-        console.log('Error', response.message);
-      }
+      const result = await updateProfile(formData).unwrap();
+      console.log('Response===>', result);
+      navigation.goBack();
     } catch (error) {
-      console.error('Error updating profile:', error);
-      console.log('Error', 'Failed to update profile');
+      console.log('Error :', error);
     }
   };
 
@@ -126,10 +126,11 @@ const Profile = ({navigation}) => {
             <TouchableOpacity onPress={() => setShowDatePicker(true)}>
               <View style={styles.dateContainer}>
                 <TextInput
-                  style={styles.inputDate}
-                  value={date.toLocaleDateString()}
                   editable={false}
-                  placeholder="Enter Date"
+                  style={styles.inputDate}
+                  value={dob}
+                  placeholder="Enter DOB"
+                  onChangeText={text => setDob(text)}
                 />
                 <Image style={styles.dateIcon} source={IMAGES.calendar} />
               </View>
@@ -143,7 +144,12 @@ const Profile = ({navigation}) => {
               />
             )}
             <Text style={styles.label}>Phone</Text>
-            <TextInput style={styles.input} placeholder="Enter Phone" />
+            <TextInput
+              style={styles.input}
+              placeholder="Enter Phone"
+              value={phone}
+              onChangeText={text => setPhone(text)}
+            />
             <Text style={styles.label}>Organization</Text>
             <TextInput
               style={styles.input}

@@ -10,9 +10,9 @@ export const authService = apiClient.injectEndpoints({
       }),
     }),
     signUp: builder.mutation({
-      query: body => ({
+      query: FormData => ({
         url: API_ENDPOINTS.REGISTER,
-        body: body,
+        body: FormData,
         method: 'POST',
       }),
     }),
@@ -38,14 +38,14 @@ export const authService = apiClient.injectEndpoints({
     }),
     addReferral: builder.mutation({
       query: body => ({
-        url: API_ENDPOINTS.REFERRAL,
+        url: API_ENDPOINTS.ADD_REFERRAL,
         body: body,
         method: 'POST',
       }),
     }),
     referralList: builder.query({
       query: id => ({
-        url: `REFERRAL_LIST${id}`,
+        url: `referral/list_by_mandate?user_mandate=${id}`,
         method: 'GET',
       }),
     }),
@@ -82,6 +82,13 @@ export const authService = apiClient.injectEndpoints({
         method: 'POST',
       }),
     }),
+    fetchMendateList: builder.mutation({
+      query: body => ({
+        url: API_ENDPOINTS.ACTIVE_MENDATE,
+        body: body,
+        method: 'POST',
+      }),
+    }),
     portfolio: builder.mutation({
       query: body => ({
         url: API_ENDPOINTS.PORTFOLIO,
@@ -104,5 +111,6 @@ export const {
   useUpdatePasswordMutation,
   useLazyForumCategoriesQuery,
   useLazyForumQuestionsQuery,
+  useFetchMendateListMutation,
   useAddQuestionMutation,
 } = authService;

@@ -8,54 +8,55 @@ import {
   Image,
   Alert,
 } from 'react-native';
-import {Formik} from 'formik';
 import Header from '@components/Login/Header';
 import Button from '@components/common/Button/Button';
 import styles from './Login.Styles';
 import IMAGES from '@assets/images';
-import {loginUser} from '@redux/services/api';
-import {loginSchema} from '@components/common/Form/Validations';
-import {useDispatch, useSelector} from 'react-redux';
 import {useLoginMutation} from '@redux/services/authService';
 import {loginSuccess} from '@redux/slices/authSlice';
+import {useDispatch} from 'react-redux';
 
 const Login = ({navigation}) => {
-  const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-
-  const params = {email: email, password: password};
+  const dispatch = useDispatch();
 
   const handleSignUpLinkClick = () => {
     navigation.navigate('Register');
   };
+
   const handleForgotPassword = () => {
     navigation.navigate('ResetPassword');
   };
+
   const handleTogglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
   const [loginMutation] = useLoginMutation();
 
-  const handleLogin = async values => {
-    const data = await loginMutation(values).unwrap();
-    console.log('Response from login:', data);
+  const param = {
+    email,
+    password,
+  };
 
+  const handleLogin = async () => {
     try {
-      if (data.status) {
-        dispatch(loginSuccess(data));
-        console.log('Login successful, response:', data);
+      const response = await loginMutation(param).unwrap();
+      console.log('Email ', email, password);
+      console.log('Response from login:', response);
+
+      if (response.status) {
+        dispatch(loginSuccess(response));
+        console.log('Login successful, response:', response.message, response);
         navigation.navigate('Home');
-        return {success: true};
       } else {
-        Alert.alert(data.message);
-        return {success: false, error: data.message};
+        Alert.alert(response.message);
       }
     } catch (error) {
       console.error('Error during login:', error);
-      return {success: false, error: 'An error occurred during login'};
+      Alert.alert('An error occurred during login');
     }
   };
 
@@ -63,70 +64,45 @@ const Login = ({navigation}) => {
     <ScrollView>
       <View style={styles.container}>
         <Header height={300} />
-        <Formik
-          initialValues={{
-            email: '',
-            password: '',
-          }}
-          onSubmit={handleLogin}
-          validationSchema={loginSchema}>
-          {({
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            values,
-            errors,
-            touched,
-          }) => (
-            <View style={styles.loginContainer}>
-              <Text style={styles.title}>Login</Text>
-              <View>
-                <Text style={styles.inputLabel}>Email</Text>
-                <TextInput
-                  style={styles.input}
-                  placeholder="Enter Email"
-                  value={values.email}
-                  onChangeText={handleChange('email')}
-                  onBlur={handleBlur('email')}
+        <View style={styles.loginContainer}>
+          <Text style={styles.title}>Login</Text>
+          <View>
+            <Text style={styles.inputLabel}>Email</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Enter Email"
+              value={email}
+              onChangeText={setEmail}
+            />
+          </View>
+          <View>
+            <Text style={styles.inputLabel}>Password</Text>
+            <View style={styles.passwordContainer}>
+              <TextInput
+                style={styles.passwordInput}
+                placeholder="Enter Password"
+                value={password}
+                onChangeText={setPassword}
+                secureTextEntry={!showPassword}
+              />
+              <TouchableOpacity onPress={handleTogglePasswordVisibility}>
+                <Image
+                  style={styles.eyeIcon}
+                  source={showPassword ? IMAGES.eye : IMAGES.eye}
                 />
-                {touched.email && errors.email && (
-                  <Text style={styles.errorText}>{errors.email}</Text>
-                )}
-              </View>
-              <View>
-                <Text style={styles.inputLabel}>Password</Text>
-                <View style={styles.passwordContainer}>
-                  <TextInput
-                    style={styles.passwordInput}
-                    placeholder="Enter Password"
-                    value={values.password}
-                    onChangeText={handleChange('password')}
-                    onBlur={handleBlur('password')}
-                    secureTextEntry={!showPassword}
-                  />
-                  <TouchableOpacity onPress={handleTogglePasswordVisibility}>
-                    <Image
-                      style={styles.eyeIcon}
-                      source={showPassword ? IMAGES.eye : IMAGES.eye}
-                    />
-                  </TouchableOpacity>
-                </View>
-                {touched.password && errors.password && (
-                  <Text style={styles.errorText}>{errors.password}</Text>
-                )}
-              </View>
-              <View style={styles.resetContainer}>
-                <TouchableOpacity onPress={handleForgotPassword}>
-                  <Text style={styles.forgotPassword}>Forgot Password?</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={handleSignUpLinkClick}>
-                  <Text style={styles.signupLink}>Become an Investor</Text>
-                </TouchableOpacity>
-              </View>
-              <Button buttonName="Login" onPress={handleSubmit} />
+              </TouchableOpacity>
             </View>
-          )}
-        </Formik>
+          </View>
+          <View style={styles.resetContainer}>
+            <TouchableOpacity onPress={handleForgotPassword}>
+              <Text style={styles.forgotPassword}>Forgot Password?</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handleSignUpLinkClick}>
+              <Text style={styles.signupLink}>Become an Investor</Text>
+            </TouchableOpacity>
+          </View>
+          <Button buttonName="Login" onPress={handleLogin} />
+        </View>
       </View>
     </ScrollView>
   );

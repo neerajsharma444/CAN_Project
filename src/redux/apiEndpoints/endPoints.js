@@ -1,13 +1,14 @@
 export const API_URL = 'http://54.190.192.105:9185/angel/';
 
 export const API_ENDPOINTS = {
-  REGISTER: 'register',
+  REGISTER: 'add_Investor',
   GET_ALL_STATES: 'get_all_state',
-  LOGIN: 'login',
-  HOME: 'mandate/list',
+  LOGIN: 'investor_login',
+  ACTIVE_MENDATE: 'mandate/list',
   CALENDAR_EVENTS: 'getEventtillDate',
-  UPDATE_PROFILE: 'update',
+  UPDATE_PROFILE: 'update_Investor',
   CHANGE_PASSWORD: 'update-password',
+  ADD_REFERRAL: 'add/referral',
   REFERRAL_LIST: 'referral/list_by_mandate?user_mandate=',
   CALENDAR: 'get_events',
   CHANGE_PASSWORD: 'update-password/investor',

@@ -19,7 +19,8 @@ const Referral = () => {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
 
-  const id = useSelector(state => state.auth.user?.result._id);
+  const id = useSelector(state => state.auth.user?.result?._id);
+  console.log('ID===>', id);
   const [addReferral] = useAddReferralMutation();
 
   const params = {
@@ -59,6 +60,7 @@ const Referral = () => {
   const fetchReferrals = async () => {
     try {
       const response = await data(id);
+      console.log('REPONSE.DATA===>', response);
       const referral = response.data.result;
       setReferrals(referral);
     } catch (err) {

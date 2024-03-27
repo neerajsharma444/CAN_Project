@@ -26,18 +26,12 @@ const Register = ({navigation}) => {
   const dispatch = useDispatch();
   const [modalVisible, setModalVisible] = useState(false);
   const [title, setTitle] = useState(false);
-  const [signUpMutation] = useSignUpMutation();
-
-  // const user = useSelector(state => state.user);
-  // console.log('sign up', user);
 
   const [data] = useLazyFetchStatesQuery();
 
   const fetchStateList = async () => {
     try {
       const response = await data().unwrap();
-      // const data = response.result;
-      console.log('RESPONSE===>>>>', response);
       if (response && response.result && Array.isArray(response.result)) {
         dispatch(fetchStatesSuccess(response));
       } else {
@@ -58,18 +52,30 @@ const Register = ({navigation}) => {
     navigation.navigate('Login');
   };
 
+  const [signUpMutation] = useSignUpMutation();
+
   const handleRegister = async values => {
-    console.log('VALUES====>>>', values);
+    const formData = new FormData();
+    formData.append('name', values.name);
+    formData.append('email', values.email);
+    formData.append('password', values.password);
+    formData.append('phone', values.phone);
+    formData.append('organization', values.organization);
+    formData.append('state', values.state);
+    formData.append('city', values.city);
+
+    console.log('FORM DATA ===>', formData);
+
     try {
-      const result = await signUpMutation(values).unwrap();
-      console.log('Response', result);
-      if (result) {
+      const result = await signUpMutation(formData).unwrap();
+      console.log('Response===>', result);
+      if (result.status) {
         setModalVisible(true);
       } else {
         setModalVisible(false);
       }
     } catch (error) {
-      console.error('Error during registration:', error);
+      console.log('Error during registration:', error);
       setModalVisible(false);
     }
   };
@@ -91,6 +97,7 @@ const Register = ({navigation}) => {
                 name: '',
                 email: '',
                 password: '',
+                phone: '',
                 organization: '',
                 state: '',
                 city: '',
@@ -138,6 +145,17 @@ const Register = ({navigation}) => {
                   />
                   {touched.password && errors.password && (
                     <Text style={styles.errorText}>{errors.password}</Text>
+                  )}
+                  <Text style={styles.text}>Phone</Text>
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Enter Phone"
+                    onChangeText={handleChange('phone')}
+                    onBlur={handleBlur('phone')}
+                    value={values.phone}
+                  />
+                  {touched.phone && errors.phone && (
+                    <Text style={styles.errorText}>{errors.phone}</Text>
                   )}
                   <Text style={styles.text}>Organization</Text>
                   <TextInput
