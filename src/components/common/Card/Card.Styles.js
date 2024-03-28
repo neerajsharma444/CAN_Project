@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {verticalScale} from '@utils/Metrics';
+import {verticalScale, horizontalScale} from '@utils/Metrics';
 
 const styles = StyleSheet.create({
   card: {
@@ -14,6 +14,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: verticalScale(8),
     width: '75%',
+  },
+  image: {
+    height: verticalScale(60),
+    width: horizontalScale(100),
   },
   titleContainer: {
     marginLeft: verticalScale(10),

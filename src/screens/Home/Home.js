@@ -6,6 +6,7 @@ import styles from './Home.Styles';
 import {useGetCalendarEventsMutation} from '@redux/services/authService';
 import IMAGES from '@assets/images';
 import {useFetchMendateListMutation} from '@redux/services/authService';
+import {socketInit} from '@utils/Socket';
 
 const Home = ({navigation}) => {
   const [mandateList, setMandateList] = useState([]);
@@ -26,6 +27,7 @@ const Home = ({navigation}) => {
 
   useEffect(() => {
     fetchMendateList();
+    socketInit();
   }, []);
 
   const [getCalendarEvents] = useGetCalendarEventsMutation();
@@ -84,6 +86,7 @@ const Home = ({navigation}) => {
               key={index}
               name={mandate.company_name}
               description={mandate.description}
+              logo={mandate.logo}
               amountLabel="MRP: "
               amount={`${mandate.mrr.mrr_amount} ${mandate.mrr.mrr_amount_in}`}
               roundSizeLabel="Round Size: "

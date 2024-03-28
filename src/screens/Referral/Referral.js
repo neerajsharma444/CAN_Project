@@ -18,10 +18,13 @@ const Referral = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [renderReferral, setRenderReferral] = useState(false);
 
   const id = useSelector(state => state.auth.user?.result?._id);
-  console.log('ID===>', id);
-  const [addReferral] = useAddReferralMutation();
+  // console.log('ID===>', id);
+
+  const [addReferralMutation] = useAddReferralMutation();
+  const [data] = useLazyReferralListQuery();
 
   const params = {
     user_mandate: id,
@@ -30,47 +33,35 @@ const Referral = () => {
     phone,
   };
 
-  const handleSubmitPress = async () => {
-    console.log('DATA', params);
+  const fetchReferral = async () => {
     try {
-      const response = await addReferral(params).unwrap();
-      console.log('RESPONSE===>', response);
-      if (response.status) {
-        console.log('Referral Successfull===>', response.message);
-        fetchReferrals();
-        setName('');
-        setEmail('');
-        setPhone('');
-        setModalVisible(false);
-      } else {
-        console.log('Error', response.message);
-      }
-    } catch (error) {
-      console.error('Error adding referral:', error);
-      console.log('Error', 'Failed to add referral');
-    }
-  };
-
-  const handleCloseModal = () => {
-    setModalVisible(false);
-  };
-
-  const [data] = useLazyReferralListQuery();
-
-  const fetchReferrals = async () => {
-    try {
-      const response = await data(id);
-      console.log('REPONSE.DATA===>', response);
-      const referral = response.data.result;
-      setReferrals(referral);
+      const res = await data(id);
+      const response = res.data.result;
+      console.log('RESPONSE====>', response);
+      setReferrals(response);
+      console.log('DATA', response);
     } catch (err) {
-      console.log('Error fetching referrals:', err);
+      console.log('Error==>', err);
     }
   };
 
   useEffect(() => {
-    fetchReferrals();
-  }, []);
+    fetchReferral();
+  }, [renderReferral]);
+
+  const handleSubmitPress = async () => {
+    console.log('params==>', params);
+    try {
+      const data = addReferralMutation(params);
+      setRenderReferral(!renderReferral);
+      setName('');
+    } catch (err) {
+      console.log('Error==>', err);
+    }
+  };
+  const handleCloseModal = () => {
+    setModalVisible(false);
+  };
 
   const formatDate = dateString => {
     const date = new Date(dateString);

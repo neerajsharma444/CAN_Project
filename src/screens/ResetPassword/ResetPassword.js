@@ -4,13 +4,32 @@ import styles from './Reset.Styles';
 import IMAGES from '@assets/images';
 import Button from '@components/common/Button/Button';
 import CustomPopUp from '@components/common/PopUp/CustomPopUp';
+import {useResetPasswordMutation} from '@redux/services/authService';
 
 const ResetPassword = ({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [doubleButton, setdoubleButton] = useState(true);
+  const [email, setEmail] = useState('');
 
-  const handleResetPress = () => {
-    setModalVisible(true);
+  const [resetPassword] = useResetPasswordMutation();
+
+  const param = {
+    email,
+  };
+
+  const handleResetPress = async () => {
+    try {
+      const result = await resetPassword(param);
+      console.log('RESPONSE!@#$%==>', result);
+      if (result.data.status) {
+        setModalVisible(true);
+      } else {
+        setModalVisible(false);
+      }
+    } catch (error) {
+      console.log('Error during registration:', error);
+      setModalVisible(false);
+    }
   };
 
   const handleCloseModal = () => {
@@ -31,7 +50,12 @@ const ResetPassword = ({navigation}) => {
         <Text style={styles.title}>Reset Password</Text>
         <View>
           <Text style={styles.text}>Email</Text>
-          <TextInput style={styles.input} placeholder="Enter Email" />
+          <TextInput
+            style={styles.input}
+            placeholder="Enter Email"
+            value={email}
+            onChangeText={text => setEmail(text)}
+          />
         </View>
         <Button
           buttonName="Reset"

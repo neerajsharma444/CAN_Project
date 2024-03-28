@@ -1,57 +1,47 @@
-import React from 'react';
-import {View, Text, FlatList, Image} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {View, Text, FlatList} from 'react-native';
 import Header from '@components/common/Header/Header';
 import Card from '@components/common/Card/Card';
 import styles from './Portfolio.Styles';
+import {useLazyPortfolioListQuery} from '@redux/services/authService';
+import {useSelector} from 'react-redux';
 
 const Portfolio = () => {
-  const data = [
-    {
-      name: 'Jerry Infotech',
-      text: 'On demand food delivery startup',
-      amount: 'INR 3.50 lakhs',
-      shares: 1.345,
-      valuation: 'INR 3.5 Cr',
-      roundSize: 'INR 50 lakhs',
-      investment: '12/10/22',
-      type: 'card',
-    },
-    {
-      name: 'XYC Inc',
-      text: 'Authentic Indian Tea',
-      amount: 'INR 3.50 lakhs',
-      shares: 1.279,
-      valuation: 'INR 3.5 Cr',
-      roundSize: 'INR 20 lakhs',
-      investment: '12/10/22',
-      type: 'card',
-    },
-    {
-      name: 'ABC Inc',
-      text: 'Robotics, drones',
-      amount: 'INR 4.50 lakhs',
-      shares: 435,
-      valuation: 'INR 5 Cr',
-      roundSize: 'INR 50 lakhs',
-      investment: '12/10/22',
-      type: 'card',
-    },
-  ];
+  const id = useSelector(state => state.auth?.user?.result?._id);
+  const [portfolioData, setPortfolioData] = useState([]);
+
+  const [data] = useLazyPortfolioListQuery();
+
+  const fetchData = async () => {
+    try {
+      const response = await data(id).unwrap();
+      const res = response?.result;
+      setPortfolioData(res);
+      console.log('RESPONSE===>', res);
+    } catch (err) {
+      console.log('Error fetching portfolio list:', err);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const renderCardItem = ({item}) => (
     <Card
-      name={item.name}
-      description={item.text}
+      name={item.company_name}
+      description={item.description}
+      logo={item.logo}
       amountLabel="Amount: "
-      amount={item.amount}
+      amount={item.amount.total_amount}
       roundSizeLabel="# of Shares: "
-      roundSize={item.shares}
+      roundSize={item.number_of_share}
       valuationLabel="At Valuation: "
-      valuation={item.valuation}
+      valuation={`${item.valuation.valuation_amount} ${item.valuation.valuation_amount_in}`}
       investmentLabel="Round Size: "
-      investment={item.roundSize}
+      investment={`${item.round_size.round_size_amount} ${item.round_size.round_size_amount_in}`}
       investmentDateLabel="Date of Investment: "
-      investmentDate={item.investment}
+      investmentDate={item.date}
     />
   );
 
@@ -61,7 +51,7 @@ const Portfolio = () => {
       <View style={styles.content}>
         <Text style={styles.title}>My Portfolio</Text>
         <FlatList
-          data={data}
+          data={portfolioData}
           renderItem={renderCardItem}
           keyExtractor={(item, index) => index.toString()}
         />

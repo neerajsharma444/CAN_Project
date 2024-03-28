@@ -1,11 +1,11 @@
 import React from 'react';
 import {View, Text, Image} from 'react-native';
 import styles from './Card.Styles';
-import IMAGES from '@assets/images';
 
 const Card = ({
   name,
   description,
+  logo,
   amountLabel,
   amount,
   roundSizeLabel,
@@ -20,7 +20,7 @@ const Card = ({
   return (
     <View style={styles.card}>
       <View style={styles.cardContainer}>
-        <Image source={IMAGES.card} style={styles.image} />
+        <Image source={{uri: logo}} style={styles.image} />
         <View style={styles.titleContainer}>
           <Text style={styles.cardTitle}>{name}</Text>
           <Text style={styles.cardText}>{description}</Text>

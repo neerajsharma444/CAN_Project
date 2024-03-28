@@ -23,6 +23,13 @@ export const authService = apiClient.injectEndpoints({
         method: 'POST',
       }),
     }),
+    resetPassword: builder.mutation({
+      query: body => ({
+        url: API_ENDPOINTS.RESET_PASSWORD,
+        body: body,
+        method: 'POST',
+      }),
+    }),
     fetchEvents: builder.query({
       query: () => ({
         url: API_ENDPOINTS.CALENDAR,
@@ -89,11 +96,10 @@ export const authService = apiClient.injectEndpoints({
         method: 'POST',
       }),
     }),
-    portfolio: builder.mutation({
-      query: body => ({
-        url: API_ENDPOINTS.PORTFOLIO,
-        body: body,
-        method: 'POST',
+    portfolioList: builder.query({
+      query: id => ({
+        url: `portfolio/list_by_mandate?user_registered_id=${id}`,
+        method: 'GET',
       }),
     }),
   }),
@@ -103,6 +109,7 @@ export const {
   useLazyFetchStatesQuery,
   useSignUpMutation,
   useLoginMutation,
+  useResetPasswordMutation,
   useLazyFetchEventsQuery,
   useGetCalendarEventsMutation,
   useAddReferralMutation,
@@ -111,6 +118,7 @@ export const {
   useUpdatePasswordMutation,
   useLazyForumCategoriesQuery,
   useLazyForumQuestionsQuery,
-  useFetchMendateListMutation,
   useAddQuestionMutation,
+  useFetchMendateListMutation,
+  useLazyPortfolioListQuery,
 } = authService;
