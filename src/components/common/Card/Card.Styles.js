@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {verticalScale, horizontalScale} from '@utils/Metrics';
+import {verticalScale, horizontalScale, moderateScale} from '@utils/Metrics';
 
 const styles = StyleSheet.create({
   card: {
@@ -16,8 +16,9 @@ const styles = StyleSheet.create({
     width: '75%',
   },
   image: {
-    height: verticalScale(60),
-    width: horizontalScale(100),
+    height: verticalScale(75),
+    width: horizontalScale(120),
+    borderRadius: moderateScale(5),
   },
   titleContainer: {
     marginLeft: verticalScale(10),

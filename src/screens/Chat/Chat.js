@@ -4,11 +4,21 @@ import Header from '@components/common/Header/Header';
 import IMAGES from '@assets/images';
 import {GiftedChat, Bubble} from 'react-native-gifted-chat';
 import styles from './Chat.Styles';
+import {socketInit} from '@utils/Socket';
+import {useSelector} from 'react-redux';
+import SOCKET from '../../constants/socket';
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
+  const id = useSelector(state => state.auth?.user?.result?._id);
+  // console.log('ID RESPONSE', id);
 
   useEffect(() => {
+    socketInit(id);
+    const data = {
+      senderId: SOCKET.RECEIVER_ID,
+      receiverId: id,
+    };
     setMessages([
       {
         _id: 1,
@@ -27,6 +37,20 @@ const Chat = () => {
       GiftedChat.append(previousMessages, newMessages),
     );
   }, []);
+
+  // const onSend = useCallback((sendMessageData = []) => {
+  //   let messageData = {
+  //     roomId: roomId,
+  //     senderID: userData._id,
+  //     receiverID: SOCKET_CONST.RECEIVER_ID,
+  //     message: sendMessageData[0].text,
+  //   };
+  //   sendMessageData[0].createdAt = new Date().toJSON();
+  //   Socket.onSend(messageData);
+  //   setTimeout(() => {
+  //     giftedChatRef.current.scrollToBottom();
+  //   }, 500);
+  // }, []);
 
   const renderBubble = props => {
     return <Bubble {...props} wrapperStyle={styles.wrapperStyle} />;

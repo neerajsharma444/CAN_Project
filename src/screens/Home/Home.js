@@ -6,7 +6,6 @@ import styles from './Home.Styles';
 import {useGetCalendarEventsMutation} from '@redux/services/authService';
 import IMAGES from '@assets/images';
 import {useFetchMendateListMutation} from '@redux/services/authService';
-import {socketInit} from '@utils/Socket';
 
 const Home = ({navigation}) => {
   const [mandateList, setMandateList] = useState([]);
@@ -27,7 +26,6 @@ const Home = ({navigation}) => {
 
   useEffect(() => {
     fetchMendateList();
-    socketInit();
   }, []);
 
   const [getCalendarEvents] = useGetCalendarEventsMutation();

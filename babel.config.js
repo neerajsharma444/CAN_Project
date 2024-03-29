@@ -24,6 +24,7 @@ module.exports = {
           '@redux': ['./src/redux'],
           '@screens': ['./src/screens'],
           '@utils': ['./src/utils'],
+          '@constants': ['./src/constants'],
         },
       },
     ],

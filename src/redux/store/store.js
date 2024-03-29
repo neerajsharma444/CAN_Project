@@ -4,6 +4,7 @@ import {persistStore, persistReducer} from 'redux-persist';
 import {apiClient} from '../services/apiClient';
 import authReducer from '../slices/authSlice';
 import forumReducer from '../slices/forumSlice';
+import chatReducer from '../slices/chatSlice';
 import {combineReducers} from 'redux';
 
 const persistConfig = {
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   [apiClient.reducerPath]: apiClient.reducer,
   auth: authReducer,
   forum: forumReducer,
+  chat: chatReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
