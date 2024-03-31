@@ -8,7 +8,7 @@ import CustomPopUp from '@components/common/PopUp/CustomPopUp';
 import {
   useLazyReferralListQuery,
   useAddReferralMutation,
-} from '@redux/services/authService';
+} from '@redux/services/referralService';
 import {useSelector} from 'react-redux';
 
 const Referral = () => {

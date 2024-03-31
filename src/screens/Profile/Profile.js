@@ -60,7 +60,7 @@ const Profile = ({navigation}) => {
   const [name, setName] = useState(user_data?.name);
   const [email, setEmail] = useState(user_data?.email);
   const [dob, setDob] = useState(user_data?.dob);
-  const [phone, setPhone] = useState(user_data?.phone);
+  const [phone, setPhone] = useState(String(user_data?.phone));
   const [organization, setOrganization] = useState(user_data?.organization);
   const [state, setState] = useState(user_data?.state);
   const [city, setCity] = useState(user_data?.city);
@@ -83,7 +83,7 @@ const Profile = ({navigation}) => {
     formData.append('state', state);
     formData.append('city', city);
 
-    console.log('FORM DATA ===>', formData);
+    // console.log('FORM DATA ===>', formData);
 
     try {
       const result = await updateProfile(formData).unwrap();

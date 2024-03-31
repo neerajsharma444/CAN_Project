@@ -30,32 +30,6 @@ export const authService = apiClient.injectEndpoints({
         method: 'POST',
       }),
     }),
-    fetchEvents: builder.query({
-      query: () => ({
-        url: API_ENDPOINTS.CALENDAR,
-        method: 'GET',
-      }),
-    }),
-    getCalendarEvents: builder.mutation({
-      query: body => ({
-        url: API_ENDPOINTS.CALENDAR_EVENTS,
-        body: body,
-        method: 'POST',
-      }),
-    }),
-    addReferral: builder.mutation({
-      query: body => ({
-        url: API_ENDPOINTS.ADD_REFERRAL,
-        body: body,
-        method: 'POST',
-      }),
-    }),
-    referralList: builder.query({
-      query: id => ({
-        url: `referral/list_by_mandate?user_mandate=${id}`,
-        method: 'GET',
-      }),
-    }),
     updateProfile: builder.mutation({
       query: body => ({
         url: API_ENDPOINTS.UPDATE_PROFILE,
@@ -63,43 +37,11 @@ export const authService = apiClient.injectEndpoints({
         method: 'PUT',
       }),
     }),
-    updatePassword: builder.mutation({
+    changePassword: builder.mutation({
       query: body => ({
-        url: `update-password`,
+        url: API_ENDPOINTS.CHANGE_PASSWORD,
         body: body,
         method: 'PUT',
-      }),
-    }),
-    forumCategories: builder.query({
-      query: () => ({
-        url: API_ENDPOINTS.FORUM_CATEGORY,
-        method: 'GET',
-      }),
-    }),
-    forumQuestions: builder.query({
-      query: id => ({
-        url: `quetion_data_by_category?category_id=${id}`,
-        method: 'GET',
-      }),
-    }),
-    addQuestion: builder.mutation({
-      query: body => ({
-        url: API_ENDPOINTS.FORUM_ADD_QUESTION,
-        body: body,
-        method: 'POST',
-      }),
-    }),
-    fetchMendateList: builder.mutation({
-      query: body => ({
-        url: API_ENDPOINTS.ACTIVE_MENDATE,
-        body: body,
-        method: 'POST',
-      }),
-    }),
-    portfolioList: builder.query({
-      query: id => ({
-        url: `portfolio/list_by_mandate?user_registered_id=${id}`,
-        method: 'GET',
       }),
     }),
   }),
@@ -110,15 +52,6 @@ export const {
   useSignUpMutation,
   useLoginMutation,
   useResetPasswordMutation,
-  useLazyFetchEventsQuery,
-  useGetCalendarEventsMutation,
-  useAddReferralMutation,
-  useLazyReferralListQuery,
   useUpdateProfileMutation,
-  useUpdatePasswordMutation,
-  useLazyForumCategoriesQuery,
-  useLazyForumQuestionsQuery,
-  useAddQuestionMutation,
-  useFetchMendateListMutation,
-  useLazyPortfolioListQuery,
+  useChangePasswordMutation,
 } = authService;

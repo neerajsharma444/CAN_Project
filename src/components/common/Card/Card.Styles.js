@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Nunito-SemiBold',
     color: '#000000A8',
     fontSize: verticalScale(15),
-    flexWrap: 'wrap',
+    maxWidth: '98%',
   },
   textContainer: {
     flexDirection: 'row',

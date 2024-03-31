@@ -4,7 +4,7 @@ import Header from '@components/common/Header/Header';
 import styles from './Questions.Styles';
 import {Dropdown} from 'react-native-element-dropdown';
 import Button from '@components/common/Button/Button';
-import {useAddQuestionMutation} from '@redux/services/authService';
+import {useAddQuestionMutation} from '@redux/services/forumService';
 import {useSelector, useDispatch} from 'react-redux';
 
 const Questions = ({navigation}) => {
@@ -36,7 +36,7 @@ const Questions = ({navigation}) => {
 
   const handlePost = async () => {
     const data = await addQuestion(params).unwrap();
-    console.log('Response from login:', data);
+    console.log('Response===>', data);
 
     try {
       if (data.status) {

@@ -5,15 +5,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  scrollViewContent: {
+    flexGrow: 1,
+  },
   content: {
     flex: 1,
     paddingHorizontal: moderateScale(20),
-    paddingTop: verticalScale(20),
     backgroundColor: '#FFFFFF',
     borderTopLeftRadius: moderateScale(20),
     borderTopRightRadius: moderateScale(20),
   },
+  loaderContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   title: {
+    marginTop: verticalScale(10),
     fontSize: moderateScale(25),
     color: '#000',
     fontFamily: 'Nunito-SemiBold',
@@ -69,6 +77,7 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(16),
     fontFamily: 'Nunito-Regular',
     textTransform: 'capitalize',
+    maxWidth: '99%',
     color: '#000000A8',
   },
   calendarTimeContainer: {

@@ -13,6 +13,11 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: moderateScale(20),
     borderTopRightRadius: moderateScale(20),
   },
+  loaderContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   title: {
     fontSize: moderateScale(25),
     color: '#000',

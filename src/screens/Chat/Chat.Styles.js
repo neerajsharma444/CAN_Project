@@ -7,7 +7,7 @@ import {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#fff',
   },
 
   txtInput: {

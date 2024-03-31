@@ -6,7 +6,7 @@ export const API_ENDPOINTS = {
   LOGIN: 'investor_login',
   RESET_PASSWORD: 'resetlink_investor',
   ACTIVE_MENDATE: 'mandate/list',
-  CALENDAR_EVENTS: 'getEventtillDate',
+  EVENTS: 'getEventtillDate',
   UPDATE_PROFILE: 'update_Investor',
   CHANGE_PASSWORD: 'update-password/investor',
   ADD_REFERRAL: 'add/referral',

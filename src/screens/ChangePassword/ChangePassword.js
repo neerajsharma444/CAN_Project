@@ -4,29 +4,46 @@ import Header from '@components/common/Header/Header';
 import Button from '@components/common/Button/Button';
 import styles from './Change.Styles';
 import {useSelector} from 'react-redux';
-import {useUpdatePasswordMutation} from '@redux/services/authService';
+import {useChangePasswordMutation} from '@redux/services/authService';
 import CustomPopUp from '@components/common/PopUp/CustomPopUp';
 
 const ChangePassword = ({navigation}) => {
   const [isVisible, setIsVisible] = useState(false);
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
-  const userId = useSelector(state => state.auth.user?.result);
-  const [changePasswordMutation] = useUpdatePasswordMutation();
+  const userId = useSelector(state => state.auth.user?.result?._id);
+  const [changePasswordMutation] = useChangePasswordMutation();
+
+  const params = {
+    _id: userId,
+    current_password: currentPassword,
+    new_password: newPassword,
+  };
+
+  // const handleUpdatePassword = async () => {
+  //   console.log('PARAMS', params);
+  //   try {
+  //     const data = await changePasswordMutation(params);
+  //     console.log('RESPONSE!@#$%==>', data);
+  //     // setIsVisible(true);
+  //   } catch (err) {
+  //     console.log('ERROR', err);
+  //   }
+  // };
 
   const handleUpdatePassword = async () => {
-    const params = {
-      _id: userId._id,
-      current_password: currentPassword,
-      new_password: newPassword,
-    };
-    console.log('PARAMS', params);
     try {
-      const data = await changePasswordMutation(params);
-      console.log('RESPONSE!@#$%==>', data);
-      setIsVisible(true);
-    } catch (err) {
-      console.log('ERROR', err);
+      const result = await changePasswordMutation(params);
+      console.log('PARAMS', params);
+      console.log('RESPONSE!@#$%==>', result);
+      if (result.data.status) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    } catch (error) {
+      console.log('Error:', error);
+      setIsVisible(false);
     }
   };
 

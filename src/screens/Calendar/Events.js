@@ -13,7 +13,7 @@ import {Calendar} from 'react-native-calendars';
 import IMAGES from '@assets/images';
 import styles from './Events.Styles';
 import {useSelector} from 'react-redux';
-import {useLazyFetchEventsQuery} from '@redux/services/authService';
+import {useLazyFetchEventsQuery} from '@redux/services/eventService';
 
 const Events = () => {
   const [selectedDate, setSelectedDate] = useState(null);

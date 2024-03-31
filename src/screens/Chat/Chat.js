@@ -6,7 +6,9 @@ import {GiftedChat, Bubble} from 'react-native-gifted-chat';
 import styles from './Chat.Styles';
 import {socketInit} from '@utils/Socket';
 import {useSelector} from 'react-redux';
-import SOCKET from '../../constants/socket';
+import SOCKET from '@constants/socket';
+import {useLazyCreateChatQuery} from '@redux/services/chatService';
+// const [data] = useLazyCreateChatQuery;
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);

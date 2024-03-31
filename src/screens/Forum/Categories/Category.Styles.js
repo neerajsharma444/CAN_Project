@@ -4,10 +4,22 @@ import {moderateScale} from '@utils/Metrics';
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#fff',
   },
   subContainer: {
+    flex: 1,
     padding: moderateScale(15),
+  },
+  scrollViewContent: {
+    flexGrow: 1,
+  },
+  content: {
+    flex: 1,
+  },
+  loaderContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   headingText: {
     fontSize: moderateScale(22),

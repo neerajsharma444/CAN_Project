@@ -1,3 +1,5 @@
+import {API_ENDPOINTS} from '../redux/apiEndpoints/endPoints';
+
 export function getChatList(roomId, user_id, page, limit = 30, token) {
   return async (dispatch, getState) => {
     dispatch({type: ACTION_TYPE.TOGGLE_LOADER, payload: true});
@@ -45,7 +47,7 @@ export function getRoomId(data, token) {
     dispatch({type: ACTION_TYPE.TOGGLE_LOADER, payload: true});
     try {
       let json = await RestClient.postCall(
-        `${URL.BASE_URL}${URL.CREATE_CHAT}`,
+        API_ENDPOINTS.CREATE_CHAT,
         data,
         token,
       );

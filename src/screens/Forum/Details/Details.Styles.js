@@ -5,16 +5,29 @@ import {horizontalScale} from '../../../utils/Metrics';
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#fff',
   },
   subContainer: {
+    flex: 1,
     padding: moderateScale(15),
+  },
+  scrollViewContent: {
+    flexGrow: 1,
+  },
+  content: {
+    flex: 1,
+  },
+  loaderContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   heading: {
     fontSize: moderateScale(22),
     color: '#000000',
-    marginBottom: moderateScale(10),
+    marginBottom: verticalScale(10),
     fontFamily: 'Nunito-SemiBold',
+    textTransform: 'capitalize',
   },
   container: {
     padding: moderateScale(15),
@@ -50,15 +63,12 @@ const styles = StyleSheet.create({
     fontFamily: 'Nunito-Regular',
   },
   queryContainer: {
-    marginTop: verticalScale(30),
+    marginTop: verticalScale(20),
   },
   queryText: {
     fontSize: moderateScale(16),
     color: '#0A4975',
     fontFamily: 'Nunito-Regular',
-  },
-  detailList: {
-    marginBottom: moderateScale(10),
   },
 });
 
