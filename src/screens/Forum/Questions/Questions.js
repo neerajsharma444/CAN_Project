@@ -5,13 +5,14 @@ import styles from './Questions.Styles';
 import {Dropdown} from 'react-native-element-dropdown';
 import Button from '@components/common/Button/Button';
 import {useAddQuestionMutation} from '@redux/services/forumService';
-import {useSelector, useDispatch} from 'react-redux';
+import {useSelector} from 'react-redux';
 
 const Questions = ({navigation}) => {
-  const [category, setCategory] = useState(categoryData?.category_name);
+  const [selectedCategory, setSelectedCategory] = useState(
+    categoryData?.category_name,
+  );
   const [question, setQuestion] = useState('');
   const [doubleButton, setDoubleButton] = useState(true);
-  const dispatch = useDispatch();
 
   const allCategories = useSelector(state => state?.forum?.allCategories);
   const categoryData = useSelector(state => state?.forum.category);
@@ -27,7 +28,7 @@ const Questions = ({navigation}) => {
 
   const params = {
     category_id: categoryData?._id,
-    select_category: category,
+    select_category: categoryData?.category_name,
     quetion: question,
     status: 'active',
     answerd: 'no',
@@ -37,20 +38,15 @@ const Questions = ({navigation}) => {
   const [addQuestion] = useAddQuestionMutation();
 
   const handlePost = async () => {
-    const data = await addQuestion(params).unwrap();
-    console.log('PARAMS===>', params);
-    console.log('Response===>', data);
+    console.log('PARAMS==>', params);
     try {
-      if (data.status) {
-        // dispatch(loginSuccess(data));
-        console.log('Success, response:', data);
+      const response = await addQuestion(params);
+      console.log('Response', response);
+      if (response.data.status) {
         navigation.navigate('Details');
-        return {success: true};
-      } else {
-        Alert.alert(data.message);
       }
-    } catch (error) {
-      console.error('Error:', error);
+    } catch (err) {
+      console.log('ERROR==>', err);
     }
   };
 
@@ -70,7 +66,7 @@ const Questions = ({navigation}) => {
               data={allCategories}
               labelField="category_name"
               valueField="_id"
-              onChange={item => setCategory(item)}
+              onChange={item => setSelectedCategory(item)}
               placeholder={categoryData.category_name}
               style={styles.dropdown}
               value={categoryData.category_name}

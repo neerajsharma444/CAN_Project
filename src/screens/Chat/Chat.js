@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useEffect, useCallback, useRef} from 'react';
 import {View, TouchableOpacity, Image, Text} from 'react-native';
 import Header from '@components/common/Header/Header';
 import IMAGES from '@assets/images';
@@ -7,38 +7,41 @@ import styles from './Chat.Styles';
 import {socketInit} from '@utils/Socket';
 import {useSelector} from 'react-redux';
 import SOCKET from '@constants/socket';
-// const [data] = useLazyCreateChatQuery;
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
   const id = useSelector(state => state.auth?.user?.result?._id);
+  const roomID = useSelector(state => state.chat?.roomId);
+  const GiftedChatRef = useRef(null);
   // console.log('ID RESPONSE', id);
 
   useEffect(() => {
-    socketInit(id);
-
-    const data = {
-      senderId: SOCKET.RECEIVER_ID,
-      receiverId: id,
+    const fetchChat = async () => {
+      try {
+        const response = await data();
+        const result = response.data.result;
+        console.log('R==>', result);
+        const formattedMessages = result.map(message => ({
+          _id: message._id,
+          text: message.message,
+          createdAt: new Date(message.createdAt),
+          user: {
+            _id: message.senderID,
+          },
+        }));
+        setMessages(formattedMessages);
+      } catch (err) {
+        console.log('ERROR', err);
+      }
     };
-    setMessages([
-      {
-        _id: 1,
-        text: 'Hey there dev!',
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: 'React Native',
-        },
-      },
-    ]);
+    fetchChat();
   }, []);
 
-  const onSend = useCallback((newMessages = []) => {
-    setMessages(previousMessages =>
-      GiftedChat.append(previousMessages, newMessages),
-    );
-  }, []);
+  // const onSend = useCallback((newMessages = []) => {
+  //   setMessages(previousMessages =>
+  //     GiftedChat.append(previousMessages, newMessages),
+  //   );
+  // }, []);
 
   // const onSend = useCallback((sendMessageData = []) => {
   //   let messageData = {
@@ -74,12 +77,15 @@ const Chat = () => {
       <GiftedChat
         messages={messages}
         onSend={messages => onSend(messages)}
-        textInputStyle={styles.txtInput}
+        // textInputStyle={styles.txtInput}
         user={{
-          _id: 1,
+          _id: 2,
         }}
         renderBubble={renderBubble}
         renderSend={renderSend}
+        renderAvatar={() => null}
+        textInputStyle={styles.txtInput}
+        multiline={true}
       />
     </View>
   );

@@ -26,7 +26,7 @@ export const forumService = apiClient.injectEndpoints({
       query: body => ({
         url: API_ENDPOINTS.FORUM_ADD_RESPONSE,
         body: body,
-        method: 'POST',
+        method: 'PUT',
       }),
     }),
   }),
