@@ -8,14 +8,16 @@ import {useAddQuestionMutation} from '@redux/services/forumService';
 import {useSelector, useDispatch} from 'react-redux';
 
 const Questions = ({navigation}) => {
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState(categoryData?.category_name);
   const [question, setQuestion] = useState('');
   const [doubleButton, setDoubleButton] = useState(true);
   const dispatch = useDispatch();
 
   const allCategories = useSelector(state => state?.forum?.allCategories);
-  const categoryId = useSelector(state => state.forum?.category?._id);
+  const categoryData = useSelector(state => state?.forum.category);
+  const userData = useSelector(state => state.auth?.user.result);
   // console.log('ALL CATEGORIES===>', allCategories);
+  console.log('CATEGORY DATA===>', categoryData);
 
   const fetchCategoriesList = async () => {};
 
@@ -24,20 +26,20 @@ const Questions = ({navigation}) => {
   }, []);
 
   const params = {
-    category_id: allCategories?._id,
+    category_id: categoryData?._id,
     select_category: category,
     quetion: question,
     status: 'active',
     answerd: 'no',
-    answerd_by: 'Rakesh',
+    answerd_by: userData.name,
   };
 
   const [addQuestion] = useAddQuestionMutation();
 
   const handlePost = async () => {
     const data = await addQuestion(params).unwrap();
+    console.log('PARAMS===>', params);
     console.log('Response===>', data);
-
     try {
       if (data.status) {
         // dispatch(loginSuccess(data));
@@ -46,11 +48,9 @@ const Questions = ({navigation}) => {
         return {success: true};
       } else {
         Alert.alert(data.message);
-        return {success: false, error: data.message};
       }
     } catch (error) {
-      console.error('Error during login:', error);
-      return {success: false, error: 'An error occurred during login'};
+      console.error('Error:', error);
     }
   };
 
@@ -68,12 +68,12 @@ const Questions = ({navigation}) => {
             <Text style={styles.inputLabel}>Category</Text>
             <Dropdown
               data={allCategories}
-              placeholder="Select Category"
               labelField="category_name"
               valueField="_id"
-              onChange={item => setCategory(item.state)}
+              onChange={item => setCategory(item)}
+              placeholder={categoryData.category_name}
               style={styles.dropdown}
-              value={category}
+              value={categoryData.category_name}
             />
           </View>
           <View style={styles.textInputContainer}>
@@ -81,7 +81,7 @@ const Questions = ({navigation}) => {
             <TextInput
               placeholder="Type your question"
               style={styles.textInput}
-              onChangeText={text => setQuestion}
+              onChangeText={text => setQuestion(text)}
             />
           </View>
           <Text style={styles.helpText}>

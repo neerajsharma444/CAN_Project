@@ -22,6 +22,13 @@ export const forumService = apiClient.injectEndpoints({
         method: 'POST',
       }),
     }),
+    addAnswer: builder.mutation({
+      query: body => ({
+        url: API_ENDPOINTS.FORUM_ADD_RESPONSE,
+        body: body,
+        method: 'POST',
+      }),
+    }),
   }),
 });
 
@@ -29,4 +36,5 @@ export const {
   useLazyForumCategoriesQuery,
   useLazyForumQuestionsQuery,
   useAddQuestionMutation,
+  useAddAnswerMutation,
 } = forumService;

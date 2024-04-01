@@ -3,7 +3,13 @@ import {apiClient} from './apiClient';
 
 export const chatService = apiClient.injectEndpoints({
   endpoints: builder => ({
-    createChat: builder.query({
+    getChatList: builder.query({
+      query: () => ({
+        url: `get_chat_byroom_id?roomId=64b12a361cbf24a36ac3037c`,
+        method: 'GET',
+      }),
+    }),
+    createChat: builder.mutation({
       query: body => ({
         url: API_ENDPOINTS.CREATE_CHAT,
         body: body,
@@ -13,4 +19,4 @@ export const chatService = apiClient.injectEndpoints({
   }),
 });
 
-export const {useLazyCreateChatQuery} = chatService;
+export const {useLazyGetChatListQuery, useCreateChatMutation} = chatService;

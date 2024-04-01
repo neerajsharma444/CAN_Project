@@ -7,7 +7,6 @@ import styles from './Chat.Styles';
 import {socketInit} from '@utils/Socket';
 import {useSelector} from 'react-redux';
 import SOCKET from '@constants/socket';
-import {useLazyCreateChatQuery} from '@redux/services/chatService';
 // const [data] = useLazyCreateChatQuery;
 
 const Chat = () => {
@@ -17,6 +16,7 @@ const Chat = () => {
 
   useEffect(() => {
     socketInit(id);
+
     const data = {
       senderId: SOCKET.RECEIVER_ID,
       receiverId: id,
