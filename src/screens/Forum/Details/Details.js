@@ -9,12 +9,14 @@ import {
 import {useLazyForumQuestionsQuery} from '@redux/services/forumService';
 import Header from '@components/common/Header/Header';
 import styles from './Details.Styles';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {fetchQuestionData} from '@redux/slices/forumSlice';
 
 const Details = ({navigation}) => {
   const [questions, setQuestions] = useState([]);
   const forumData = useSelector(state => state.forum?.category);
   const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
 
   const [data] = useLazyForumQuestionsQuery();
 
@@ -38,23 +40,28 @@ const Details = ({navigation}) => {
 
   useEffect(() => {
     fetchQuestions();
-  }, []);
+  }, [forumData]);
 
   const renderQuestionItem = (question, index) => (
     <View style={styles.container} key={index}>
-      <TouchableOpacity onPress={() => handleAnswers(question)}>
-        <Text style={styles.question}>{question.quetion}</Text>
-        {question.answer ? (
+      {question.answer ? (
+        <>
+          <Text style={styles.question}>{question.quetion}</Text>
           <Text style={styles.answer}>{question.answer}</Text>
-        ) : (
+        </>
+      ) : (
+        <TouchableOpacity onPress={() => handleAnswers(question)}>
+          <Text style={styles.question}>{question.quetion}</Text>
           <Text style={styles.addAnswer}>Add an Answer</Text>
-        )}
-      </TouchableOpacity>
+        </TouchableOpacity>
+      )}
     </View>
   );
 
-  const handleAnswers = question => {
-    navigation.navigate('Answers', {question});
+  const handleAnswers = item => {
+    console.log('ITEM@#$%==>', item);
+    dispatch(fetchQuestionData(item));
+    navigation.navigate('Answers');
   };
 
   const handleQuestions = () => {

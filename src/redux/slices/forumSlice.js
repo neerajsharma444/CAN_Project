@@ -5,6 +5,7 @@ const forumSlice = createSlice({
   initialState: {
     category: null,
     allCategories: [],
+    questionData: null,
   },
   reducers: {
     categorySuccess: (state, action) => {
@@ -13,9 +14,13 @@ const forumSlice = createSlice({
     fetchCategoriesSuccess: (state, action) => {
       state.allCategories = action.payload;
     },
+    fetchQuestionData: (state, action) => {
+      state.questionData = action.payload;
+    },
   },
 });
 
-export const {categorySuccess, fetchCategoriesSuccess} = forumSlice.actions;
+export const {categorySuccess, fetchCategoriesSuccess, fetchQuestionData} =
+  forumSlice.actions;
 
 export default forumSlice.reducer;

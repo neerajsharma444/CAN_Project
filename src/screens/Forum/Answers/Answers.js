@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Text, View, TextInput, TouchableOpacity} from 'react-native';
+import {Text, View, TextInput} from 'react-native';
 import Header from '@components/common/Header/Header';
 import styles from './Answers.Styles';
 import Button from '@components/common/Button/Button';
@@ -10,7 +10,9 @@ const Answers = ({navigation}) => {
   const [doubleButton, setdoubleButton] = useState(true);
   const [response, setResponse] = useState('');
   const quesData = useSelector(state => state?.forum.questionData);
+  // console.log('QUESTION DATA ===>', quesData);
   const userData = useSelector(state => state.auth?.user.result);
+  // console.log('USER DATA===>', userData);
 
   const [addAnswer] = useAddAnswerMutation();
 
@@ -29,7 +31,7 @@ const Answers = ({navigation}) => {
       const response = await addAnswer(params);
       console.log('Response===>', response);
       if (response.data.status) {
-        // navigation.navigate('Details');
+        navigation.navigate('Details');
       }
     } catch (err) {
       console.log('ERROR==>', err);
@@ -43,8 +45,10 @@ const Answers = ({navigation}) => {
     <View style={styles.mainContainer}>
       <Header drawer={false} back={true} />
       <View style={styles.subContainer}>
-        <Text style={styles.questionText}>Category: Valuations & MRR</Text>
-        <Text style={styles.helpButton}>What exactly is MRR?</Text>
+        <Text style={styles.questionText}>
+          Category: {quesData?.select_category}
+        </Text>
+        <Text style={styles.helpButton}>{quesData?.quetion}</Text>
         <View style={styles.inputContainer}>
           <View style={styles.inputTextContainer}>
             <Text style={styles.inputLabelText}>Response</Text>

@@ -11,6 +11,8 @@ const Home = ({navigation}) => {
   const [mandateList, setMandateList] = useState([]);
   const [calendarEvents, setCalendarEvents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [startDate, setStartDate] = useState('3/04/2024');
+  const [endDate, setEndDate] = useState('4/04/2024');
 
   const [fetchMendateData] = useFetchMendateListMutation();
   const [fetchCalendarEvents] = useGetCalendarEventsMutation();
@@ -21,8 +23,8 @@ const Home = ({navigation}) => {
         const [mandateResponse, calendarResponse] = await Promise.all([
           fetchMendateData().unwrap(),
           fetchCalendarEvents({
-            start_date: '3/04/2024',
-            end_date: '4/04/2024',
+            start_date: startDate,
+            end_date: endDate,
           }),
         ]);
         setMandateList(mandateResponse?.result);

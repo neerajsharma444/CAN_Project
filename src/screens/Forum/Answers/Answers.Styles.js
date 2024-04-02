@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
     marginTop: moderateScale(10),
     color: '#0A4975',
     fontFamily: 'Nunito-SemiBold',
+    textTransform: 'capitalize',
   },
   inputContainer: {
     marginTop: moderateScale(10),
