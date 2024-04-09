@@ -36,7 +36,7 @@ const Portfolio = () => {
       description={item.description}
       logo={item.logo}
       amountLabel="Amount: "
-      amount={item.amount.total_amount}
+      amount={`${item.amount.total_amount} ${item.amount.total_amount_in}`}
       roundSizeLabel="# of Shares: "
       roundSize={item.number_of_share}
       valuationLabel="At Valuation: "

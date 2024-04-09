@@ -4,7 +4,8 @@ import Header from '@components/common/Header/Header';
 import styles from './Answers.Styles';
 import Button from '@components/common/Button/Button';
 import {useAddAnswerMutation} from '@redux/services/forumService';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {globalState} from '@redux/slices/forumSlice';
 
 const Answers = ({navigation}) => {
   const [doubleButton, setdoubleButton] = useState(true);
@@ -14,7 +15,11 @@ const Answers = ({navigation}) => {
   const userData = useSelector(state => state.auth?.user.result);
   // console.log('USER DATA===>', userData);
 
-  const [addAnswer] = useAddAnswerMutation();
+  const newGlobalState = useSelector(state => state?.forum?.globalState);
+  console.log('NEW GLOBAL STATE===>', newGlobalState);
+
+  const dispatch = useDispatch();
+  const [addAnswerMutation] = useAddAnswerMutation();
 
   const params = {
     _id: quesData?._id,
@@ -28,15 +33,17 @@ const Answers = ({navigation}) => {
 
   const handlePost = async () => {
     try {
-      const response = await addAnswer(params);
+      const response = await addAnswerMutation(params);
       console.log('Response===>', response);
       if (response.data.status) {
+        dispatch(globalState(!newGlobalState));
         navigation.navigate('Details');
       }
     } catch (err) {
       console.log('ERROR==>', err);
     }
   };
+
   const handleCancel = () => {
     navigation.goBack();
   };

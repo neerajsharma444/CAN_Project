@@ -5,7 +5,8 @@ import styles from './Questions.Styles';
 import {Dropdown} from 'react-native-element-dropdown';
 import Button from '@components/common/Button/Button';
 import {useAddQuestionMutation} from '@redux/services/forumService';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {globalState} from '@redux/slices/forumSlice';
 
 const Questions = ({navigation}) => {
   const [selectedCategory, setSelectedCategory] = useState(
@@ -13,10 +14,14 @@ const Questions = ({navigation}) => {
   );
   const [question, setQuestion] = useState('');
   const [doubleButton, setDoubleButton] = useState(true);
+  const dispatch = useDispatch();
 
   const allCategories = useSelector(state => state?.forum?.allCategories);
   const categoryData = useSelector(state => state?.forum.category);
   const userData = useSelector(state => state.auth?.user.result);
+  const newGlobalState = useSelector(state => state?.forum?.globalState);
+  console.log('NEW GLOBAL STATE===>', newGlobalState);
+
   // console.log('ALL CATEGORIES===>', allCategories);
   console.log('CATEGORY DATA===>', categoryData);
 
@@ -35,14 +40,15 @@ const Questions = ({navigation}) => {
     answerd_by: userData.name,
   };
 
-  const [addQuestion] = useAddQuestionMutation();
+  const [addQuestionMutation] = useAddQuestionMutation();
 
   const handlePost = async () => {
     console.log('PARAMS==>', params);
     try {
-      const response = await addQuestion(params);
-      console.log('Response', response);
+      const response = await addQuestionMutation(params);
+      console.log('Response===>', response);
       if (response.data.status) {
+        dispatch(globalState(!newGlobalState));
         navigation.navigate('Details');
       }
     } catch (err) {
@@ -69,7 +75,7 @@ const Questions = ({navigation}) => {
               onChange={item => setSelectedCategory(item)}
               placeholder={categoryData.category_name}
               style={styles.dropdown}
-              value={categoryData.category_name}
+              value={selectedCategory || categoryData.category_name}
             />
           </View>
           <View style={styles.textInputContainer}>

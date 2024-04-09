@@ -13,11 +13,11 @@ const styles = StyleSheet.create({
   cardContainer: {
     flexDirection: 'row',
     marginBottom: verticalScale(8),
-    width: '75%',
+    width: '65%',
   },
   image: {
-    height: verticalScale(75),
-    width: horizontalScale(120),
+    height: verticalScale(80),
+    width: horizontalScale(130),
     borderRadius: moderateScale(5),
   },
   titleContainer: {
@@ -32,7 +32,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Nunito-SemiBold',
     color: '#000000A8',
     fontSize: verticalScale(15),
-    maxWidth: '98%',
   },
   textContainer: {
     flexDirection: 'row',

@@ -40,7 +40,6 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(5),
     paddingRight: horizontalScale(10),
     flexDirection: 'row',
-    alignItems: 'center',
     paddingVertical: verticalScale(10),
     borderBottomWidth: moderateScale(1),
     borderBottomColor: '#00000021',
@@ -50,7 +49,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderWidth: moderateScale(1),
     borderRadius: moderateScale(10),
-    padding: horizontalScale(14),
+    padding: horizontalScale(20),
     alignItems: 'center',
     borderColor: '#0A4975',
   },
@@ -60,15 +59,17 @@ const styles = StyleSheet.create({
     color: '#0A4975',
   },
   calendarMonth: {
-    fontSize: moderateScale(14),
+    fontSize: moderateScale(16),
     fontFamily: 'Nunito-Regular',
     color: '#0A4975',
   },
   calendarInfoContainer: {
     marginHorizontal: moderateScale(8),
+    justifyContent: 'space-evenly',
+    width: '90%',
   },
   calendarEvent: {
-    fontSize: moderateScale(16),
+    fontSize: moderateScale(18),
     fontFamily: 'Nunito-SemiBold',
     textDecorationLine: 'underline',
     color: '#000000',
@@ -76,8 +77,6 @@ const styles = StyleSheet.create({
   calendarAbout: {
     fontSize: moderateScale(16),
     fontFamily: 'Nunito-Regular',
-    textTransform: 'capitalize',
-    maxWidth: '99%',
     color: '#000000A8',
   },
   calendarTimeContainer: {

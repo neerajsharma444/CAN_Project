@@ -5,7 +5,7 @@ export const chatService = apiClient.injectEndpoints({
   endpoints: builder => ({
     getChatList: builder.query({
       query: () => ({
-        url: `get_chat_byroom_id?roomId=64b12a361cbf24a36ac3037c`,
+        url: `get_chat_byroom_id/admin?roomId=64b12a361cbf24a36ac3037c`,
         method: 'GET',
       }),
     }),

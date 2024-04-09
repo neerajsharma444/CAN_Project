@@ -2,6 +2,9 @@ import {StyleSheet} from 'react-native';
 import {verticalScale, moderateScale} from '@utils/Metrics';
 
 const styles = StyleSheet.create({
+  scrollView: {
+    flexGrow: 1,
+  },
   container: {
     flex: 1,
   },
@@ -37,7 +40,7 @@ const styles = StyleSheet.create({
     marginBottom: verticalScale(5),
     color: '#0A4975',
     fontFamily: 'Nunito-SemiBold',
-    textTransform: 'capitalize',
+    // textTransform: 'capitalize',
   },
   item: {
     flexDirection: 'row',

@@ -62,10 +62,9 @@ const Events = () => {
 
   const filteredEvents =
     selectedDate && events.filter(item => item.date === selectedDate);
-  // : events;
 
   return (
-    <ScrollView>
+    <ScrollView contentContainerStyle={styles.scrollView}>
       <View style={styles.container}>
         <Header />
         <View style={styles.content}>

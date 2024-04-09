@@ -11,15 +11,32 @@ const Home = ({navigation}) => {
   const [mandateList, setMandateList] = useState([]);
   const [calendarEvents, setCalendarEvents] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [startDate, setStartDate] = useState('3/04/2024');
-  const [endDate, setEndDate] = useState('4/04/2024');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
 
   const [fetchMendateData] = useFetchMendateListMutation();
   const [fetchCalendarEvents] = useGetCalendarEventsMutation();
 
   useEffect(() => {
+    const generateDates = numberOfDays => {
+      const currentDate = new Date();
+      const newStartDate = new Date(currentDate);
+      const newEndDate = new Date(currentDate);
+      newEndDate.setDate(newEndDate.getDate() + numberOfDays);
+      const formattedStartDate = `${
+        newStartDate.getMonth() + 1
+      }/${newStartDate.getDate()}/${newStartDate.getFullYear()}`;
+      const formattedEndDate = `${
+        newEndDate.getMonth() + 1
+      }/${newEndDate.getDate()}/${newEndDate.getFullYear()}`;
+      return {startDate: formattedStartDate, endDate: formattedEndDate};
+    };
+
     const fetchData = async () => {
       try {
+        const {startDate, endDate} = generateDates(30); // Generate dates for 30 days
+        setStartDate(startDate);
+        setEndDate(endDate);
         const [mandateResponse, calendarResponse] = await Promise.all([
           fetchMendateData().unwrap(),
           fetchCalendarEvents({
@@ -94,7 +111,7 @@ const Home = ({navigation}) => {
                 />
               ))}
               <Text style={styles.title}>Calendar Events</Text>
-              {calendarEvents.map((event, index) =>
+              {calendarEvents?.map((event, index) =>
                 renderCalendarItem(event, index),
               )}
             </>

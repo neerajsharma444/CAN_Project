@@ -15,6 +15,8 @@ import {fetchQuestionData} from '@redux/slices/forumSlice';
 const Details = ({navigation}) => {
   const [questions, setQuestions] = useState([]);
   const forumData = useSelector(state => state.forum?.category);
+  const globalState = useSelector(state => state?.forum?.globalState);
+  console.log('GLOBAL STATE===>', globalState);
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
 
@@ -40,18 +42,23 @@ const Details = ({navigation}) => {
 
   useEffect(() => {
     fetchQuestions();
-  }, [forumData]);
+  }, [globalState]);
 
   const renderQuestionItem = (question, index) => (
     <View style={styles.container} key={index}>
-      {question.answer ? (
-        <>
-          <Text style={styles.question}>{question.quetion}</Text>
-          <Text style={styles.answer}>{question.answer}</Text>
-        </>
+      <Text style={styles.question}>{question.quetion}</Text>
+      {question.answerd === 'yes' ? (
+        <View>
+          {question.answer !== '' ? (
+            <Text style={styles.answer}>{question.answer}</Text>
+          ) : (
+            <TouchableOpacity onPress={() => handleAnswers(question)}>
+              <Text style={styles.addAnswer}>Add an Answer</Text>
+            </TouchableOpacity>
+          )}
+        </View>
       ) : (
         <TouchableOpacity onPress={() => handleAnswers(question)}>
-          <Text style={styles.question}>{question.quetion}</Text>
           <Text style={styles.addAnswer}>Add an Answer</Text>
         </TouchableOpacity>
       )}

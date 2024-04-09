@@ -1,7 +1,7 @@
 import {View, Text, Modal} from 'react-native';
 import React from 'react';
 import Button from '../Button/Button';
-import styles from './Styles.PopUp';
+import styles from './PopUp.Styles';
 
 const CustomPopUp = ({
   title,
